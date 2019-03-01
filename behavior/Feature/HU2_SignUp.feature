@@ -27,3 +27,8 @@ Feature: Sign Up
     And Pulsamos en el botón de registrarse
     Then Se ha creado un nuevo usuario
     And  Nos lleva a la página principal de la aplicación
+
+  Scenario: Un nuevo usuario, se arrepiente de registrarse
+    Given Accedemos a lá página de registrarse "http://127.0.0.1:8080/"
+    When  Pulsamos en el botón de cancelar
+    Then Nos lleva a la página de inicio de sesión
