@@ -1,4 +1,4 @@
-Feature: Add a training Plan
+Feature: Add an activity
 
   Scenario: Cuando estoy registrado como entrenador, y creo de manera correcta una actividad
     Given Cuando estoy visualizando las actividades
