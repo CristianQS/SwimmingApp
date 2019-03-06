@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { LOGIN } from './constants/routerConstant'
+import { LOGIN, SIGN_UP } from './constants/routerConstant'
 import LoginView from './views/Login.vue'
+import SignUpView from './views/SignUp.vue'
 
 Vue.use(Router)
 
@@ -11,6 +12,11 @@ export default new Router({
       path: LOGIN,
       name: 'LOGIN',
       component: LoginView
+    },
+    {
+      path: SIGN_UP,
+      name: 'SIGN_UP',
+      component: SignUpView
     }
     // {
     //   path: '/about',

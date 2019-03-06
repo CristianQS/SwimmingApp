@@ -1,9 +1,14 @@
 <template>
+<div>
+  <v-layout align-center justify-center class="space">
+    <div class="Logo"></div>
+  </v-layout>
   <v-layout align-center justify-center>
       <v-flex xs12 sm8 md4>
         <login-card/>
       </v-flex>
   </v-layout>
+  </div>
 </template>
 
 <script>
@@ -18,5 +23,14 @@ export default {
 </script>
 
 <style>
+.Logo {
+  border: 2px solid black;
+  border-radius: 50%;
+  height: 300px;
+  width: 300px;
+}
 
+.space {
+  margin: 30px 0;
+}
 </style>
