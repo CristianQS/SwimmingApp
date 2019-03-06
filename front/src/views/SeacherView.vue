@@ -1,5 +1,7 @@
 <template>
-  <div>Profile</div>
+  <div>
+    Search
+  </div>
 </template>
 
 <script>

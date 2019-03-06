@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { LOGIN, SIGN_UP } from './constants/routerConstant'
+import { LOGIN, SIGN_UP, PROFILE, SEARCH } from './constants/routerConstant'
 import LoginView from './views/Login.vue'
 import SignUpView from './views/SignUp.vue'
+import ProfileView from './views/Profile.vue'
+import InitialLoader from './views/InitialLoader.vue'
+import SeacherView from './views/SeacherView.vue'
 
 Vue.use(Router)
 
@@ -17,6 +20,23 @@ export default new Router({
       path: SIGN_UP,
       name: 'SIGN_UP',
       component: SignUpView
+    },
+    {
+      path: '',
+      name: 'InitialLoader',
+      component: InitialLoader,
+      children: [
+        {
+          path: PROFILE,
+          name: 'PROFILE',
+          component: ProfileView
+        },
+        {
+          path: SEARCH,
+          name: 'SEARCH',
+          component: SeacherView
+        }
+      ]
     }
     // {
     //   path: '/about',
