@@ -8,7 +8,9 @@
     <v-layout>
       <v-flex xs12 md12>
         <h2>Búsqueda</h2>
-        <seacher-result v-for="result in results" :key="result.nick" :user="result"></seacher-result>
+        <seacher-result v-for="result in results" 
+          :key="result.nick" 
+          :user="result"></seacher-result>
       </v-flex>
     </v-layout>
   </div>
@@ -27,23 +29,23 @@ export default {
       results: [
         {
           name: 'Pepe',
-          img: 'user.png',
+          img: require('@/assets/user.png'),
+          nick: '@pepeit'
+        },
+        {
+          name: 'Pepe',
+          img: require('@/assets/user.png'),
+          nick: '@pepei'
+        },
+        {
+          name: 'Pepe',
+          img: require('@/assets/user.png'),
           nick: '@pepeito'
         },
         {
           name: 'Pepe',
-          img: 'user.png',
-          nick: '@pepeito'
-        },
-        {
-          name: 'Pepe',
-          img: 'user.png',
-          nick: '@pepeito'
-        },
-        {
-          name: 'Pepe',
-          img: 'user.png',
-          nick: '@pepeito'
+          img: require('@/assets/user.png'),
+          nick: '@pepe'
         }
       ]
     }

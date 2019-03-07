@@ -9,6 +9,7 @@
       </v-flex>
     </v-layout>
       <training-card v-for="training in trainings" 
+          class="trainingCard"
           :key="training.name" 
           :training="training"/>
     </div>
@@ -53,15 +54,15 @@ export default {
           activities: []
         },
         {
-          name: 'Entreno 3',
+          name: 'Entreno 4',
           activities: []
         },
         {
-          name: 'Entreno 3',
+          name: 'Entreno 5',
           activities: []
         },
         {
-          name: 'Entreno 3',
+          name: 'Entreno 6',
           activities: []
         },
       ]
@@ -72,5 +73,7 @@ export default {
 </script>
 
 <style>
-
+.trainingCard {
+  cursor: pointer;
+}
 </style>
