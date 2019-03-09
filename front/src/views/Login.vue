@@ -26,8 +26,8 @@ export default {
 .Logo {
   border: 2px solid black;
   border-radius: 50%;
-  height: 300px;
-  width: 300px;
+  height: 200px;
+  width: 200px;
 }
 
 .space {

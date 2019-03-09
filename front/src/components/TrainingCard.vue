@@ -1,7 +1,7 @@
 <template>
   <v-card class="card">
   <v-layout>
-    <v-card-text>
+    <v-card-text @click="goTo('/activities')">
       <p class="headline font-weight-bold">{{training.name}}</p>
     </v-card-text>
     <v-btn color="green">Clonar</v-btn>
@@ -16,6 +16,11 @@ export default {
   name: 'TrainingCard',
   props: {
     training: { type: Object, required: true }
+  },
+  methods: {
+    goTo (route) {
+      this.$router.push(route)
+    }
   }
 }
 </script>
