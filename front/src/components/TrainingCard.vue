@@ -5,17 +5,22 @@
       <p class="headline font-weight-bold">{{training.name}}</p>
     </v-card-text>
     <v-btn color="green">Clonar</v-btn>
-    <v-btn color="yellow">Modificar</v-btn>
+    <form-dialog/>
     <v-btn color="red">Eliminar</v-btn>
   </v-layout>
 </v-card>
 </template>
 
 <script>
+import FormDialog from './FormDialog.vue'
+
 export default {
   name: 'TrainingCard',
   props: {
     training: { type: Object, required: true }
+  },
+  components: {
+    FormDialog
   },
   methods: {
     goTo (route) {
