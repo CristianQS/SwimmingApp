@@ -15,22 +15,29 @@
         v-for="n in 2"
         :key="n"
       >
-        <training-plan-card v-for="training in trainings"
-        class="trainingPlanCard"
-        :key="training.nick"
-        :trainingplan="training"/>
+      <training-card v-for="training in trainings"
+          class="trainingCard"
+          :key="training.name"
+          :url="'/trainings'"
+          :methods="methods"
+          :training="training"
+      >
+        <form-dialog/>
+      </training-card>
        </v-tab-item>
     </v-tabs>
   </div>
 </template>
 
 <script>
-import TrainingPlanCard from './TrainingPlanCard.vue';
+import TrainingCard from './TrainingCard.vue'
+import FormDialog from './FormDialog.vue';
 
 export default {
   name: 'Tabs',
   components: {
-    TrainingPlanCard
+    TrainingCard,
+    FormDialog
   },
   data () {
     return {
@@ -67,8 +74,20 @@ export default {
           name: 'PlanEntreno 6',
           activities: []
         },
-      ]
+      ],
+      methods: {
+        clone: this.clone,
+        delete: this.delete
+      }
     }
+  },
+  methods: {
+    clone () {
+      console.log('clonar')
+    },
+    delete () {
+      console.log('eliminar')
+    }    
   }
 }
 </script>

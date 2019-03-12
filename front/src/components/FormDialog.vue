@@ -5,10 +5,10 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">User Profile</span>
+        <span class="headline">Modify Training</span>
       </v-card-title>
       <v-card-text>
-        <modify-form/>
+        <modify-form :type="'Training'"/>
         <small>*indicates required field</small>
       </v-card-text>
       <v-card-actions>

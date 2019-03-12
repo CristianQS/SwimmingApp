@@ -11,7 +11,10 @@
       <training-card v-for="training in activities"
           class="trainingCard"
           :key="training.name"
-          :training="training"/>
+          :methods="methods"
+          :training="training">
+        <form-dialog/>
+      </training-card>
     </div>
      <v-btn
         absolute
@@ -25,18 +28,21 @@
       </v-btn>
 
     </div>
-
 </template>
 
 <script>
 import TrainingCard from '../components/TrainingCard.vue'
-import BackTopBar from '../../../../../HotelSeacher/front/src/components/Basic/BackTopBar.vue'
+import BackTopBar from '../components/BackTopBar.vue'
+import ActivityForm from '../components/ActivityForm.vue'
+import FormDialog from '../components/FormDialog.vue';
 
 export default {
   name: 'Activities',
   components: {
     TrainingCard,
-    BackTopBar
+    BackTopBar,
+    ActivityForm,
+    FormDialog
   },
   data () {
     return {
@@ -59,7 +65,19 @@ export default {
         {
           name: 'Actividad 6'
         }
-      ]
+      ],
+      methods: {
+        clone: this.clone,
+        delete: this.delete
+      }
+    }
+  },
+  methods: {
+    clone () {
+      console.log('clonar')
+    },
+    delete () {
+      console.log('eliminar')
     }
   }
 

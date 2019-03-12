@@ -8,10 +8,15 @@
         <v-text-field prepend-inner-icon="search"></v-text-field>
       </v-flex>
     </v-layout>
-      <training-card v-for="training in trainings" 
+      <training-card v-for="training in trainings"
           class="trainingCard"
-          :key="training.name" 
-          :training="training"/>
+          :key="training.name"
+          :url="'/activities'"
+          :methods="methods"
+          :training="training"
+      >
+        <form-dialog/>
+      </training-card>
     </div>
      <v-btn
         absolute
@@ -23,20 +28,20 @@
       >
         <v-icon>add</v-icon>
       </v-btn>
-
     </div>
-
 </template>
 
 <script>
 import TrainingCard from '../components/TrainingCard.vue'
-import BackTopBar from '../../../../../HotelSeacher/front/src/components/Basic/BackTopBar.vue';
+import BackTopBar from '../../../../../HotelSeacher/front/src/components/Basic/BackTopBar.vue'
+import FormDialog from '../components/FormDialog.vue';
 
 export default {
   name: 'Trainings',
   components: {
     TrainingCard,
-    BackTopBar
+    BackTopBar,
+    FormDialog
   },
   data () {
     return {
@@ -65,7 +70,19 @@ export default {
           name: 'Entreno 6',
           activities: []
         },
-      ]
+      ],
+      methods: {
+        clone: this.clone,
+        delete: this.delete
+      }
+    }
+  },
+  methods: {
+    clone () {
+      console.log('clonar')
+    },
+    delete () {
+      console.log('eliminar')
     }
   }
 
