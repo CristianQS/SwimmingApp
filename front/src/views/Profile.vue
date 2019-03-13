@@ -1,26 +1,33 @@
 <template>
   <div>
-    <v-img :src="require('@/assets/user.png')"
+    <!-- <v-img :src="require('@/assets/user.png')"
       width="75"
       height="75"
       class="card__img"
-    />
+    /> -->
+    <card-profile :user="user"></card-profile>
     <tabs></tabs>
-
   </div>
 </template>
 
 <script>
 import Tabs from '../components/Tabs.vue'
+import CardProfile from '../components/CardProfile.vue'
 
 export default {
   name: 'Profile',
   components: {
-    Tabs
+    Tabs,
+    CardProfile
   },
   data () {
     return {
-      img: 'user.png'
+      user: {
+        name: 'pepe',
+        nick: 'pepiro',
+        img: 'user.png'
+      }
+      
     }
   }
 
