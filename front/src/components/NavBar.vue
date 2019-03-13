@@ -21,7 +21,7 @@
 export default {
   name: 'NavBar',
   components: {
- 
+
   },
   data () {
     return {

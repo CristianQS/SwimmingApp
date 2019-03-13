@@ -8,7 +8,7 @@
         <span class="headline">Modify Training</span>
       </v-card-title>
       <v-card-text>
-        <modify-form :type="'Training'"/>
+        <slot></slot>
         <small>*indicates required field</small>
       </v-card-text>
       <v-card-actions>
@@ -22,11 +22,13 @@
 
 <script>
 import ModifyForm from './ModifyForm.vue'
+import ActivityForm from './ActivityForm.vue';
 
 export default {
   name: 'FormDialog',
   components: {
-    ModifyForm
+    ModifyForm,
+    ActivityForm
   },
   data () {
     return {

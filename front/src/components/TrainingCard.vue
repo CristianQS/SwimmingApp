@@ -5,13 +5,16 @@
         <p class="headline font-weight-bold">{{training.name}}</p>
       </v-card-text>
       <v-btn color="blue" dark @click="methods.clone">Clonar</v-btn>
-      <slot></slot>
+      <form-dialog>
+        <slot name="modify"></slot>
+      </form-dialog>
       <v-btn color="red" dark @click="methods.delete">Eliminar</v-btn>
     </v-layout>
   </v-card>
 </template>
 
 <script>
+import FormDialog from './FormDialog.vue'
 
 export default {
   name: 'TrainingCard',
@@ -20,9 +23,12 @@ export default {
     url: { type: String, required: false },
     methods: { type: Object, required: true }
   },
+  components: {
+    FormDialog
+  },
   methods: {
     goTo (route) {
-      if(route !== undefined) {
+      if (route !== undefined) {
         this.$router.push(route)
       }
     }

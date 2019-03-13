@@ -15,7 +15,12 @@
           :methods="methods"
           :training="training"
       >
-        <form-dialog/>
+      <template v-slot:modify>
+        <modify-form
+            :type="'Training'"
+            :name="training.name"
+        />
+      </template>
       </training-card>
     </div>
      <v-btn
@@ -34,14 +39,14 @@
 <script>
 import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../../../../../HotelSeacher/front/src/components/Basic/BackTopBar.vue'
-import FormDialog from '../components/FormDialog.vue';
+import ModifyForm from '../components/ModifyForm.vue'
 
 export default {
   name: 'Trainings',
   components: {
     TrainingCard,
     BackTopBar,
-    FormDialog
+    ModifyForm
   },
   data () {
     return {
@@ -69,7 +74,7 @@ export default {
         {
           name: 'Entreno 6',
           activities: []
-        },
+        }
       ],
       methods: {
         clone: this.clone,

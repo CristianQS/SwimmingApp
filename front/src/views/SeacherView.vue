@@ -8,8 +8,8 @@
     <v-layout>
       <v-flex xs12 md12>
         <h2>Búsqueda</h2>
-        <seacher-result v-for="result in results" 
-          :key="result.nick" 
+        <seacher-result v-for="result in results"
+          :key="result.nick"
           :user="result"></seacher-result>
       </v-flex>
     </v-layout>

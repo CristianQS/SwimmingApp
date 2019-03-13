@@ -1,43 +1,48 @@
 <template>
   <div>
-    <v-tabs
-      dark
-      slider-color="yellow"
-    >
-      <v-tab
-        v-for="option in options"
-        :key="option.name"
-        ripple
-      >
-        {{ option.name }}
+    <v-tabs grow>
+      <v-tab>
+      Training Plan
       </v-tab>
-       <v-tab-item
-        v-for="n in 2"
-        :key="n"
-      >
-      <training-card v-for="training in trainings"
+      <v-tab-item>
+        <training-card v-for="training in trainings"
           class="trainingCard"
           :key="training.name"
           :url="'/trainings'"
           :methods="methods"
           :training="training"
-      >
-        <form-dialog/>
-      </training-card>
-       </v-tab-item>
+        >
+        <template v-slot:modify>
+          <modify-form
+          :type="'Training Plan'"
+          :name="training.name"/>
+        </template>
+        </training-card>
+      </v-tab-item>
+      <v-tab>
+        Time Keeping
+      </v-tab>
+      <v-tab-item>
+
+      </v-tab-item>
+      <v-tab>
+        Graphics
+      </v-tab>
+      <v-tab-item></v-tab-item>
+
     </v-tabs>
   </div>
 </template>
 
 <script>
 import TrainingCard from './TrainingCard.vue'
-import FormDialog from './FormDialog.vue';
+import ModifyForm from './ModifyForm.vue'
 
 export default {
   name: 'Tabs',
   components: {
     TrainingCard,
-    FormDialog
+    ModifyForm
   },
   data () {
     return {
@@ -47,9 +52,9 @@ export default {
         },
         {
           name: 'Graphics'
-        },
+        }
       ],
-       trainings: [
+      trainings: [
         {
           name: 'PlanEntreno 1',
           activities: []
@@ -73,7 +78,7 @@ export default {
         {
           name: 'PlanEntreno 6',
           activities: []
-        },
+        }
       ],
       methods: {
         clone: this.clone,
@@ -87,7 +92,7 @@ export default {
     },
     delete () {
       console.log('eliminar')
-    }    
+    }
   }
 }
 </script>

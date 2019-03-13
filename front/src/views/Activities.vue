@@ -13,7 +13,12 @@
           :key="training.name"
           :methods="methods"
           :training="training">
-        <form-dialog/>
+          <template v-slot:modify>
+            <modify-form
+              :type="'Training'"
+              :name="training.name"
+              />
+          </template>
       </training-card>
     </div>
      <v-btn
@@ -34,7 +39,7 @@
 import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../components/BackTopBar.vue'
 import ActivityForm from '../components/ActivityForm.vue'
-import FormDialog from '../components/FormDialog.vue';
+import ModifyForm from '../components/ModifyForm.vue'
 
 export default {
   name: 'Activities',
@@ -42,7 +47,7 @@ export default {
     TrainingCard,
     BackTopBar,
     ActivityForm,
-    FormDialog
+    ModifyForm
   },
   data () {
     return {
