@@ -21,16 +21,9 @@
           </template>
       </training-card>
     </div>
-     <v-btn
-        absolute
-        dark
-        fab
-        bottom
-        right
-        color="green"
-      >
-        <v-icon>add</v-icon>
-      </v-btn>
+    <floating-button>
+      add
+    </floating-button>
 
     </div>
 </template>
@@ -40,6 +33,7 @@ import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../components/BackTopBar.vue'
 import ActivityForm from '../components/ActivityForm.vue'
 import ModifyForm from '../components/ModifyForm.vue'
+import FloatingButton from '../components/FloatingButton.vue'
 
 export default {
   name: 'Activities',
@@ -47,7 +41,8 @@ export default {
     TrainingCard,
     BackTopBar,
     ActivityForm,
-    ModifyForm
+    ModifyForm,
+    FloatingButton
   },
   data () {
     return {

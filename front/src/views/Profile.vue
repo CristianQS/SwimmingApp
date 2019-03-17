@@ -5,8 +5,12 @@
       height="75"
       class="card__img"
     /> -->
-    <card-profile :user="user"></card-profile>
-    <tabs></tabs>
+    <v-flex xs12 sm8 offset-sm2 md8>
+      <card-profile :user="user"></card-profile>
+    </v-flex>
+    <v-flex xs12 sm8 offset-sm2 md8>
+      <tabs></tabs>
+    </v-flex>
   </div>
 </template>
 
@@ -24,8 +28,9 @@ export default {
     return {
       user: {
         name: 'pepe',
-        nick: 'pepiro',
-        img: 'user.png'
+        nick: '@pepiro',
+        img: 'user.png',
+        description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In voluptate facere repellat voluptatem suscipit recusandae ipsa repudiandae minima velit asperiores ab corporis esse illum, ullam unde cumque harum, excepturi quisquam. Tempora incidunt quaerat eaque. Corporis debitis facilis eaque ratione nam quia molestiae id commodi aliquid reprehenderit nihil pariatur consequuntur illum omnis, accusantium esse aliquam consequatur impedit reiciendis ipsam sit neque. Nobis explicabo ipsum rem fugit quia at numquam. Maiores vitae temporibus iure labore officiis. Repudiandae in mollitia velit ratione adipisci. Aperiam rem nam, consequuntur numquam eius cupiditate corporis. Quaerat sapiente doloremque aperiam nihil nobis optio eaque quas qui beatae voluptatibus, similique dolorem omnis rerum totam quos molestiae ducimus minus et dolore animi quisquam officiis cupiditate. Iusto minima tenetur ducimus sit magnam dolorem nobis ipsum! Deserunt quaerat dolorem temporibus molestias. Nulla?'
       }
       
     }
