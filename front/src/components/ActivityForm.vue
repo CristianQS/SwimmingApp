@@ -1,39 +1,28 @@
 <template>
   <v-container grid-list-md>
     <v-layout wrap>
-      <v-flex xs12 sm6 md4>
-        <v-text-field label="Legal first name*" required></v-text-field>
+      <v-flex xs12 sm2 md1>
+        <v-text-field label="Series" type="Number" value="1" required/>
       </v-flex>
-      <v-flex xs12 sm6 md4>
-        <v-text-field label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
+      <v-flex xs12 sm2 md1>
+        <v-text-field value="X" disabled/>
       </v-flex>
-      <v-flex xs12 sm6 md4>
-        <v-text-field
-          label="Legal last name*"
-          hint="example of persistent helper text"
-          persistent-hint
-          required
-        ></v-text-field>
+      <v-flex xs12 sm2 md2>
+        <v-text-field label="Meters" type="Number" value="100" required/>
       </v-flex>
-      <v-flex xs12>
-        <v-text-field label="Email*" required></v-text-field>
-      </v-flex>
-      <v-flex xs12>
-        <v-text-field label="Password*" type="password" required></v-text-field>
-      </v-flex>
-      <v-flex xs12 sm6>
+      <v-flex xs12 sm3>
         <v-select
-          :items="['0-17', '18-29', '30-54', '54+']"
-          label="Age*"
+          :items="['Legs', 'Deadpoint', 'Technique', 'Normal','Paddle','Pullbuoy','Fins']"
+          label="Type"
           required
         ></v-select>
       </v-flex>
-      <v-flex xs12 sm6>
-        <v-autocomplete
-          :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-          label="Interests"
-          multiple
-        ></v-autocomplete>
+      <v-flex xs12 sm3>
+        <v-select
+          :items="['Crawl', 'Backstroke', 'Breakstroke', 'Butterfly']"
+          label="Style"
+          required
+        ></v-select>
       </v-flex>
     </v-layout>
   </v-container>

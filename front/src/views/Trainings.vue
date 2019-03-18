@@ -23,16 +23,9 @@
       </template>
       </training-card>
     </div>
-     <v-btn
-        absolute
-        dark
-        fab
-        bottom
-        right
-        color="green"
-      >
-        <v-icon>add</v-icon>
-      </v-btn>
+    <floating-button @click="dialog != dialog">
+      add
+    </floating-button>
     </div>
 </template>
 
@@ -40,13 +33,15 @@
 import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../../../../../HotelSeacher/front/src/components/Basic/BackTopBar.vue'
 import ModifyForm from '../components/ModifyForm.vue'
+import FloatingButton from '../components/FloatingButton.vue'
 
 export default {
   name: 'Trainings',
   components: {
     TrainingCard,
     BackTopBar,
-    ModifyForm
+    ModifyForm,
+    FloatingButton
   },
   data () {
     return {

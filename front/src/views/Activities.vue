@@ -2,7 +2,7 @@
   <div>
     <back-top-bar/>
     <div>
-      <h2>Plan de Entrenamiento</h2>
+      <h2>Entreno</h2>
           <v-layout align-center justify-center>
       <v-flex xs12 md6>
         <v-text-field prepend-inner-icon="search"></v-text-field>
@@ -14,17 +14,13 @@
           :methods="methods"
           :training="training">
           <template v-slot:modify>
-            <modify-form
-              :type="'Training'"
-              :name="training.name"
-              />
+            <activity-form></activity-form>
           </template>
       </training-card>
     </div>
-    <floating-button>
+    <floating-button @click="dialog != dialog">
       add
     </floating-button>
-
     </div>
 </template>
 
@@ -66,6 +62,7 @@ export default {
           name: 'Actividad 6'
         }
       ],
+      dialog: false,
       methods: {
         clone: this.clone,
         delete: this.delete

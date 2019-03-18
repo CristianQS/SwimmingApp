@@ -1,10 +1,5 @@
 <template>
   <div>
-    <!-- <v-img :src="require('@/assets/user.png')"
-      width="75"
-      height="75"
-      class="card__img"
-    /> -->
     <v-flex xs12 sm8 offset-sm2 md8>
       <card-profile :user="user"></card-profile>
     </v-flex>
