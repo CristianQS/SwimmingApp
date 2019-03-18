@@ -3,11 +3,11 @@
     <back-top-bar/>
     <div>
       <h2>Entreno</h2>
-          <v-layout align-center justify-center>
-      <v-flex xs12 md6>
-        <v-text-field prepend-inner-icon="search"></v-text-field>
-      </v-flex>
-    </v-layout>
+      <v-layout align-center justify-center>
+        <v-flex xs12 md6>
+          <v-text-field prepend-inner-icon="search"></v-text-field>
+        </v-flex>
+      </v-layout>
       <training-card v-for="training in activities"
           class="trainingCard"
           :key="training.name"
@@ -18,9 +18,13 @@
           </template>
       </training-card>
     </div>
-    <floating-button @click="dialog != dialog">
+    <floating-button @click.native="dialog = !dialog">
       add
     </floating-button>
+    <add-activity-dialog 
+      :dialog="dialog"
+      @closeDialog="closeDialog"
+    />
     </div>
 </template>
 
@@ -30,6 +34,8 @@ import BackTopBar from '../components/BackTopBar.vue'
 import ActivityForm from '../components/ActivityForm.vue'
 import ModifyForm from '../components/ModifyForm.vue'
 import FloatingButton from '../components/FloatingButton.vue'
+import AddActivityDialog from '../components/AddActivityDialog.vue'
+
 
 export default {
   name: 'Activities',
@@ -38,10 +44,12 @@ export default {
     BackTopBar,
     ActivityForm,
     ModifyForm,
-    FloatingButton
+    FloatingButton,
+    AddActivityDialog
   },
   data () {
     return {
+      dialog: false,
       activities: [
         {
           name: 'Actividad 1'
@@ -75,6 +83,9 @@ export default {
     },
     delete () {
       console.log('eliminar')
+    },
+    closeDialog (value) {
+      this.dialog = value
     }
   }
 

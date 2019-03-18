@@ -8,7 +8,7 @@
         <v-text-field value="X" disabled/>
       </v-flex>
       <v-flex xs12 sm2 md2>
-        <v-text-field label="Meters" type="Number" value="100" required/>
+        <v-text-field label="Meters" type="Number" required/>
       </v-flex>
       <v-flex xs12 sm2>
         <v-select

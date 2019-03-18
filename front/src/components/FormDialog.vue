@@ -22,7 +22,7 @@
 
 <script>
 import ModifyForm from './ModifyForm.vue'
-import ActivityForm from './ActivityForm.vue';
+import ActivityForm from './ActivityForm.vue'
 
 export default {
   name: 'FormDialog',
