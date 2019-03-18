@@ -10,17 +10,24 @@
       <v-flex xs12 sm2 md2>
         <v-text-field label="Meters" type="Number" value="100" required/>
       </v-flex>
-      <v-flex xs12 sm3>
+      <v-flex xs12 sm2>
         <v-select
           :items="['Legs', 'Deadpoint', 'Technique', 'Normal','Paddle','Pullbuoy','Fins']"
-          label="Type"
+          label="Exercise"
           required
         ></v-select>
       </v-flex>
-      <v-flex xs12 sm3>
+      <v-flex xs12 sm2>
         <v-select
           :items="['Crawl', 'Backstroke', 'Breakstroke', 'Butterfly']"
           label="Style"
+          required
+        ></v-select>
+      </v-flex>
+      <v-flex xs12 sm2>
+        <v-select
+          :items="['Calentamiento', 'Entreno','Vuelta a la calma']"
+          label="Type"
           required
         ></v-select>
       </v-flex>
