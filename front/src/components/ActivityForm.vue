@@ -15,21 +15,21 @@
           :items="['Legs', 'Deadpoint', 'Technique', 'Normal','Paddle','Pullbuoy','Fins']"
           label="Exercise"
           required
-        ></v-select>
+        />
       </v-flex>
       <v-flex xs12 sm2>
         <v-select
-          :items="['Crawl', 'Backstroke', 'Breakstroke', 'Butterfly']"
+          :items="['Crawl', 'Backstroke', 'Breakstroke', 'Butterfly','Medley']"
           label="Style"
           required
-        ></v-select>
+        />
       </v-flex>
       <v-flex xs12 sm2>
         <v-select
           :items="['Calentamiento', 'Entreno','Vuelta a la calma']"
           label="Type"
           required
-        ></v-select>
+        />
       </v-flex>
     </v-layout>
   </v-container>
