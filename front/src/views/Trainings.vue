@@ -2,12 +2,12 @@
   <div>
     <back-top-bar/>
     <div>
+      <v-layout align-center justify-center>
+        <v-flex xs12 md6>
+          <v-text-field prepend-inner-icon="search"></v-text-field>
+        </v-flex>
+      </v-layout>
       <h2>Plan de Entrenamiento</h2>
-          <v-layout align-center justify-center>
-      <v-flex xs12 md6>
-        <v-text-field prepend-inner-icon="search"></v-text-field>
-      </v-flex>
-    </v-layout>
       <training-card v-for="training in trainings"
           class="trainingCard"
           :key="training.name"
@@ -23,9 +23,16 @@
       </template>
       </training-card>
     </div>
-    <floating-button @click="dialog != dialog">
+    <floating-button @click.native="dialog = !dialog">
       add
     </floating-button>
+    <add-dialog 
+      :dialog="dialog"
+      @closeDialog="closeDialog">
+      <template v-slot:text>
+        <training-form/>
+      </template>
+      </add-dialog>
     </div>
 </template>
 
@@ -34,6 +41,9 @@ import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../../../../../HotelSeacher/front/src/components/Basic/BackTopBar.vue'
 import ModifyForm from '../components/ModifyForm.vue'
 import FloatingButton from '../components/FloatingButton.vue'
+import AddDialog from '../components/AddDialog.vue'
+import TrainingForm from '../components/TrainingForm.vue'
+
 
 export default {
   name: 'Trainings',
@@ -41,10 +51,13 @@ export default {
     TrainingCard,
     BackTopBar,
     ModifyForm,
-    FloatingButton
+    FloatingButton,
+    AddDialog,
+    TrainingForm
   },
   data () {
     return {
+      dialog: false,
       trainings: [
         {
           name: 'Entreno 1',

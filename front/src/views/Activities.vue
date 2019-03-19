@@ -2,12 +2,13 @@
   <div>
     <back-top-bar/>
     <div>
-      <h2>Entreno</h2>
+      
       <v-layout align-center justify-center>
         <v-flex xs12 md6>
           <v-text-field prepend-inner-icon="search"></v-text-field>
         </v-flex>
       </v-layout>
+      <h2>Entreno</h2>
       <training-card v-for="training in activities"
           class="trainingCard"
           :key="training.name"
@@ -21,11 +22,14 @@
     <floating-button @click.native="dialog = !dialog">
       add
     </floating-button>
-    <add-activity-dialog 
+    <add-dialog 
       :dialog="dialog"
-      @closeDialog="closeDialog"
-    />
-    </div>
+      @closeDialog="closeDialog">
+        <template v-slot:text>
+          <activity-form />
+        </template>
+    </add-dialog>
+  </div>
 </template>
 
 <script>
@@ -34,8 +38,7 @@ import BackTopBar from '../components/BackTopBar.vue'
 import ActivityForm from '../components/ActivityForm.vue'
 import ModifyForm from '../components/ModifyForm.vue'
 import FloatingButton from '../components/FloatingButton.vue'
-import AddActivityDialog from '../components/AddActivityDialog.vue'
-
+import AddDialog from '../components/AddDialog.vue'
 
 export default {
   name: 'Activities',
@@ -45,7 +48,7 @@ export default {
     ActivityForm,
     ModifyForm,
     FloatingButton,
-    AddActivityDialog
+    AddDialog
   },
   data () {
     return {
