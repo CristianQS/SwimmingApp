@@ -31,11 +31,11 @@
       @isActivated="isDialogActivated"
     >
       <template v-slot:text>
-        <training-form @training="ua" />
+        <training-form @training="changeTraining" />
       </template>
       <template v-slot:buttons>
         <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
-        <v-btn color="blue darken-1" flat @click="closeDialog()">Save</v-btn>
+        <v-btn color="blue darken-1" flat @click="saveDialog()">Save</v-btn>
       </template>
       </add-dialog>
     </div>
@@ -48,7 +48,6 @@ import ModifyForm from '../components/ModifyForm.vue'
 import FloatingButton from '../components/FloatingButton.vue'
 import AddDialog from '../components/AddDialog.vue'
 import TrainingForm from '../components/TrainingForm.vue'
-
 
 export default {
   name: 'Trainings',
@@ -103,18 +102,20 @@ export default {
     delete () {
       console.log('eliminar')
     },
-    ua (value) {
-      console.log(value)
+    changeTraining (value) {
       this.val= value
     },
     closeDialog () {
+      this.dialog = !this.dialog
+    },
+    saveDialog () {
+      this.trainings.push(this.val)
       this.dialog = !this.dialog
     },
     isDialogActivated (value) {
       this.dialog = value
     }
   }
-
 }
 </script>
 

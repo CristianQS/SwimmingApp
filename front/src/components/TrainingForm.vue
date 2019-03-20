@@ -11,6 +11,10 @@
       <v-flex xs12 sm4 md4>
         <v-btn block dark large @click="getEnduranceTraining()">Endurance</v-btn>
       </v-flex>
+      <v-flex xs12 sm12 md12 v-if="training.activitities.length">
+        <h3>Contain</h3>
+        <div v-for="activity in training.activitities" :key="activity.name">{{activity.name}}</div>
+      </v-flex>
       <v-flex xs12 sm2 md12>
         <h3>Name</h3>
         <v-text-field v-model="training.name" label="Name" required/>
