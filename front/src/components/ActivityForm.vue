@@ -31,6 +31,13 @@
           required
         />
       </v-flex>
+      <v-flex xs12 sm2>
+        <v-select
+          :items="['Max','Normal','Soft']"
+          label="Rhythm"
+          required
+        />
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
