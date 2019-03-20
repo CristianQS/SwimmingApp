@@ -5,12 +5,13 @@
         <span class="headline">Modify Activity</span>
       </v-card-title>
       <v-card-text>
-        <slot name="text"/>
+        <slot name="text"
+        />
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
-        <v-btn color="blue darken-1" flat @click="closeDialog()">Save</v-btn>
+        <slot name="buttons"
+        />
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -25,17 +26,21 @@ export default {
   },
   data () {
     return {
+      val: '',
       isActivated: this.dialog
     }
   },
   methods: {
-    closeDialog () {
-      this.isActivated = false
-      this.$emit('closeDialog', this.isActivated)
+    ua (value) {
+      this.val = value
+      console.log(value)
     }
   },
   watch: {
-    dialog: function() {
+    isActivated: function () {
+      this.$emit('isActivated',this.isActivated)
+    },
+    dialog: function () {
       this.isActivated = this.dialog
     }
   }

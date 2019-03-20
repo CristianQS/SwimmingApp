@@ -28,9 +28,14 @@
     </floating-button>
     <add-dialog 
       :dialog="dialog"
-      @closeDialog="closeDialog">
+      @isActivated="isDialogActivated"
+    >
       <template v-slot:text>
-        <training-form/>
+        <training-form @training="ua" />
+      </template>
+      <template v-slot:buttons>
+        <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
+        <v-btn color="blue darken-1" flat @click="closeDialog()">Save</v-btn>
       </template>
       </add-dialog>
     </div>
@@ -58,6 +63,7 @@ export default {
   data () {
     return {
       dialog: false,
+      val: '',
       trainings: [
         {
           name: 'Entreno 1',
@@ -96,6 +102,16 @@ export default {
     },
     delete () {
       console.log('eliminar')
+    },
+    ua (value) {
+      console.log(value)
+      this.val= value
+    },
+    closeDialog () {
+      this.dialog = !this.dialog
+    },
+    isDialogActivated (value) {
+      this.dialog = value
     }
   }
 
