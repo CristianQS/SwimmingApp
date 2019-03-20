@@ -24,9 +24,13 @@
     </floating-button>
     <add-dialog 
       :dialog="dialog"
-      @closeDialog="closeDialog">
+      @isActivated="isDialogActivated">
         <template v-slot:text>
-          <activity-form />
+          <activity-form @activity="changeActivity"/>
+        </template>
+        <template v-slot:buttons>
+          <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click="saveDialog()">Save</v-btn>
         </template>
     </add-dialog>
   </div>
@@ -74,6 +78,7 @@ export default {
         }
       ],
       dialog: false,
+      newActivity: {},
       methods: {
         clone: this.clone,
         delete: this.delete
@@ -87,11 +92,20 @@ export default {
     delete () {
       console.log('eliminar')
     },
-    closeDialog (value) {
+    closeDialog () {
+      this.dialog = !this.dialog
+    },
+    saveDialog () {
+      this.activities.push(this.newActivity)
+      this.dialog = !this.dialog
+    },
+    isDialogActivated (value) {
       this.dialog = value
+    },
+    changeActivity (value) {
+      this.newActivity = value
     }
   }
-
 }
 </script>
 
