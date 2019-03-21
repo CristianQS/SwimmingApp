@@ -23,9 +23,7 @@
       </template>
       </training-card>
     </div>
-    <floating-button @click.native="dialog = !dialog">
-      add
-    </floating-button>
+    <floating-button @click.native="dialog = !dialog">add</floating-button>
     <add-dialog 
       :dialog="dialog"
       @isActivated="isDialogActivated"
@@ -37,8 +35,8 @@
         <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
         <v-btn color="blue darken-1" flat @click="saveDialog()">Save</v-btn>
       </template>
-      </add-dialog>
-    </div>
+    </add-dialog>
+  </div>
 </template>
 
 <script>
