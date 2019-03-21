@@ -8,7 +8,8 @@
         <training-card v-for="training in trainings"
           class="trainingCard"
           :key="training.name"
-          :url="'/trainings'"
+          :url="url"
+          :params="params"
           :methods="methods"
           :training="training"
         >
@@ -29,7 +30,6 @@
         Graphics
       </v-tab>
       <v-tab-item></v-tab-item>
-
     </v-tabs>
   </div>
 </template>
@@ -46,6 +46,8 @@ export default {
   },
   data () {
     return {
+      url: 'TRAININGS',
+      params: {idPlan: 1},
       options: [
         {
           name: 'Plan de Entrenamiento'

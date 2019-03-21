@@ -2,7 +2,6 @@
   <div>
     <back-top-bar/>
     <div>
-      
       <v-layout align-center justify-center>
         <v-flex xs12 md6>
           <v-text-field prepend-inner-icon="search"></v-text-field>

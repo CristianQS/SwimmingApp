@@ -11,7 +11,8 @@
       <training-card v-for="training in trainings"
           class="trainingCard"
           :key="training.name"
-          :url="'/activities'"
+          :url="url"
+          :params="{idPlan: 1, idTraining: 2}"
           :methods="methods"
           :training="training"
       >
@@ -61,6 +62,7 @@ export default {
     return {
       dialog: false,
       val: '',
+      url: 'ACTIVITIES',
       trainings: [
         {
           name: 'Entreno 1',

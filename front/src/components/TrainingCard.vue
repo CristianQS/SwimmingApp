@@ -1,7 +1,7 @@
 <template>
   <v-card class="card">
     <v-layout>
-      <v-card-text @click="goTo(url)">
+      <v-card-text @click="goTo(url,params)">
         <p class="headline font-weight-bold">{{training.name}}</p>
       </v-card-text>
       <v-btn color="blue" dark @click="methods.clone">Clonar</v-btn>
@@ -21,15 +21,17 @@ export default {
   props: {
     training: { type: Object, required: true },
     url: { type: String, required: false },
+    params: { type: Object, required: false, default: undefined},
     methods: { type: Object, required: true }
   },
   components: {
     FormDialog
   },
   methods: {
-    goTo (route) {
+    goTo (route,params) {
       if (route !== undefined) {
-        this.$router.push(route)
+        console.log(route,params)
+        this.$router.push({name: route, params: params})
       }
     }
   }
