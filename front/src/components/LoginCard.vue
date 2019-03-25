@@ -3,11 +3,13 @@
     <v-card-text>
       <v-form>
         <v-text-field
+              id="user_id"
               prepend-icon="person"
               label="Username"
               outline
         />
         <v-text-field
+            id="user_passwd"
             prepend-icon="lock"
               label="Password"
               type='password'
@@ -17,8 +19,8 @@
   </v-card-text>
   <v-card-actions>
     <v-spacer/>
-      <v-btn color="success" @click="goTo('/signup')">SignUp</v-btn>
-      <v-btn color="primary" @click="goTo('/profile')">Login</v-btn>
+      <v-btn id="btn_signup" color="success" @click="goTo('/signup')">SignUp</v-btn>
+      <v-btn id="btn_login" color="primary" @click="goTo('/profile')">Login</v-btn>
   </v-card-actions>
   </v-card>
 </template>

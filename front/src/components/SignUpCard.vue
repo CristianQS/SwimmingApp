@@ -3,8 +3,9 @@
     <v-card-text>
       <v-form>
         <v-text-field
-              prepend-icon="person"
-              label="Username"
+            prepend-icon="email"
+              label="Email"
+              type='email'
               outline
         />
         <v-text-field
@@ -14,9 +15,9 @@
               outline
         />
         <v-text-field
-            prepend-icon="email"
-              label="Email"
-              type='email'
+            prepend-icon="lock"
+              label="Repeat Password"
+              type='password'
               outline
         />
         <v-text-field
