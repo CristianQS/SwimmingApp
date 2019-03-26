@@ -26,12 +26,16 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'LoginCard',
   methods: {
     goTo (route) {
       this.$router.push(route)
-    }
+    },
+    ...mapActions({
+
+    })
   }
 }
 </script>
