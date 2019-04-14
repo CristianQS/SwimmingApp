@@ -1,0 +1,11 @@
+behave==1.2.6
+Django==2.2
+django-cors-headers==2.5.2
+djangorestframework==3.9.2
+parse==1.11.1
+parse-type==0.4.2
+pytz==2018.9
+six==1.12.0
+PyJWT==1.7.1
+selenium==3.141.0
+psycopg2>=2.7,<3.0
