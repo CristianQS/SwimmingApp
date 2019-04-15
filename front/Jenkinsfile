@@ -9,7 +9,7 @@ pipeline {
 
       steps {
         dir ("front/") {
-          sh ''
+          sh 'node --version && npm --version'
           sh 'npm install'
         }
       }
