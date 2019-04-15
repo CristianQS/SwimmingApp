@@ -9,8 +9,7 @@ pipeline {
 
       steps {
         dir ("front") {
-          sh 'pwd'
-          sh 'npm install'
+          sh 'sudo npm install'
         }
       }
     }
