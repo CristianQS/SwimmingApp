@@ -8,7 +8,7 @@ pipeline {
     stage ('Build') {
 
       steps {
-        dir ("front") {
+        dir ("front/") {
           sh 'ls'
           sh 'npm install'
         }
