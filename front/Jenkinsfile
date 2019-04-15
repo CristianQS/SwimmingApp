@@ -9,7 +9,7 @@ pipeline {
 
       steps {
         dir ("front/") {
-          sh 'ls'
+          sh ''
           sh 'npm install'
         }
       }
