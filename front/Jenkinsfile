@@ -9,7 +9,7 @@ pipeline {
 
       steps {
         dir ("front/") {
-          sh 'node --version && npm --version'
+          sh 'whoami'
           sh 'npm install'
         }
       }
