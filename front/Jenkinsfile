@@ -9,7 +9,7 @@ pipeline {
 
       steps {
         dir ("front/") {
-          sh 'whoami'
+          sh 'strace -f -F -o whoami whoami'
           sh 'npm install'
         }
       }
