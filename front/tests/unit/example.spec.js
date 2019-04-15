@@ -9,6 +9,7 @@ describe('Tabs.vue', () => {
     const wrapper = shallowMount(Tabs,{
       stubs: {
         ['v-tabs']: VTabs,
+        
       }
     })
     expect(wrapper.find(TrainingCard))
