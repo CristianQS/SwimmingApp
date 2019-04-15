@@ -9,7 +9,7 @@ pipeline {
 
       steps {
         dir ("front") {
-          sh 'sudo npm install'
+          sh 'npm install'
         }
       }
     }
