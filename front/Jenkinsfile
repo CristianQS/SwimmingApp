@@ -18,7 +18,7 @@ pipeline {
     stage ('Test') {
       steps {
         dir ("front/") {
-          sh 'npm run test'
+          sh 'npm run test:unit'
         }
       }
     }
