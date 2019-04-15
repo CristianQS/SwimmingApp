@@ -2,6 +2,7 @@ pipeline {
   agent {
     docker {
       image 'node:10-alpine'
+      customWorkspace '/var/lib/jenkins/workspace/Frontend - Develop/front/package.json'
     }
   }
   stages {
