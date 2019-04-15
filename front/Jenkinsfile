@@ -8,6 +8,7 @@ pipeline {
     stage ('Build') {
       steps {
         sh '''
+          ls
           cd front
           npm install
         '''
