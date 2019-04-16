@@ -42,7 +42,7 @@
 
 <script>
 import TrainingCard from '../components/TrainingCard.vue'
-import BackTopBar from '../../../../../HotelSeacher/front/src/components/Basic/BackTopBar.vue'
+import BackTopBar from '../components/BackTopBar.vue'
 import ModifyForm from '../components/ModifyForm.vue'
 import FloatingButton from '../components/FloatingButton.vue'
 import AddDialog from '../components/AddDialog.vue'
