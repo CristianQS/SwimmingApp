@@ -33,6 +33,7 @@ pipeline {
     stage ('Deploy') {
       steps {
         dir ("front/") {
+          sh 'chmod +x ./scripts/deploy.sh'
           sh './scripts/deploy.sh'
         }
       }
