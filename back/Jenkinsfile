@@ -8,8 +8,7 @@ pipeline {
     stage ('Create virtual enviroment') {
       steps {
         dir ("back/") {
-          sh 'python3 --version'
-          sh 'sudo python3 -m virtualenv env'
+          sh 'virtualenv env'
           sh 'source env/bin/activate'
         }
       }
