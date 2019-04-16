@@ -5,32 +5,24 @@ pipeline {
     HOME = '.'
   }
   stages {
-    stage ('Create virtual enviroment') {
-      steps {
-        dir ("back/") {
-          sh 'virtualenv env'
-          sh '. env/bin/activate'
-        }
-      }
-    }
     stage ('Install Dependecies') {
       steps {
         dir ("back/") {
-          sh 'pip install -r requirements.txt'
+          sh 'pip3 install -r requirements.txt'
         }
       }
     }
     stage ('Test') {
       steps {
         dir ("back/") {
-          sh 'python manage.py test'
+          sh 'python3 manage.py test'
         }
       }
     }
     stage ('Deploy') {
       steps {
         dir ("back/") {
-          sh 'python manage.py runserver'
+          sh 'python3 manage.py runserver'
         }
       }
     }
