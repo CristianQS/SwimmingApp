@@ -22,7 +22,7 @@ pipeline {
     stage ('Deploy') {
       steps {
         dir ("back/") {
-          sh 'python3 manage.py runserver'
+          sh 'python3 manage.py runserver &'
         }
       }
     }
