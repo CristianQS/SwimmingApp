@@ -9,7 +9,7 @@ pipeline {
       steps {
         dir ("back/") {
           sh 'virtualenv env'
-          sh 'source env/bin/activate'
+          sh '. env/bin/activate'
         }
       }
     }
