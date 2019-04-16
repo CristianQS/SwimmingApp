@@ -2,13 +2,14 @@ pipeline {
   agent {
     docker {
       image 'node:10-alpine'
+      args '-p 8081:8081'
     }
   }
   environment {
     HOME = '.'
   }
   stages {
-    stage ('Build') {
+    stage ('Install Dependecies') {
       steps {
         dir ("front/") {
           sh 'npm install'
@@ -22,10 +23,17 @@ pipeline {
         }
       }
     }
+    stage ('Build') {
+      steps {
+        dir ("front/") {
+          sh 'npm run build'
+        }
+      }
+    }
     stage ('Deploy') {
       steps {
         dir ("front/") {
-          sh 'npm run serve &'
+          sh './scripts/deploy.sh'
         }
       }
     }
