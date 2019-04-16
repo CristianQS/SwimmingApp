@@ -5,6 +5,14 @@ pipeline {
     HOME = '.'
   }
   stages {
+    stage ('Create virtual enviroment') {
+      steps {
+        dir ("back/") {
+          sh 'python3 -m virtualenv env'
+          sh 'source env/bin/activate'
+        }
+      }
+    }
     stage ('Install Dependecies') {
       steps {
         dir ("back/") {
