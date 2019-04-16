@@ -25,7 +25,7 @@ pipeline {
     stage ('Deploy') {
       steps {
         dir ("front/") {
-          sh 'npm run serve'
+          sh 'npm run serve &'
         }
       }
     }
