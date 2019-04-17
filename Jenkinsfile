@@ -26,28 +26,28 @@ pipeline{
           }
         }
       }
-      stage ('Install Dependecies') {
+      stage ('Install front Dependecies') {
         steps {
           dir ("front/") {
             sh 'npm install'
           }
         }
       }
-      stage ('Test') {
+      stage ('Test front') {
         steps {
           dir ("front/") {
             sh 'npm run test:unit'
           }
         }
       }
-      stage ('Build') {
+      stage ('Build front ') {
         steps {
           dir ("front/") {
             sh 'npm run build'
           }
         }
       }
-      stage ('Deploy') {
+      stage ('Deploy front') {
         steps {
           dir ("front/") {
             sh 'chmod +x ./scripts/deploy.sh'
