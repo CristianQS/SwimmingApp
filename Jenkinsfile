@@ -1,9 +1,5 @@
 pipeline{
     agent any
-    environment {
-      CI = 'true'
-      HOME = '.'
-    }
     stages { 
       stage ('Install back Dependecies') {
         steps {
@@ -30,6 +26,13 @@ pipeline{
         steps {
           dir ("front/") {
             sh 'npm install'
+          }
+        }
+      }
+      stage ('Test front') {
+        steps {
+          dir ("front/") {
+            sh 'npm run test:unit'
           }
         }
       }
