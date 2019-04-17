@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment {
+      HOME = '.'
+    }
     stages { 
       stage ('Install back Dependecies') {
         steps {
