@@ -1,0 +1,30 @@
+pipeline {
+  agent any
+  environment {
+    CI = 'true'
+    HOME = '.'
+  }
+  stages {
+    stage ('Install Dependecies') {
+      steps {
+        dir ("back/") {
+          sh 'pip3 install -r requirements.txt'
+        }
+      }
+    }
+    stage ('Test') {
+      steps {
+        dir ("back/") {
+          sh 'python3 manage.py test'
+        }
+      }
+    }
+    stage ('Deploy') {
+      steps {
+        dir ("back/") {
+          sh 'python3 manage.py runserver &'
+        }
+      }
+    }
+  }
+}
