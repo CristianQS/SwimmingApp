@@ -33,13 +33,6 @@ pipeline{
           }
         }
       }
-      stage ('Test front') {
-        steps {
-          dir ("front/") {
-            sh 'npm run test:unit'
-          }
-        }
-      }
       stage ('Build front ') {
         steps {
           dir ("front/") {
