@@ -6,17 +6,18 @@
         fab
         small
         color="primary"
-        @click="$refs.calendar.prev()"
+        @click="backMonth()"
       >
         <v-icon dark>
           keyboard_arrow_left
         </v-icon>
       </v-btn>
+      <p>{{mappingMonth}}</p>
       <v-btn
         fab
         small
         color="primary"
-        @click="$refs.calendar.next()"
+        @click="nextMonth()"
       >
         <v-icon dark>
           keyboard_arrow_right
@@ -24,24 +25,22 @@
       </v-btn>
     </v-card-text>
   </v-card>
-  <v-sheet height="500">
   <v-calendar
     ref="calendar"
-    v-model="start"
+    v-model="date"
     color="primary"
   >
-  <template v-slot:day="{ date }">
-    <template v-for="event in eventsMap[date]">
-      <v-card
-        :key="event.title"
-        v-html="event.title"
-        dark
-      >
-      </v-card>
+    <template v-slot:day="{ date }">
+      <template v-for="event in eventsMap[date]">
+        <v-card
+          :key="event.title"
+          v-html="event.title"
+          dark
+        >
+        </v-card>
+      </template>
     </template>
-  </template>
   </v-calendar>
-  </v-sheet>
   </div>
 </template>
 
@@ -50,14 +49,9 @@ export default {
   name: 'Calendar',
   data () {
     return {
-      start: Date.now().toString(),
+      date: new Date().getTime().toString(),
+      month: new Date().getMonth(),
       events: [
-        {
-          title: 'Vacation',
-          details: 'Going to the beach!',
-          date: '2018-12-30',
-          open: false
-        },
         {
           title: 'Vacation',
           details: 'Going to the beach!',
@@ -87,20 +81,20 @@ export default {
           details: 'Eat chocolate until you pass out',
           date: '2019-01-01',
           open: false
-        },
-        {
-          title: 'Conference',
-          details: 'Mute myself the whole time and wonder why I am on this call',
-          date: '2019-01-21',
-          open: false
-        },
-        {
-          title: 'Hackathon',
-          details: 'Code like there is no tommorrow',
-          date: '2019-02-01',
-          open: false
         }
       ]
+    }
+  },
+  methods: {
+    backMonth () {
+      this.month--
+      if(this.month === -1) this.month = 11
+      this.$refs.calendar.prev()
+    },
+    nextMonth () {
+      this.month++
+      if(this.month === 12) this.month = 0
+      this.$refs.calendar.next()
     }
   },
   computed: {
@@ -109,7 +103,12 @@ export default {
         const map = {}
         this.events.forEach(e => (map[e.date] = map[e.date] || []).push(e))
         return map
-      }
+      },
+    mappingMonth () {
+      var months = ["January", "February", "March", "April", "May", 
+      "June", "July", "August", "September", "October", "November", "December"]
+      return months[this.month]
+    }
     },
 }
 </script>
@@ -122,5 +121,6 @@ export default {
 .button-section {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 </style>
