@@ -12,7 +12,7 @@
           keyboard_arrow_left
         </v-icon>
       </v-btn>
-      <p>{{mappingMonth}}</p>
+      <p>{{mappingMonth +" "+ year}}</p>
       <v-btn
         fab
         small
@@ -51,6 +51,7 @@ export default {
     return {
       date: new Date().getTime().toString(),
       month: new Date().getMonth(),
+      year: new Date().getFullYear(),
       events: [
         {
           title: 'Vacation',
@@ -88,12 +89,18 @@ export default {
   methods: {
     backMonth () {
       this.month--
-      if(this.month === -1) this.month = 11
+      if(this.month === -1){ 
+        this.month = 11
+        this.year--
+      }
       this.$refs.calendar.prev()
     },
     nextMonth () {
       this.month++
-      if(this.month === 12) this.month = 0
+      if(this.month === 12){
+        this.month = 0
+        this.year++
+      } 
       this.$refs.calendar.next()
     }
   },
