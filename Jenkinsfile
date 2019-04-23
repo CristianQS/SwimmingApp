@@ -18,13 +18,6 @@ pipeline{
           }
         }
       }
-      stage ('Build front ') {
-        steps {
-          dir ("front/") {
-            sh 'npm run build'
-          }
-        }
-      }
       stage ('Deploy front') {
         steps {
           dir ("front/") {
