@@ -6,7 +6,7 @@
               id="user_id"
               v-model="user.email"
               prepend-icon="person"
-              label="Username"
+              label="Email"
               :error-messages="emailErrors"
               outline
         />
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { USER_LOGIN } from '../store/types/UserTypes'
 export default {
   name: 'LoginCard',
@@ -48,8 +48,9 @@ export default {
     goTo (route) {
       this.$router.push(route)
     },
-    makeLogin () {
-      if(this.user.email === 'cris' && this.user.password === 'prueba') {
+    async makeLogin () {
+      await this.login(this.user)
+      if (this.token.length > 0) {
         this.goTo('/profile')
       } else {
         this.check = false
@@ -65,7 +66,10 @@ export default {
       this.user.email === '' && errors.push('empty')
       this.check === false && errors.push('User does not exist')
       return errors
-    }
+    },
+    ...mapState({
+      token: state => state.token
+    })
   }
 }
 </script>
