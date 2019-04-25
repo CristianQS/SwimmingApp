@@ -1,9 +1,11 @@
 from django.db import models
-
+from back.plantrainings.models import PlanTraining
 
 # Create your models here.
+
+
 class Training(models.Model):
-    planTraining = models.ForeignKey(models, on_delete=models.CASCADE)
+    planTraining = models.ForeignKey(PlanTraining, on_delete=models.CASCADE)
     name = models.TextField(max_length=20)
     description = models.TextField(max_length=50)
 
