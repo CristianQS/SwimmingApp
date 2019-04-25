@@ -97,9 +97,10 @@ WSGI_APPLICATION = 'back.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'db',
+        'NAME': 'dbswim',
+        'USER': 'adminswim',
+        'PASSWORD': 'swimdatabase',
+        'HOST': 'dbswim.chars1p2y5pd.eu-west-1.rds.amazonaws.com',
         'PORT': 5432,
     }
 }
