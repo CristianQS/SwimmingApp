@@ -48,8 +48,8 @@ class TokenAuthentication(BaseAuthentication):
                 is_active=True
             )
 
-            if not user.token['token'] == token:
-                raise exceptions.AuthenticationFailed(msg)
+            #if not user.token['token'] == token:
+            #    raise exceptions.AuthenticationFailed(msg)
 
         except jwt.ExpiredSignature or jwt.DecodeError or jwt.InvalidTokenError:
             return HttpResponse({'Error': "Token is invalid"}, status=status.HTTP_403_FORBIDDEN)
