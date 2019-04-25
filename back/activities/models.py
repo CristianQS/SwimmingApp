@@ -1,10 +1,10 @@
 from django.db import models
-from back.trainings.models import Training
+from trainings.models import Training
 
 
 # Create your models here.
 class Activity(models.Model):
-    training = models.ForeignKey(Training, on_delete=models.CASCADE)
+    training = models.ForeignKey(Training, on_delete=models.CASCADE,null=True)
     series = models.IntegerField()
     meters = models.IntegerField()
     exercise = models.TextField(max_length=20)
