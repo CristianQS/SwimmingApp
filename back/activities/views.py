@@ -13,7 +13,10 @@ class ActivitiesView(APIView):
             queryset = Activity.objects.all()
             training = kwargs['training']
             activities = queryset.filter(training=training).values()
-            return Response(activities, status=status.HTTP_200_OK)
+            if len(activities) == 0:
+                return Response([{'msg': 'No activity found'}], status=status.HTTP_404_NOT_FOUND)
+            else:
+                return Response(activities, status=status.HTTP_200_OK)
         except Activity.DoesNotExist:
             return Response([{'msg': 'No activity found'}], status=status.HTTP_404_NOT_FOUND)
 
@@ -23,6 +26,20 @@ class ActivitiesView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ActivitiesById (APIView):
+    def get(self, request,*args, **kwargs):
+        try:
+            queryset = Activity.objects.all()
+            training = kwargs['training']
+            activities = queryset.filter(training=training, id=kwargs['id']).values()
+            if len(activities) == 0:
+                return Response([{'msg': 'No activity found'}], status=status.HTTP_404_NOT_FOUND)
+            else:
+                return Response(activities, status=status.HTTP_200_OK)
+        except Activity.DoesNotExist:
+            return Response([{'msg': 'No activity found'}], status=status.HTTP_404_NOT_FOUND)
 
     def put(self,request, *args, **kwargs):
         try:
@@ -34,7 +51,7 @@ class ActivitiesView(APIView):
         except Activity.DoesNotExist:
             return Response([{'msg': 'No activity found'}], status=status.HTTP_404_NOT_FOUND)
 
-    def delete(self,request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs):
         try:
             activity = Activity.objects.get(id=kwargs['id'])
             activity.delete()
