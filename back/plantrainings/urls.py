@@ -1,7 +1,8 @@
 from django.urls import path
 
-from .views import render
+from .views import PlanTrainingsView, PlanTrainingById
 
 urlpatterns = [
-    path('/plantraining', ),
+    path('plantrainings', PlanTrainingsView.as_view()),
+    path('plantrainings/<int:id>',PlanTrainingById.as_view()),
 ]
