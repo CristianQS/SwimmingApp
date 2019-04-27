@@ -7,35 +7,30 @@
           <v-text-field prepend-inner-icon="search"></v-text-field>
         </v-flex>
       </v-layout>
-      <h2>Plan de Entrenamiento</h2>
-      <training-card v-for="training in trainings"
+      <h2>Entreno</h2>
+      <training-card v-for="training in activities"
           class="trainingCard"
           :key="training.name"
-          :url="url"
-          :params="{idPlan: 1, idTraining: 2}"
           :methods="methods"
-          :training="training"
-      >
-      <template v-slot:modify>
-        <modify-form
-            :type="'Training'"
-            :name="training.name"
-        />
-      </template>
+          :training="training">
+          <template v-slot:modify>
+            <activity-form></activity-form>
+          </template>
       </training-card>
     </div>
-    <floating-button @click.native="dialog = !dialog">add</floating-button>
+    <floating-button @click.native="dialog = !dialog">
+      add
+    </floating-button>
     <add-dialog 
       :dialog="dialog"
-      @isActivated="isDialogActivated"
-    >
-      <template v-slot:text>
-        <training-form @training="changeTraining" />
-      </template>
-      <template v-slot:buttons>
-        <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
-        <v-btn color="blue darken-1" flat @click="saveDialog()">Save</v-btn>
-      </template>
+      @isActivated="isDialogActivated">
+        <template v-slot:text>
+          <activity-form @activity="changeActivity"/>
+        </template>
+        <template v-slot:buttons>
+          <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click="saveDialog()">Save</v-btn>
+        </template>
     </add-dialog>
   </div>
 </template>
@@ -43,52 +38,46 @@
 <script>
 import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../components/BackTopBar.vue'
+import ActivityForm from '../components/ActivityForm.vue'
 import ModifyForm from '../components/ModifyForm.vue'
 import FloatingButton from '../components/FloatingButton.vue'
 import AddDialog from '../components/AddDialog.vue'
-import TrainingForm from '../components/TrainingForm.vue'
 
 export default {
-  name: 'Trainings',
+  name: 'Activities',
   components: {
     TrainingCard,
     BackTopBar,
+    ActivityForm,
     ModifyForm,
     FloatingButton,
-    AddDialog,
-    TrainingForm
+    AddDialog
   },
   data () {
     return {
       dialog: false,
-      val: '',
-      url: 'ACTIVITIES',
-      trainings: [
+      activities: [
         {
-          name: 'Entreno 1',
-          activities: []
+          name: 'Actividad 1'
         },
         {
-          name: 'Entreno 2',
-          activities: []
+          name: 'Actividad 2'
         },
         {
-          name: 'Entreno 3',
-          activities: []
+          name: 'Actividad 3'
         },
         {
-          name: 'Entreno 4',
-          activities: []
+          name: 'Actividad 4'
         },
         {
-          name: 'Entreno 5',
-          activities: []
+          name: 'Actividad 5'
         },
         {
-          name: 'Entreno 6',
-          activities: []
+          name: 'Actividad 6'
         }
       ],
+      dialog: false,
+      newActivity: {},
       methods: {
         clone: this.clone,
         delete: this.delete
@@ -102,18 +91,18 @@ export default {
     delete () {
       console.log('eliminar')
     },
-    changeTraining (value) {
-      this.val= value
-    },
     closeDialog () {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      this.trainings.push(this.val)
+      this.activities.push(this.newActivity)
       this.dialog = !this.dialog
     },
     isDialogActivated (value) {
       this.dialog = value
+    },
+    changeActivity (value) {
+      this.newActivity = value
     }
   }
 }

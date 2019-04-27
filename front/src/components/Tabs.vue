@@ -5,20 +5,30 @@
       Training Plan
       </v-tab>
       <v-tab-item>
-        <training-card v-for="training in trainings"
-          class="trainingCard"
-          :key="training.name"
-          :url="url"
-          :params="params"
-          :methods="methods"
-          :training="training"
-        >
-        <template v-slot:modify>
-          <modify-form
-          :type="'Training Plan'"
-          :name="training.name"/>
-        </template>
-        </training-card>
+        <draggable
+        class="list-group"
+        v-model="trainings"
+        v-bind="dragOptions"
+        @start="drag = true"
+        @end="drag = false"
+      >
+          <transition-group type="transition" :name="!drag ? 'flip-list' : null">
+          <training-card v-for="training in trainings"
+            class="trainingCard"
+            :key="training.name"
+            :url="url"
+            :params="params"
+            :methods="methods"
+            :training="training"
+          >
+            <template v-slot:modify>
+              <modify-form
+              :type="'Training Plan'"
+              :name="training.name"/>
+            </template>
+          </training-card>
+        </transition-group>
+        </draggable>
       </v-tab-item>
       <v-tab>
         Time Keeping
@@ -37,17 +47,20 @@
 <script>
 import TrainingCard from './TrainingCard.vue'
 import ModifyForm from './ModifyForm.vue'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'Tabs',
   components: {
     TrainingCard,
-    ModifyForm
+    ModifyForm,
+    draggable
   },
   data () {
     return {
       url: 'TRAININGS',
       params: {idPlan: 1},
+      drag: false,
       options: [
         {
           name: 'Plan de Entrenamiento'
@@ -95,12 +108,42 @@ export default {
     delete () {
       console.log('eliminar')
     }
+  },
+  computed: {
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost"
+      };
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .trainingPlanCard {
+  cursor: pointer;
+}
+
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.no-move {
+  transition: transform 0s;
+}
+.ghost {
+  opacity: 0.5;
+  background: #c8ebfb;
+}
+.list-group {
+  min-height: 20px;
+}
+.list-group-item {
+  cursor: move;
+}
+.list-group-item i {
   cursor: pointer;
 }
 </style>
