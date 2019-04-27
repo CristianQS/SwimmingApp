@@ -10,6 +10,10 @@ export default new Vuex.Store({
   state: {
     ...initialState
   },
-  ...mutations,
-  ...actions
+  mutations: {
+    ...mutations
+  },
+  actions: {
+    ...actions
+  }
 })
