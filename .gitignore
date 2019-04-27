@@ -2,8 +2,9 @@
 node_modules/*
 /dist
 env/*
-chromedriver_win32
+chromedriver_win32/*
 db.sqlite3
+.vscode/*
 
 # local env files
 .env.local

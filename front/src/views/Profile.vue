@@ -4,9 +4,6 @@
       <card-profile :user="user"></card-profile>
     </v-flex>
     <v-flex xs12 sm8 offset-sm2 md8>
-      <calendar></calendar>
-    </v-flex>
-    <v-flex xs12 sm8 offset-sm2 md8>
       <tabs></tabs>
     </v-flex>
   </div>
@@ -15,15 +12,12 @@
 <script>
 import Tabs from '../components/Tabs.vue'
 import CardProfile from '../components/CardProfile.vue'
-import Calendar from '../components/Calendar.vue'
-
 
 export default {
   name: 'Profile',
   components: {
     Tabs,
-    CardProfile,
-    Calendar
+    CardProfile
   },
   data () {
     return {
