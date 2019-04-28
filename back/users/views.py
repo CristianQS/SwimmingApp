@@ -34,9 +34,8 @@ class Login(APIView):
         password = request.data['password']
         try:
             user = User.objects.get(email=email, password=password)
-            print(user)
         except User.DoesNotExist:
-            return Response({'Error': "Invalid username/password"}, status="400")
+            return Response({'Error': "Invalid username/password"}, status=status.HTTP_400_BAD_REQUEST)
         if user:
             payload = {
                 'id': user.id,
@@ -46,12 +45,58 @@ class Login(APIView):
             print(jwt_token)
             return Response(
                 jwt_token,
-                status=200,
+                status=status.HTTP_200_OK,
                 content_type="application/json"
             )
         else:
             return Response(
                 {'Error': "Invalid credentials"},
-                status=400,
+                status=status.HTTP_400_BAD_REQUEST,
                 content_type="application/json"
             )
+
+
+class FindUserByName(APIView):
+    def get(self, request, *args, **kwargs):
+        try:
+            users = User.objects.all()
+            username = request.data['username']
+            users_result = users.filter(username__icontains=username).values()
+            print(type(users))
+            return Response(users_result, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response([{'msg': 'User Does not exist'}], status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response([{'msg': 'Missing params'}], status=status.HTTP_400_BAD_REQUEST)
+
+
+class UsersById(APIView):
+    def get(self, request,*args, **kwargs):
+        try:
+            queryset = User.objects.all()
+            user = queryset.filter(id=kwargs['id']).values()
+            if len(user) == 0:
+                return Response([{'msg': 'No user found'}], status=status.HTTP_404_NOT_FOUND)
+            else:
+                return Response(user, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response([{'msg': 'No user found'}], status=status.HTTP_404_NOT_FOUND)
+
+    def put(self,request, *args, **kwargs):
+        try:
+            user = User.objects.get(id=kwargs['id'])
+            serializer = UserSerializer(instance=user, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+        except User.DoesNotExist:
+            return Response([{'msg': 'No user found'}], status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            activity = User.objects.get(id=kwargs['id'])
+            activity.delete()
+            return Response({"message": "User with id `{}` "
+                            "has been deleted.".format(kwargs['id'])}, status=status.HTTP_204_NO_CONTENT)
+        except User.DoesNotExist:
+            return Response({"message": "PlanTraining Not Found"}, status=status.HTTP_404_NOT_FOUND)

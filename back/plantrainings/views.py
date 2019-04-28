@@ -11,12 +11,16 @@ class PlanTrainingsView(APIView):
     def get(self, request,*args, **kwargs):
         try:
             queryset = PlanTraining.objects.all()
-            if len(queryset) == 0:
+            user = request.data['userid']
+            plantrainings = queryset.filter(user=user).values()
+            if len(plantrainings) == 0:
                 return Response([{'msg': 'No plantraining found'}], status=status.HTTP_404_NOT_FOUND)
             else:
-                return Response(queryset.values(), status=status.HTTP_200_OK)
+                return Response(plantrainings, status=status.HTTP_200_OK)
         except PlanTraining.DoesNotExist:
             return Response([{'msg': 'No plantraining found'}], status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response([{'msg': 'Missing params'}], status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, *args, **kwargs):
         serializer = PlanTrainingSerializer(data=request.data)
