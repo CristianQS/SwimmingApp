@@ -6,7 +6,7 @@ export default function PlanTrainingClient (restClient) {
   }
   
   function addPlanTraining (plantraining) {
-    return restClient.post(PLANTRAINING,plantraining)
+    return restClient.post(PLANTRAINING(),plantraining)
   }
 
   return {

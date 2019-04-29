@@ -28,15 +28,15 @@ export default {
   data () {
     return {
       plantraining: {
+        user: 'cris@gmail.com',
         name: '',
         description: '',
-        user: 1
       },
     }
   },
   methods: {
     newPlanTraining () {
-      this.$emit('activity',this.plantraining)
+      this.$emit('plantraining',this.plantraining)
     }
   },
 }

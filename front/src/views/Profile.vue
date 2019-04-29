@@ -16,7 +16,7 @@
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>
-          <plan-training-form @newPlanTraining="newPlanTraining"/>
+          <plan-training-form @plantraining="newPlanTraining"/>
         </template>
         <template v-slot:buttons>
           <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
@@ -54,16 +54,14 @@ export default {
         nick: '@pepiro',
         img: 'user.png',
         description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In voluptate facere repellat voluptatem suscipit recusandae ipsa repudiandae minima velit asperiores ab corporis esse illum, ullam unde cumque harum, excepturi quisquam. Tempora incidunt quaerat eaque. Corporis debitis facilis eaque ratione nam quia molestiae id commodi aliquid reprehenderit nihil pariatur consequuntur illum omnis, accusantium esse aliquam consequatur impedit reiciendis ipsam sit neque. Nobis explicabo ipsum rem fugit quia at numquam. Maiores vitae temporibus iure labore officiis. Repudiandae in mollitia velit ratione adipisci. Aperiam rem nam, consequuntur numquam eius cupiditate corporis. Quaerat sapiente doloremque aperiam nihil nobis optio eaque quas qui beatae voluptatibus, similique dolorem omnis rerum totam quos molestiae ducimus minus et dolore animi quisquam officiis cupiditate. Iusto minima tenetur ducimus sit magnam dolorem nobis ipsum! Deserunt quaerat dolorem temporibus molestias. Nulla?'
-      }
+      },
+      plantraining : {}
       
     }
   },
   methods: {
-    ...mapActions({
-      addPlanTraining: ADD_TRAINING_PLAN
-    }),
-    async newPlanTraining (value) {
-      await this.addPlanTraining(value)
+    newPlanTraining (value) {
+      this.plantraining = value
     },
     changeTraining (value) {
       this.val= value
@@ -72,12 +70,15 @@ export default {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      this.trainings.push(this.val)
+      this.addPlanTraining(this.plantraining)
       this.dialog = !this.dialog
     },
     isDialogActivated (value) {
       this.dialog = value
-    }
+    },
+    ...mapActions({
+      addPlanTraining: ADD_TRAINING_PLAN
+    })
   }
 
 }

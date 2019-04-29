@@ -4,7 +4,7 @@ export const LOGIN = () => `${BASE_URL}/auth/login/`
 export const SIGN_UP = () => `${BASE_URL}/signup/`
 export const USERS = () => `${BASE_URL}/users`
 export const USERS_BY_ID = (id) => `${BASE_URL}/users/${id}`
-export const PLANTRAINING = ()=> `${BASE_URL}/plantrainings`
+export const PLANTRAINING = () => `${BASE_URL}/plantrainings`
 export const PLANTRAINING_BY_ID = (id) => `${BASE_URL}/plantrainings/${id}`
 export const TRAINING = (plantraining) => `${BASE_URL}/plantrainings/${plantraining}/trainings`
 export const TRAINING_BY_ID = (plantraining,id) => `${BASE_URL}/plantrainings/${plantraining}/trainings/${id}`
