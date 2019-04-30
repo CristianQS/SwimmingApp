@@ -4,7 +4,7 @@
       <v-card-text @click="goTo(url,params)">
         <p class="headline font-weight-bold">{{training.name}}</p>
       </v-card-text>
-      <v-btn color="blue" dark @click="methods.clone">Clonar</v-btn>
+      <v-btn color="blue" dark @click="clonePlan()">Clonar</v-btn>
       <form-dialog>
         <slot name="modify"></slot>
       </form-dialog>
@@ -34,8 +34,17 @@ export default {
         this.$router.push({name: route, params: params})
       }
     },
-    deletePlan () {
-      return this.methods.delete(this.params.id)
+    async deletePlan () {
+      return await this.methods.delete(this.params.id)
+    },
+    async clonePlan () {
+      let plantraining = {
+        user: [1],
+        name: this.params.name,
+        description: this.params.description,
+      }
+      console.log(plantraining)
+      return await this.methods.clone(plantraining)
     }
   }
 }

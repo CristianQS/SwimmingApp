@@ -15,7 +15,7 @@
           <transition-group type="transition" :name="!drag ? 'flip-list' : null">
             <training-card v-for="plantraing in plantraings"
               class="trainingCard"
-              :key="plantraing.name"
+              :key="plantraing.id"
               :url="url"
               :params="plantraing"
               :methods="methods"
@@ -40,7 +40,8 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { GET_PLANTRAININGS, DELETE_TRAINING_PLAN } from '../store/types/TrainingPlanTypes'
+import { GET_PLANTRAININGS, DELETE_TRAINING_PLAN, 
+ADD_TRAINING_PLAN } from '../store/types/TrainingPlanTypes'
 import TrainingCard from './TrainingCard.vue'
 import ModifyForm from './ModifyForm.vue'
 import draggable from 'vuedraggable'
@@ -60,17 +61,15 @@ export default {
        
       ],
       methods: {
-        clone: this.clone,
+        clone: (plantraining) => this.clonePlanTrainings(plantraining),
         delete: (id) => this.deletePlanTrainings(id)
       }
     }
   },
   methods: {
-    clone () {
-      console.log('clonar')
-    },
     ...mapActions({
       getPlanTrainings: GET_PLANTRAININGS,
+      clonePlanTrainings:ADD_TRAINING_PLAN,
       deletePlanTrainings: DELETE_TRAINING_PLAN
     })
   },
