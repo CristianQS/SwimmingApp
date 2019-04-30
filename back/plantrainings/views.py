@@ -11,14 +11,14 @@ class PlanTrainingsView(APIView):
     def get(self, request,*args, **kwargs):
         try:
             queryset = PlanTraining.objects.all()
-            user = request.data['userid']
+            user = request.query_params['userid']
             plantrainings = queryset.filter(user=user).values()
             if len(plantrainings) == 0:
                 return Response([{'msg': 'No plantraining found'}], status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response(plantrainings, status=status.HTTP_200_OK)
-        except PlanTraining.DoesNotExist:
-            return Response([{'msg': 'No plantraining found'}], status=status.HTTP_404_NOT_FOUND)
+        #except PlanTraining.DoesNotExist:
+            #return Response([{'msg': 'No plantraining found'}], status=status.HTTP_404_NOT_FOUND)
         except:
             return Response([{'msg': 'Missing params'}], status=status.HTTP_400_BAD_REQUEST)
 

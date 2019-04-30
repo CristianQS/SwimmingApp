@@ -1,8 +1,9 @@
-import { PLANTRAINING } from '../constants/apiRoutesConstants'
+import { PLANTRAINING,PLANTRAINING_BY_ID } from '../constants/apiRoutesConstants'
 
 export default function PlanTrainingClient (restClient) {
-  function getPlanTrainingByUserId(){
-
+  function getPlanTrainingByUserId(userid){
+    console.log(userid)
+    return restClient.get(PLANTRAINING(),userid)
   }
   
   function addPlanTraining (plantraining) {
@@ -10,6 +11,7 @@ export default function PlanTrainingClient (restClient) {
   }
 
   return {
-    addPlanTraining
+    addPlanTraining,
+    getPlanTrainingByUserId
   }
 }

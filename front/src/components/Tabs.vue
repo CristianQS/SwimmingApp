@@ -6,35 +6,29 @@
       </v-tab>
       <v-tab-item>
         <draggable
-        class="list-group"
-        v-model="trainings"
-        v-bind="dragOptions"
-        @start="drag = true"
-        @end="drag = false"
-      >
+          class="list-group"
+          v-model="plantraings"
+          v-bind="dragOptions"
+          @start="drag = true"
+          @end="drag = false"
+        >
           <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-          <training-card v-for="training in trainings"
-            class="trainingCard"
-            :key="training.name"
-            :url="url"
-            :params="params"
-            :methods="methods"
-            :training="training"
-          >
-            <template v-slot:modify>
-              <modify-form
-              :type="'Training Plan'"
-              :name="training.name"/>
-            </template>
-          </training-card>
-        </transition-group>
+            <training-card v-for="plantraing in plantraings"
+              class="trainingCard"
+              :key="plantraing.name"
+              :url="url"
+              :params="params"
+              :methods="methods"
+              :training="plantraing"
+              >
+              <template v-slot:modify>
+                <modify-form
+                :type="'Training Plan'"
+                :name="plantraing.name"/>
+              </template>
+            </training-card>
+          </transition-group>
         </draggable>
-      </v-tab-item>
-      <v-tab>
-        Time Keeping
-      </v-tab>
-      <v-tab-item>
-
       </v-tab-item>
       <v-tab>
         Graphics
@@ -45,6 +39,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import { GET_PLANTRAININGS } from '../store/types/TrainingPlanTypes'
 import TrainingCard from './TrainingCard.vue'
 import ModifyForm from './ModifyForm.vue'
 import draggable from 'vuedraggable'
@@ -61,39 +57,8 @@ export default {
       url: 'TRAININGS',
       params: {idPlan: 1},
       drag: false,
-      options: [
-        {
-          name: 'Plan de Entrenamiento'
-        },
-        {
-          name: 'Graphics'
-        }
-      ],
-      trainings: [
-        {
-          name: 'PlanEntreno 1',
-          activities: []
-        },
-        {
-          name: 'PlanEntreno 2',
-          activities: []
-        },
-        {
-          name: 'PlanEntreno 3',
-          activities: []
-        },
-        {
-          name: 'PlanEntreno 4',
-          activities: []
-        },
-        {
-          name: 'PlanEntreno 5',
-          activities: []
-        },
-        {
-          name: 'PlanEntreno 6',
-          activities: []
-        }
+      plantraings: [
+       
       ],
       methods: {
         clone: this.clone,
@@ -107,7 +72,10 @@ export default {
     },
     delete () {
       console.log('eliminar')
-    }
+    },
+    ...mapActions({
+      getPlanTrainings: GET_PLANTRAININGS
+    })
   },
   computed: {
     dragOptions() {
@@ -116,8 +84,17 @@ export default {
         group: "description",
         disabled: false,
         ghostClass: "ghost"
-      };
+      }
     }
+  },
+  created () {
+    let user = {
+      userid: 1
+    }
+    this.getPlanTrainings(user).then((response) => {
+      console.log(this.response)
+      this.plantraings = response.data
+    })
   }
 }
 </script>
