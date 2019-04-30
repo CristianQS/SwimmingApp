@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       plantraining: {
-        user: 0,
+        user: [1,2],
         name: '',
         description: '',
       },
