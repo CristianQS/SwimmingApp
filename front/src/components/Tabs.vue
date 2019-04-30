@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { GET_PLANTRAININGS, DELETE_TRAINING_PLAN, 
-ADD_TRAINING_PLAN } from '../store/types/TrainingPlanTypes'
+ADD_TRAINING_PLAN, MODIFY_TRAINING_PLAN } from '../store/types/TrainingPlanTypes'
 import TrainingCard from './TrainingCard.vue'
 import ModifyForm from './ModifyForm.vue'
 import draggable from 'vuedraggable'
@@ -57,9 +57,6 @@ export default {
     return {
       url: 'TRAININGS',
       drag: false,
-      plantraings: [
-       
-      ],
       methods: {
         clone: (plantraining) => this.clonePlanTrainings(plantraining),
         delete: (id) => this.deletePlanTrainings(id)
@@ -70,10 +67,14 @@ export default {
     ...mapActions({
       getPlanTrainings: GET_PLANTRAININGS,
       clonePlanTrainings:ADD_TRAINING_PLAN,
-      deletePlanTrainings: DELETE_TRAINING_PLAN
+      deletePlanTrainings: DELETE_TRAINING_PLAN,
+      modifyPlanTraining: MODIFY_TRAINING_PLAN
     })
   },
   computed: {
+    ...mapState({
+      plantraings: state => state.plantrainings
+    }),
     dragOptions() {
       return {
         animation: 200,
@@ -87,9 +88,7 @@ export default {
     let user = {
       userid: 1
     }
-    this.getPlanTrainings(user).then((response) => {
-      this.plantraings = response.data
-    })
+    this.getPlanTrainings(user)
   }
 }
 </script>

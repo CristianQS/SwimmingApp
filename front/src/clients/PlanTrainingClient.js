@@ -8,6 +8,9 @@ export default function PlanTrainingClient (restClient) {
   function addPlanTraining (plantraining) {
     return restClient.post(PLANTRAINING(),plantraining)
   }
+  function modifyPlanTraining (id,plantraining) {
+    return restClient.put(PLANTRAINING_BY_ID(id),plantraining)
+  }
 
   function deletePlanTraining (id) {
     return restClient.delete(PLANTRAINING_BY_ID(id))
@@ -16,6 +19,7 @@ export default function PlanTrainingClient (restClient) {
   return {
     addPlanTraining,
     getPlanTrainingByUserId,
+    modifyPlanTraining,
     deletePlanTraining
   }
 }

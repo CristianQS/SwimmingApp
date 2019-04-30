@@ -1,14 +1,17 @@
-import { ADD_TRAINING_PLAN, MODIFY_TRAINING_PLAN, 
-  DELETE_TRAINING_PLAN } from "../types/TrainingPlanTypes"
+import { GET_PLANTRAININGS, ADD_TRAINING_PLAN, MODIFY_TRAINING_PLAN,
+  DELETE_TRAINING_PLAN } from '../types/TrainingPlanTypes'
 
 export default {
-  [ADD_TRAINING_PLAN] : ({commit}) => {
-
+  [GET_PLANTRAININGS]: (state, plantrainings) => {
+    state.plantrainings = plantrainings
   },
-  [MODIFY_TRAINING_PLAN] : ({commit}) => {
-
+  [ADD_TRAINING_PLAN]: (state, plantraining) => {
+    return planTrainingClient.addPlanTraining(plantraining)
   },
-  [DELETE_TRAINING_PLAN] : ({commit}) => {
-
+  [MODIFY_TRAINING_PLAN]: (state) => {
+    return planTrainingClient
+  },
+  [DELETE_TRAINING_PLAN]: (state, id) => {
+    return planTrainingClient.deletePlanTraining(id)
   }
 }
