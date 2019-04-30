@@ -48,7 +48,6 @@ export default {
       this.dialog = !this.dialog
     }
   }
-
 }
 </script>
 

@@ -17,7 +17,7 @@
               class="trainingCard"
               :key="plantraing.id"
               :url="url"
-              :params="plantraing"
+              :params="{idPlan:plantraing.id}"
               :methods="methods"
               :training="plantraing"
               :newUpdate="params"

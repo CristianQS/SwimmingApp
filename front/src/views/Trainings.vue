@@ -41,6 +41,9 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+import { GET_TRAININGS, GET_TRAINING_BY_ID, ADD_TRAINING, MODIFY_TRAINING,
+  DELETE_TRAINING } from '../store/types/TrainingTypes'
 import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../components/BackTopBar.vue'
 import ModifyForm from '../components/ModifyForm.vue'
@@ -61,38 +64,12 @@ export default {
   data () {
     return {
       dialog: false,
-      val: '',
       url: 'ACTIVITIES',
-      trainings: [
-        {
-          name: 'Entreno 1',
-          activities: []
-        },
-        {
-          name: 'Entreno 2',
-          activities: []
-        },
-        {
-          name: 'Entreno 3',
-          activities: []
-        },
-        {
-          name: 'Entreno 4',
-          activities: []
-        },
-        {
-          name: 'Entreno 5',
-          activities: []
-        },
-        {
-          name: 'Entreno 6',
-          activities: []
-        }
-      ],
       methods: {
         clone: this.clone,
         delete: this.delete
-      }
+      },
+      training: {}
     }
   },
   methods: {
@@ -103,18 +80,34 @@ export default {
       console.log('eliminar')
     },
     changeTraining (value) {
-      this.val= value
+      this.training = value
     },
     closeDialog () {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      this.trainings.push(this.val)
+      let params = {
+        idplan: this.$route.params.idPlan,
+        training: this.training
+      }
+      this.addTraining(params)
       this.dialog = !this.dialog
     },
     isDialogActivated (value) {
       this.dialog = value
-    }
+    },
+    ...mapActions({
+      getTrainings: GET_TRAININGS,
+      addTraining: ADD_TRAINING
+    })
+  },
+  computed: {
+    ...mapState({
+      trainings: state => state.trainings
+    }),
+  },
+  created () {
+    this.getTrainings(this.$route.params.idPlan)
   }
 }
 </script>

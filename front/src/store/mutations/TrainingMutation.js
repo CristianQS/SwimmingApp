@@ -1,14 +1,19 @@
-import { ADD_TRAINING, MODIFY_TRAINING, 
-  DELETE_TRAINING } from "../types/TrainingTypes"
+import { GET_TRAININGS, GET_TRAINING_BY_ID, 
+  ADD_TRAINING, MODIFY_TRAINING, 
+  DELETE_TRAINING } from '../types/TrainingTypes'
 
 export default {
-  [ADD_TRAINING] : ({commit}) => {
-
+  [GET_TRAININGS]: (state, trainings) => {
+    state.trainings = trainings
   },
-  [MODIFY_TRAINING] : ({commit}) => {
-
+  [ADD_TRAINING]: (state, training) => {
+    state.trainings.push(training)
   },
-  [DELETE_TRAINING] : ({commit}) => {
-
+  [MODIFY_TRAINING]: (state,training) => {
+    var index = state.trainings.findIndex(plan => plan.id === training.id)
+    state.trainings.splice(index,1,training)
+  },
+  [DELETE_TRAINING]: (state, id) => {
+    state.trainings = state.trainings.filter(plan => plan.id != id)
   }
 }
