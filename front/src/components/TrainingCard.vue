@@ -8,7 +8,7 @@
       <form-dialog>
         <slot name="modify"></slot>
       </form-dialog>
-      <v-btn color="red" dark @click="methods.delete">Eliminar</v-btn>
+      <v-btn color="red" dark @click="deletePlan()">Eliminar</v-btn>
     </v-layout>
   </v-card>
 </template>
@@ -21,7 +21,7 @@ export default {
   props: {
     training: { type: Object, required: true },
     url: { type: String, required: false },
-    params: { type: Object, required: false, default: undefined},
+    params: { type: Object, required: true},
     methods: { type: Object, required: true }
   },
   components: {
@@ -33,6 +33,9 @@ export default {
         console.log(route,params)
         this.$router.push({name: route, params: params})
       }
+    },
+    deletePlan () {
+      return this.methods.delete(this.params.id)
     }
   }
 }

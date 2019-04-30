@@ -17,7 +17,7 @@
               class="trainingCard"
               :key="plantraing.name"
               :url="url"
-              :params="params"
+              :params="plantraing"
               :methods="methods"
               :training="plantraing"
               >
@@ -40,7 +40,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { GET_PLANTRAININGS } from '../store/types/TrainingPlanTypes'
+import { GET_PLANTRAININGS, DELETE_TRAINING_PLAN } from '../store/types/TrainingPlanTypes'
 import TrainingCard from './TrainingCard.vue'
 import ModifyForm from './ModifyForm.vue'
 import draggable from 'vuedraggable'
@@ -55,14 +55,13 @@ export default {
   data () {
     return {
       url: 'TRAININGS',
-      params: {idPlan: 1},
       drag: false,
       plantraings: [
        
       ],
       methods: {
         clone: this.clone,
-        delete: this.delete
+        delete: (id) => this.deletePlanTrainings(id)
       }
     }
   },
@@ -70,11 +69,9 @@ export default {
     clone () {
       console.log('clonar')
     },
-    delete () {
-      console.log('eliminar')
-    },
     ...mapActions({
-      getPlanTrainings: GET_PLANTRAININGS
+      getPlanTrainings: GET_PLANTRAININGS,
+      deletePlanTrainings: DELETE_TRAINING_PLAN
     })
   },
   computed: {
@@ -92,7 +89,6 @@ export default {
       userid: 1
     }
     this.getPlanTrainings(user).then((response) => {
-      console.log(this.response)
       this.plantraings = response.data
     })
   }

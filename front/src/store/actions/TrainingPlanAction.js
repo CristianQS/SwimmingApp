@@ -13,7 +13,7 @@ export default {
   [MODIFY_TRAINING_PLAN] : ({commit}) => {
 
   },
-  [DELETE_TRAINING_PLAN] : ({commit}) => {
-
+  [DELETE_TRAINING_PLAN] : ({commit},id) => {
+    return planTrainingClient.deletePlanTraining(id)
   }
 }
