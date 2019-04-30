@@ -6,12 +6,13 @@ export default {
     state.plantrainings = plantrainings
   },
   [ADD_TRAINING_PLAN]: (state, plantraining) => {
-    return planTrainingClient.addPlanTraining(plantraining)
+    state.plantrainings.push(plantraining)
   },
-  [MODIFY_TRAINING_PLAN]: (state) => {
-    return planTrainingClient
+  [MODIFY_TRAINING_PLAN]: (state,plantraining) => {
+    var index = state.plantrainings.findIndex(plan => plan.id === plantraining.id)
+    state.plantrainings.splice(index,1,plantraining)
   },
   [DELETE_TRAINING_PLAN]: (state, id) => {
-    return planTrainingClient.deletePlanTraining(id)
+    state.plantrainings = state.plantrainings.filter(plan => plan.id != id)
   }
 }

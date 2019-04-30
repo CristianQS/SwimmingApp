@@ -20,11 +20,12 @@
               :params="plantraing"
               :methods="methods"
               :training="plantraing"
+              :newUpdate="params"
               >
               <template v-slot:modify>
                 <modify-form
-                :type="'Training Plan'"
-                :name="plantraing.name"/>
+                @updateInstance="updateInstance"
+                :plantraining="plantraing"/>
               </template>
             </training-card>
           </transition-group>
@@ -57,8 +58,10 @@ export default {
     return {
       url: 'TRAININGS',
       drag: false,
+      params: {},
       methods: {
         clone: (plantraining) => this.clonePlanTrainings(plantraining),
+        update: (params) => this.modifyPlanTraining(params),
         delete: (id) => this.deletePlanTrainings(id)
       }
     }
@@ -69,7 +72,10 @@ export default {
       clonePlanTrainings:ADD_TRAINING_PLAN,
       deletePlanTrainings: DELETE_TRAINING_PLAN,
       modifyPlanTraining: MODIFY_TRAINING_PLAN
-    })
+    }),
+    updateInstance (value) {
+      this.params=value
+    }
   },
   computed: {
     ...mapState({

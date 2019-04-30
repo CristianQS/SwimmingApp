@@ -5,7 +5,10 @@
         <p class="headline font-weight-bold">{{training.name}}</p>
       </v-card-text>
       <v-btn color="blue" dark @click="clonePlan()">Clonar</v-btn>
-      <form-dialog>
+      <form-dialog
+        :methods="methods"
+        :newUpdate="newUpdate"
+      >
         <slot name="modify"></slot>
       </form-dialog>
       <v-btn color="red" dark @click="deletePlan()">Eliminar</v-btn>
@@ -22,7 +25,8 @@ export default {
     training: { type: Object, required: true },
     url: { type: String, required: false },
     params: { type: Object, required: true},
-    methods: { type: Object, required: true }
+    methods: { type: Object, required: true },
+    newUpdate: { type: Object, required: false },
   },
   components: {
     FormDialog
@@ -30,7 +34,6 @@ export default {
   methods: {
     goTo (route,params) {
       if (route !== undefined) {
-        console.log(route,params)
         this.$router.push({name: route, params: params})
       }
     },
@@ -43,7 +46,6 @@ export default {
         name: this.params.name,
         description: this.params.description,
       }
-      console.log(plantraining)
       return await this.methods.clone(plantraining)
     }
   }

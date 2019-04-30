@@ -1,8 +1,23 @@
 <template>
   <v-container grid-list-md>
     <v-layout wrap>
-      <v-flex xs12>
-        <v-text-field :label='msg' required :value="name"></v-text-field>
+      <v-flex xs12 sm2 md12>
+        <h3>Name</h3>
+        <v-text-field 
+          @focus="newPlanTraining()" 
+          v-model="newPlantraining.name" 
+          label="Name" 
+          required
+          />
+      </v-flex>
+      <v-flex xs12 sm2 md12>
+        <h3>Description</h3>
+        <v-textarea 
+          @focus="newPlanTraining()"
+          outline 
+          v-model="newPlantraining.description" 
+          label="Description" 
+          required/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -12,17 +27,26 @@
 export default {
   name: 'ModifyForm',
   props: {
-    type: { type: String, required: true },
-    name: { type: String, required: false }
+    plantraining: { type:Object, required: true }
   },
   data () {
     return {
-      msg: 'Name of the ' + this.type
+      newPlantraining: Object.assign({},this.plantraining)
     }
-  }
+  },
+  methods: {
+    newPlanTraining () {
+      let response = {
+        id: this.newPlantraining.id,
+        plantraining: this.newPlantraining
+      }
+      this.$emit('updateInstance',response)
+    }
+  },
 }
 </script>
 
 <style>
 
 </style>
+

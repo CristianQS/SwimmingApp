@@ -11,13 +11,28 @@ export default {
       return error
     }
   },
-  [ADD_TRAINING_PLAN]: ({ commit }, plantraining) => {
-    return planTrainingClient.addPlanTraining(plantraining)
+  [ADD_TRAINING_PLAN]: async({ commit }, plantraining) => {
+    try {
+      let response = await planTrainingClient.addPlanTraining(plantraining)
+      commit(ADD_TRAINING_PLAN,response.data)
+    } catch (error) {
+      return error
+    }
   },
-  [MODIFY_TRAINING_PLAN]: ({ commit }) => {
-    return planTrainingClient
+  [MODIFY_TRAINING_PLAN]: async({ commit },params) => {
+    try {
+      let response = await planTrainingClient.modifyPlanTraining(params.id,params.plantraining)
+      commit(MODIFY_TRAINING_PLAN,response.data)
+    } catch (error) {
+      return error
+    }
   },
-  [DELETE_TRAINING_PLAN]: ({ commit }, id) => {
-    return planTrainingClient.deletePlanTraining(id)
+  [DELETE_TRAINING_PLAN]: async ({ commit }, id) => {
+    try {
+      let response = await planTrainingClient.deletePlanTraining(id)
+      commit(DELETE_TRAINING_PLAN,id)
+    } catch (error) {
+      return error
+    }
   }
 }

@@ -13,8 +13,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-        <v-btn color="blue darken-1" flat @click="dialog = false">Save</v-btn>
+        <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
+        <v-btn color="blue darken-1" flat @click="saveDialog()">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -30,9 +30,22 @@ export default {
     ModifyForm,
     ActivityForm
   },
+  props: {
+    methods: { type: Object, required: true },
+    newUpdate: { type: Object, required: false },
+  },
   data () {
     return {
-      dialog: false
+      dialog: false,
+    }
+  },
+  methods: {
+    closeDialog () {
+      this.dialog = !this.dialog
+    },
+    saveDialog () {
+      this.methods.update(this.newUpdate)
+      this.dialog = !this.dialog
     }
   }
 
