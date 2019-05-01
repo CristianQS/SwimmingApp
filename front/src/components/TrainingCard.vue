@@ -4,7 +4,8 @@
       <v-card-text @click="goTo(url,params)">
         <p class="headline font-weight-bold">{{training.name}}</p>
         <p v-if="training.training_id" 
-        class="headline font-weight-bold">{{ training | activity }}</p>
+        class="headline font-weight-bold">{{ `${training.series}x${training.meters}
+       ${training.style} (${training.exercise})` }}</p>
       </v-card-text>
       <v-btn color="blue" dark @click="clonePlan()">Clonar</v-btn>
       <form-dialog
@@ -44,7 +45,6 @@ export default {
       return await this.methods.delete(this.training)
     },
     async clonePlan () {
-      console.log(this.training)
       return await this.methods.clone(this.training)
     }
   },

@@ -12,7 +12,8 @@ class ActivitiesView(APIView):
         try:
             queryset = Activity.objects.all()
             training = kwargs['training']
-            activities = queryset.filter(training=training).values()
+            plantraining = kwargs['plantraining']
+            activities = queryset.filter(training=training, plantraining=plantraining).values()
             if len(activities) == 0:
                 return Response([{'msg': 'No activity found'}], status=status.HTTP_404_NOT_FOUND)
             else:
@@ -32,8 +33,10 @@ class ActivitiesById (APIView):
     def get(self, request,*args, **kwargs):
         try:
             queryset = Activity.objects.all()
+            plantraining = kwargs['plantraining']
             training = kwargs['training']
-            activities = queryset.filter(training=training, id=kwargs['id']).values()
+            activities = queryset.filter(training=training, plantraining=plantraining,
+                                         id=kwargs['id']).values()
             if len(activities) == 0:
                 return Response([{'msg': 'No activity found'}], status=status.HTTP_404_NOT_FOUND)
             else:
@@ -44,7 +47,7 @@ class ActivitiesById (APIView):
     def put(self,request, *args, **kwargs):
         try:
             activity = Activity.objects.get(id=kwargs['id'])
-            serializer = ActivitySerializer(instance=activity, data=request.data,partial=True)
+            serializer = ActivitySerializer(instance=activity, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)

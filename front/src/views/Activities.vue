@@ -16,9 +16,8 @@
           :newUpdate="updateActivity"
           >
           <template v-slot:modify>
-            <activity-form :activity="activity"
-            @activity="modifyActivity"
-            ></activity-form>
+            <activity-modify-form :activity="activity" 
+            @updatedActivity="updateInstance"/>
           </template>
       </training-card>
     </div>
@@ -29,7 +28,7 @@
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>
-          <activity-form :activity="activity" @activity="changeActivity"/>
+          <activity-form @passActivity="changeActivity"/>
         </template>
         <template v-slot:buttons>
           <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
@@ -46,7 +45,7 @@ import { GET_ACTIVITIES, ADD_ACTIVITY, MODIFY_ACTIVITY,
 import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../components/BackTopBar.vue'
 import ActivityForm from '../components/ActivityForm.vue'
-import ModifyForm from '../components/ModifyForm.vue'
+import ActivityModifyForm from '../components/ActivityModifyForm.vue'
 import FloatingButton from '../components/FloatingButton.vue'
 import AddDialog from '../components/AddDialog.vue'
 
@@ -56,31 +55,22 @@ export default {
     TrainingCard,
     BackTopBar,
     ActivityForm,
-    ModifyForm,
+    ActivityModifyForm,
     FloatingButton,
     AddDialog
   },
   data () {
     return {
-      dialog: false,
-      idplan: this.$route.params.idPlan,
-      idtraining: this.$route.params.idTraining,
-      newActivity: {},
-      updateActivity: {},
-      activity : {
-        series: 1,
-        meters: 100,
-        exercise: '',
-        style: '',
-        type: '',
-        rhythm: '',
-        training: this.$route.params.idTraining
-      },
       methods: {
         clone: (params) => this.addActivity(params),
         update: (params) => this.modifyActivity(params),
         delete: (params) => this.deleteActivity(params)
       },
+      dialog: false,
+      idplan: this.$route.params.idPlan,
+      idtraining: this.$route.params.idTraining,
+      newActivity: {},
+      updateActivity: {},
     }
   },
   methods: {
@@ -88,12 +78,7 @@ export default {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      let params = {
-        activity: this.newActivity,
-        plantraining_id: this.idplan,
-        training_id: this.idtraining,
-      }
-      this.addActivity(params)
+      this.addActivity(this.newActivity)
       this.dialog = !this.dialog
     },
     isDialogActivated (value) {
@@ -102,7 +87,7 @@ export default {
     changeActivity (value) {
       this.newActivity = value
     },
-    modifyActivity (value) {
+    updateInstance (value) {
       this.updateActivity = value
     },
     ...mapActions({

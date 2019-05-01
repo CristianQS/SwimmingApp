@@ -23,16 +23,18 @@ export default {
   [ADD_ACTIVITY]: async({ commit }, params) => {
     try {
       let request = {
-        training : '',
-        series: '' ,
-        meters: '', 
-        exercise: '', 
-        style: '',
-        type: '', 
-        rhythm: '' 
+        id: params.id,
+        plantraining: params.plantraining_id,
+        training: params.training_id,
+        series: params.series ,
+        meters: params.meters, 
+        exercise: params.exercise, 
+        style: params.style,
+        type: params.type, 
+        rhythm: params.rhythm 
       }
-      let response = await activityClient.addActivity(params.plantraining_id,
-        params.training_id,params.activity)
+      let response = await activityClient.addActivity(request.plantraining,
+        request.training, request)
       commit(ADD_ACTIVITY,response.data)
     } catch (error) {
       return error
@@ -40,9 +42,10 @@ export default {
   },
   [MODIFY_ACTIVITY]: async({ commit },params) => {
     try {
-      let response = await activityClient.modifyActivity(params.activity.plantraining_id,
-        params.activity.training_id,
-        params.activity.id,params.activity)
+      let response = await activityClient.modifyActivity(params.plantraining_id,
+        params.training_id,
+        params.id,params)
+        console.log(response)
       commit(MODIFY_ACTIVITY,response.data)
     } catch (error) {
       return error
@@ -50,7 +53,7 @@ export default {
   },
   [DELETE_ACTIVITY]: async ({ commit }, params) => {
     try {
-      let response = await activityClient.deleteActivity(params.plantraining_id,params.plantraining_id,params.id)
+      let response = await activityClient.deleteActivity(params.plantraining_id,params.training_id,params.id)
       commit(DELETE_ACTIVITY,params.id)
     } catch (error) {
       return error
