@@ -18,6 +18,7 @@
 
 <script>
 import FormDialog from './FormDialog.vue'
+import { constants } from 'fs';
 
 export default {
   name: 'TrainingCard',
@@ -41,6 +42,7 @@ export default {
       return await this.methods.delete(this.training)
     },
     async clonePlan () {
+      console.log(this.training)
       return await this.methods.clone(this.training)
     }
   }

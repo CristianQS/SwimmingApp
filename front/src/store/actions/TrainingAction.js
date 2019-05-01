@@ -5,6 +5,7 @@ import { trainingClient } from '../../clients/factory'
 export default {
   [GET_TRAININGS]: async ({ commit }, plantraining) => {
     try {
+      commit(GET_TRAININGS,[])
       let response = await trainingClient.getTrainings(plantraining)
       commit(GET_TRAININGS,response.data)
     } catch (error) {
