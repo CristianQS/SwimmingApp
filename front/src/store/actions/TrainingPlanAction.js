@@ -3,17 +3,22 @@ import { GET_PLANTRAININGS, ADD_TRAINING_PLAN, MODIFY_TRAINING_PLAN,
 import { planTrainingClient } from '../../clients/factory'
 
 export default {
-  [GET_PLANTRAININGS]: async ({ commit }, userid) => {
+  [GET_PLANTRAININGS]: async ({ commit }, params) => {
     try {
-      let response = await planTrainingClient.getPlanTrainingByUserId(userid)
+      let response = await planTrainingClient.getPlanTrainingByUserId(params.userid)
       commit(GET_PLANTRAININGS,response.data)
     } catch (error) {
       return error
     }
   },
-  [ADD_TRAINING_PLAN]: async({ commit }, plantraining) => {
+  [ADD_TRAINING_PLAN]: async({ commit }, params) => {
     try {
-      let response = await planTrainingClient.addPlanTraining(plantraining)
+      let post = {
+        name: params.name,
+        description: params.description,
+        user: [1,2]
+      }
+      let response = await planTrainingClient.addPlanTraining(post)
       commit(ADD_TRAINING_PLAN,response.data)
     } catch (error) {
       return error
@@ -27,10 +32,10 @@ export default {
       return error
     }
   },
-  [DELETE_TRAINING_PLAN]: async ({ commit }, id) => {
+  [DELETE_TRAINING_PLAN]: async ({ commit }, params) => {
     try {
-      let response = await planTrainingClient.deletePlanTraining(id)
-      commit(DELETE_TRAINING_PLAN,id)
+      let response = await planTrainingClient.deletePlanTraining(params.id)
+      commit(DELETE_TRAINING_PLAN,params.id)
     } catch (error) {
       return error
     }

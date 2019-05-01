@@ -38,15 +38,10 @@ export default {
       }
     },
     async deletePlan () {
-      return await this.methods.delete(this.params.id)
+      return await this.methods.delete(this.training)
     },
     async clonePlan () {
-      let plantraining = {
-        user: [1],
-        name: this.params.name,
-        description: this.params.description,
-      }
-      return await this.methods.clone(plantraining)
+      return await this.methods.clone(this.training)
     }
   }
 }

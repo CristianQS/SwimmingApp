@@ -10,16 +10,17 @@
       <h2>Plan de Entrenamiento</h2>
       <training-card v-for="training in trainings"
           class="trainingCard"
-          :key="training.name"
+          :key="training.id"
           :url="url"
-          :params="{idPlan: 1, idTraining: 2}"
+          :params="{idPlan: idplan, idTraining: training.id}"
           :methods="methods"
           :training="training"
+          :newUpdate="updatetraining"
       >
       <template v-slot:modify>
-        <modify-form
-            :type="'Training'"
-            :name="training.name"
+        <training-modify-form
+          :training="training"
+          @updateInstance="updateInstance"
         />
       </template>
       </training-card>
@@ -46,7 +47,7 @@ import { GET_TRAININGS, GET_TRAINING_BY_ID, ADD_TRAINING, MODIFY_TRAINING,
   DELETE_TRAINING } from '../store/types/TrainingTypes'
 import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../components/BackTopBar.vue'
-import ModifyForm from '../components/ModifyForm.vue'
+import TrainingModifyForm from '../components/TrainingModifyForm.vue'
 import FloatingButton from '../components/FloatingButton.vue'
 import AddDialog from '../components/AddDialog.vue'
 import TrainingForm from '../components/TrainingForm.vue'
@@ -56,7 +57,7 @@ export default {
   components: {
     TrainingCard,
     BackTopBar,
-    ModifyForm,
+    TrainingModifyForm,
     FloatingButton,
     AddDialog,
     TrainingForm
@@ -66,31 +67,32 @@ export default {
       dialog: false,
       url: 'ACTIVITIES',
       methods: {
-        clone: this.clone,
-        delete: this.delete
+        clone: (params) => this.addTraining(params),
+        update: (params) => this.modifyTraining(params),
+        delete: (params) => this.deleteTraining(params)
       },
-      training: {}
+      idplan: this.$route.params.idPlan,
+      train: {},
+      updatetraining: {}
     }
   },
   methods: {
-    clone () {
-      console.log('clonar')
-    },
-    delete () {
-      console.log('eliminar')
-    },
     changeTraining (value) {
-      this.training = value
+      this.train = value
+    },
+    updateInstance (value) {
+      this.updatetraining=value
     },
     closeDialog () {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      let params = {
-        idplan: this.$route.params.idPlan,
-        training: this.training
+      var request = {
+        plantraining_id: this.idplan,
+        name: this.train.name,
+        description: this.train.description
       }
-      this.addTraining(params)
+      this.addTraining(request)
       this.dialog = !this.dialog
     },
     isDialogActivated (value) {
@@ -98,7 +100,9 @@ export default {
     },
     ...mapActions({
       getTrainings: GET_TRAININGS,
-      addTraining: ADD_TRAINING
+      addTraining: ADD_TRAINING,
+      modifyTraining: MODIFY_TRAINING,
+      deleteTraining: DELETE_TRAINING
     })
   },
   computed: {

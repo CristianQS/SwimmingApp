@@ -7,7 +7,13 @@ export default {
     state.trainings = trainings
   },
   [ADD_TRAINING]: (state, training) => {
-    state.trainings.push(training)
+    let request = {
+      id: training.id,
+      plantraining_id: training.plantraining,
+      name: training.name,
+      description: training.description
+    }
+    state.trainings.push(request)
   },
   [MODIFY_TRAINING]: (state,training) => {
     var index = state.trainings.findIndex(plan => plan.id === training.id)

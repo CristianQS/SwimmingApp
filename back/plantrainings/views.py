@@ -17,8 +17,8 @@ class PlanTrainingsView(APIView):
                 return Response([{'msg': 'No plantraining found'}], status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response(plantrainings, status=status.HTTP_200_OK)
-        #except PlanTraining.DoesNotExist:
-            #return Response([{'msg': 'No plantraining found'}], status=status.HTTP_404_NOT_FOUND)
+        except PlanTraining.DoesNotExist:
+            return Response([{'msg': 'No plantraining found'}], status=status.HTTP_404_NOT_FOUND)
         except:
             return Response([{'msg': 'Missing params'}], status=status.HTTP_400_BAD_REQUEST)
 

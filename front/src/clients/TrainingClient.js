@@ -13,7 +13,6 @@ export default function PlanTrainingClient (restClient) {
   function modifyTraining (plantraining,id,training) {
     return restClient.put(TRAINING_BY_ID(plantraining,id),training)
   }
-
   function deleteTraining (plantraining,id) {
     return restClient.delete(TRAINING_BY_ID(plantraining,id))
   }

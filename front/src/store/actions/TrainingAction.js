@@ -20,25 +20,31 @@ export default {
     }
   },
   [ADD_TRAINING]: async({ commit }, params) => {
-    // try {
-      let response = await trainingClient.addTraining(params.idplan,params.training)
+    try {
+      let request = {
+        plantraining: params.plantraining_id,
+        name: params.name,
+        description: params.description
+      }
+      let response = await trainingClient.addTraining(request.plantraining,request)
       commit(ADD_TRAINING,response.data)
-    // } catch (error) {
-    //   return error
-    // }
+    } catch (error) {
+      return error
+    }
   },
   [MODIFY_TRAINING]: async({ commit },params) => {
     try {
-      let response = await trainingClient.modifyTraining(params.id,params.plantraining)
+      let response = await trainingClient.modifyTraining(params.training.plantraining_id,
+        params.id,params.training)
       commit(MODIFY_TRAINING,response.data)
     } catch (error) {
       return error
     }
   },
-  [DELETE_TRAINING]: async ({ commit }, id) => {
+  [DELETE_TRAINING]: async ({ commit }, params) => {
     try {
-      let response = await trainingClient.deleteTraining(id)
-      commit(DELETE_TRAINING,id)
+      let response = await trainingClient.deleteTraining(params.plantraining_id, params.id)
+      commit(DELETE_TRAINING,params.id)
     } catch (error) {
       return error
     }
