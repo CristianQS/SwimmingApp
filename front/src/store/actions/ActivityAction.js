@@ -6,7 +6,7 @@ export default {
   [GET_ACTIVITIES]: async ({ commit }, params) => {
     try {
       commit(GET_ACTIVITIES,[])
-      let response = await activityClient.getActivities(params.plantraining,params.training)
+      let response = await activityClient.getActivities(params.plantraining_id,params.training_id)
       commit(GET_ACTIVITIES,response.data)
     } catch (error) {
       return error
@@ -31,7 +31,8 @@ export default {
         type: '', 
         rhythm: '' 
       }
-      let response = await activityClient.addActivity()
+      let response = await activityClient.addActivity(params.plantraining_id,
+        params.training_id,params.activity)
       commit(ADD_ACTIVITY,response.data)
     } catch (error) {
       return error

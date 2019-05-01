@@ -7,10 +7,14 @@ export default {
   },
   [ADD_ACTIVITY]: (state, activities) => {
     let request = {
-      id: training.id,
-      plantraining_id: training.plantraining,
-      name: training.name,
-      description: training.description
+      id: activities.id,
+      training_id: activities.training,
+      series: activities.series,
+      meters: activities.meters,
+      exercise: activities.exercise,
+      style: activities.style,
+      type: activities.type,
+      rhythm: activities.rhythm,
     }
     state.activities.push(request)
   },
