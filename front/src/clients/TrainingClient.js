@@ -1,6 +1,6 @@
 import { TRAINING,TRAINING_BY_ID } from '../constants/apiRoutesConstants'
 
-export default function PlanTrainingClient (restClient) {
+export default function TrainingClient (restClient) {
   function getTrainings(plantraining){
     return restClient.get(TRAINING(plantraining))
   }

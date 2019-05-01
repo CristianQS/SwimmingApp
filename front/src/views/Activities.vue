@@ -8,11 +8,11 @@
         </v-flex>
       </v-layout>
       <h2>Entreno</h2>
-      <training-card v-for="training in activities"
+      <training-card v-for="activity in activities"
           class="trainingCard"
-          :key="training.name"
+          :key="activity.id"
           :methods="methods"
-          :training="training">
+          :training="activity">
           <template v-slot:modify>
             <activity-form></activity-form>
           </template>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { mapActions, mapState} from 'vuex'
 import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../components/BackTopBar.vue'
 import ActivityForm from '../components/ActivityForm.vue'
@@ -104,6 +105,9 @@ export default {
     changeActivity (value) {
       this.newActivity = value
     }
+  },
+  created () {
+
   }
 }
 </script>
