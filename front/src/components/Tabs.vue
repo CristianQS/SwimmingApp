@@ -6,35 +6,30 @@
       </v-tab>
       <v-tab-item>
         <draggable
-        class="list-group"
-        v-model="trainings"
-        v-bind="dragOptions"
-        @start="drag = true"
-        @end="drag = false"
-      >
+          class="list-group"
+          v-model="plantraings"
+          v-bind="dragOptions"
+          @start="drag = true"
+          @end="drag = false"
+        >
           <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-          <training-card v-for="training in trainings"
-            class="trainingCard"
-            :key="training.name"
-            :url="url"
-            :params="params"
-            :methods="methods"
-            :training="training"
-          >
-            <template v-slot:modify>
-              <modify-form
-              :type="'Training Plan'"
-              :name="training.name"/>
-            </template>
-          </training-card>
-        </transition-group>
+            <training-card v-for="plantraing in plantraings"
+              class="trainingCard"
+              :key="plantraing.id"
+              :url="url"
+              :params="{idPlan:plantraing.id}"
+              :methods="methods"
+              :training="plantraing"
+              :newUpdate="params"
+              >
+              <template v-slot:modify>
+                <modify-form
+                @updateInstance="updateInstance"
+                :plantraining="plantraing"/>
+              </template>
+            </training-card>
+          </transition-group>
         </draggable>
-      </v-tab-item>
-      <v-tab>
-        Time Keeping
-      </v-tab>
-      <v-tab-item>
-
       </v-tab-item>
       <v-tab>
         Graphics
@@ -45,6 +40,9 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+import { GET_PLANTRAININGS, DELETE_TRAINING_PLAN, 
+ADD_TRAINING_PLAN, MODIFY_TRAINING_PLAN, CLONE_TRAINING_PLAN } from '../store/types/TrainingPlanTypes'
 import TrainingCard from './TrainingCard.vue'
 import ModifyForm from './ModifyForm.vue'
 import draggable from 'vuedraggable'
@@ -59,65 +57,44 @@ export default {
   data () {
     return {
       url: 'TRAININGS',
-      params: {idPlan: 1},
       drag: false,
-      options: [
-        {
-          name: 'Plan de Entrenamiento'
-        },
-        {
-          name: 'Graphics'
-        }
-      ],
-      trainings: [
-        {
-          name: 'PlanEntreno 1',
-          activities: []
-        },
-        {
-          name: 'PlanEntreno 2',
-          activities: []
-        },
-        {
-          name: 'PlanEntreno 3',
-          activities: []
-        },
-        {
-          name: 'PlanEntreno 4',
-          activities: []
-        },
-        {
-          name: 'PlanEntreno 5',
-          activities: []
-        },
-        {
-          name: 'PlanEntreno 6',
-          activities: []
-        }
-      ],
+      params: {},
       methods: {
-        clone: this.clone,
-        delete: this.delete
+        clone: (plantraining) => this.clonePlanTrainings(plantraining),
+        update: (params) => this.modifyPlanTraining(params),
+        delete: (id) => this.deletePlanTrainings(id)
       }
     }
   },
   methods: {
-    clone () {
-      console.log('clonar')
-    },
-    delete () {
-      console.log('eliminar')
+    ...mapActions({
+      getPlanTrainings: GET_PLANTRAININGS,
+      clonePlanTrainings:CLONE_TRAINING_PLAN,
+      deletePlanTrainings: DELETE_TRAINING_PLAN,
+      modifyPlanTraining: MODIFY_TRAINING_PLAN
+    }),
+    updateInstance (value) {
+      this.params=value
     }
   },
   computed: {
+    ...mapState({
+      plantraings: state => state.plantrainings
+    }),
     dragOptions() {
       return {
         animation: 200,
         group: "description",
         disabled: false,
         ghostClass: "ghost"
-      };
+      }
     }
+  },
+  created () {
+    let user = {
+      userid: 1
+    }
+    this.getPlanTrainings(user)
   }
 }
 </script>

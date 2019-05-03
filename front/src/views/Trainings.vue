@@ -10,16 +10,17 @@
       <h2>Plan de Entrenamiento</h2>
       <training-card v-for="training in trainings"
           class="trainingCard"
-          :key="training.name"
+          :key="training.id"
           :url="url"
-          :params="{idPlan: 1, idTraining: 2}"
+          :params="{idPlan: idplan, idTraining: training.id}"
           :methods="methods"
           :training="training"
+          :newUpdate="updatetraining"
       >
       <template v-slot:modify>
-        <modify-form
-            :type="'Training'"
-            :name="training.name"
+        <training-modify-form
+          :training="training"
+          @updateInstance="updateInstance"
         />
       </template>
       </training-card>
@@ -41,9 +42,12 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+import { GET_TRAININGS, GET_TRAINING_BY_ID, ADD_TRAINING, MODIFY_TRAINING,
+  CLONE_TRAINING, DELETE_TRAINING } from '../store/types/TrainingTypes'
 import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../components/BackTopBar.vue'
-import ModifyForm from '../components/ModifyForm.vue'
+import TrainingModifyForm from '../components/TrainingModifyForm.vue'
 import FloatingButton from '../components/FloatingButton.vue'
 import AddDialog from '../components/AddDialog.vue'
 import TrainingForm from '../components/TrainingForm.vue'
@@ -53,7 +57,7 @@ export default {
   components: {
     TrainingCard,
     BackTopBar,
-    ModifyForm,
+    TrainingModifyForm,
     FloatingButton,
     AddDialog,
     TrainingForm
@@ -61,60 +65,54 @@ export default {
   data () {
     return {
       dialog: false,
-      val: '',
       url: 'ACTIVITIES',
-      trainings: [
-        {
-          name: 'Entreno 1',
-          activities: []
-        },
-        {
-          name: 'Entreno 2',
-          activities: []
-        },
-        {
-          name: 'Entreno 3',
-          activities: []
-        },
-        {
-          name: 'Entreno 4',
-          activities: []
-        },
-        {
-          name: 'Entreno 5',
-          activities: []
-        },
-        {
-          name: 'Entreno 6',
-          activities: []
-        }
-      ],
       methods: {
-        clone: this.clone,
-        delete: this.delete
-      }
+        clone: (params) => this.cloneTraining(params),
+        update: (params) => this.modifyTraining(params),
+        delete: (params) => this.deleteTraining(params)
+      },
+      idplan: this.$route.params.idPlan,
+      train: {},
+      updatetraining: {}
     }
   },
   methods: {
-    clone () {
-      console.log('clonar')
-    },
-    delete () {
-      console.log('eliminar')
-    },
     changeTraining (value) {
-      this.val= value
+      this.train = value
+    },
+    updateInstance (value) {
+      this.updatetraining=value
     },
     closeDialog () {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      this.trainings.push(this.val)
+      var request = {
+        plantraining_id: this.idplan,
+        name: this.train.name,
+        description: this.train.description
+      }
+      this.addTraining(request)
       this.dialog = !this.dialog
     },
     isDialogActivated (value) {
       this.dialog = value
-    }
+    },
+    ...mapActions({
+      getTrainings: GET_TRAININGS,
+      addTraining: ADD_TRAINING,
+      cloneTraining: CLONE_TRAINING,
+      modifyTraining: MODIFY_TRAINING,
+      deleteTraining: DELETE_TRAINING
+    })
+  },
+  computed: {
+    ...mapState({
+      trainings: state => state.trainings
+    }),
+  },
+  created () {
+    this.getTrainings(this.$route.params.idPlan)
   }
 }
 </script>

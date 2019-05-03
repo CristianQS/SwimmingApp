@@ -8,13 +8,16 @@
         </v-flex>
       </v-layout>
       <h2>Entreno</h2>
-      <training-card v-for="training in activities"
+      <training-card v-for="activity in activities"
           class="trainingCard"
-          :key="training.name"
+          :key="activity.id"
           :methods="methods"
-          :training="training">
+          :training="activity"
+          :newUpdate="updateActivity"
+          >
           <template v-slot:modify>
-            <activity-form></activity-form>
+            <activity-modify-form :activity="activity" 
+            @updatedActivity="updateInstance"/>
           </template>
       </training-card>
     </div>
@@ -25,7 +28,7 @@
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>
-          <activity-form @activity="changeActivity"/>
+          <activity-form @passActivity="changeActivity"/>
         </template>
         <template v-slot:buttons>
           <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
@@ -36,10 +39,13 @@
 </template>
 
 <script>
+import { mapActions, mapState} from 'vuex'
+import { GET_ACTIVITIES, ADD_ACTIVITY, MODIFY_ACTIVITY,
+  DELETE_ACTIVITY } from '../store/types/ActivityTypes'
 import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../components/BackTopBar.vue'
 import ActivityForm from '../components/ActivityForm.vue'
-import ModifyForm from '../components/ModifyForm.vue'
+import ActivityModifyForm from '../components/ActivityModifyForm.vue'
 import FloatingButton from '../components/FloatingButton.vue'
 import AddDialog from '../components/AddDialog.vue'
 
@@ -49,53 +55,30 @@ export default {
     TrainingCard,
     BackTopBar,
     ActivityForm,
-    ModifyForm,
+    ActivityModifyForm,
     FloatingButton,
     AddDialog
   },
   data () {
     return {
-      dialog: false,
-      activities: [
-        {
-          name: 'Actividad 1'
-        },
-        {
-          name: 'Actividad 2'
-        },
-        {
-          name: 'Actividad 3'
-        },
-        {
-          name: 'Actividad 4'
-        },
-        {
-          name: 'Actividad 5'
-        },
-        {
-          name: 'Actividad 6'
-        }
-      ],
-      dialog: false,
-      newActivity: {},
       methods: {
-        clone: this.clone,
-        delete: this.delete
-      }
+        clone: (params) => this.addActivity(params),
+        update: (params) => this.modifyActivity(params),
+        delete: (params) => this.deleteActivity(params)
+      },
+      dialog: false,
+      idplan: this.$route.params.idPlan,
+      idtraining: this.$route.params.idTraining,
+      newActivity: {},
+      updateActivity: {},
     }
   },
   methods: {
-    clone () {
-      console.log('clonar')
-    },
-    delete () {
-      console.log('eliminar')
-    },
     closeDialog () {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      this.activities.push(this.newActivity)
+      this.addActivity(this.newActivity)
       this.dialog = !this.dialog
     },
     isDialogActivated (value) {
@@ -103,7 +86,28 @@ export default {
     },
     changeActivity (value) {
       this.newActivity = value
+    },
+    updateInstance (value) {
+      this.updateActivity = value
+    },
+    ...mapActions({
+      getActivities: GET_ACTIVITIES,
+      addActivity: ADD_ACTIVITY,
+      modifyActivity: MODIFY_ACTIVITY,
+      deleteActivity: DELETE_ACTIVITY
+    })
+  },
+  computed: {
+    ...mapState({
+      activities: state => state.activities
+    })
+  },
+  created () {
+    let params = {
+      plantraining_id: this.idplan,
+      training_id: this.idtraining,
     }
+    this.getActivities(params)
   }
 }
 </script>

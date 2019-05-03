@@ -1,14 +1,29 @@
-import { ADD_ACTIVITY, MODIFY_ACTIVITY, 
-  DELETE_ACTIVITY } from "../types/ActivityTypes"
+import { GET_ACTIVITIES, ADD_ACTIVITY, 
+  MODIFY_ACTIVITY,DELETE_ACTIVITY } from '../types/ActivityTypes'
 
 export default {
-  [ADD_ACTIVITY] : ({commit}) => {
-
+  [GET_ACTIVITIES]: (state, activities) => {
+    state.activities = activities
   },
-  [MODIFY_ACTIVITY] : ({commit}) => {
-
+  [ADD_ACTIVITY]: (state, activities) => {
+    let request = {
+      id: activities.id,
+      training_id: activities.training,
+      plantraining_id: activities.plantraining,
+      series: activities.series,
+      meters: activities.meters,
+      exercise: activities.exercise,
+      style: activities.style,
+      type: activities.type,
+      rhythm: activities.rhythm,
+    }
+    state.activities.push(request)
   },
-  [DELETE_ACTIVITY] : ({commit}) => {
-
+  [MODIFY_ACTIVITY]: (state,activities) => {
+    var index = state.activities.findIndex(plan => plan.id === activities.id)
+    state.activities.splice(index,1,activities)
+  },
+  [DELETE_ACTIVITY]: (state, id) => {
+    state.activities = state.activities.filter(plan => plan.id != id)
   }
 }

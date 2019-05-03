@@ -1,6 +1,6 @@
 export default {
   token: {},
-  trainingPlan : [],
+  plantrainings : [],
   trainings: [],
   activities: [],
   user: {}

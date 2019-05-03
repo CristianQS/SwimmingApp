@@ -28,7 +28,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { ADD_TRAINING_PLAN } from '../store/types/TrainingPlanTypes'
+import { ADD_TRAINING_PLAN, GET_PLANTRAININGS } from '../store/types/TrainingPlanTypes'
 import Tabs from '../components/Tabs.vue'
 import CardProfile from '../components/CardProfile.vue'
 import Calendar from '../components/Calendar.vue'
@@ -77,7 +77,8 @@ export default {
       this.dialog = value
     },
     ...mapActions({
-      addPlanTraining: ADD_TRAINING_PLAN
+      addPlanTraining: ADD_TRAINING_PLAN,
+      getPlanTrainings: GET_PLANTRAININGS
     })
   }
 
