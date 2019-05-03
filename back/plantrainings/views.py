@@ -11,7 +11,7 @@ class PlanTrainingsView(APIView):
     def get(self, request,*args, **kwargs):
         try:
             queryset = PlanTraining.objects.all()
-            user = request.data['userid']
+            user = request.query_params['userid']
             plantrainings = queryset.filter(user=user).values()
             if len(plantrainings) == 0:
                 return Response([{'msg': 'No plantraining found'}], status=status.HTTP_404_NOT_FOUND)
