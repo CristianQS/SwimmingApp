@@ -6,6 +6,7 @@ export default {
     state.plantrainings = plantrainings
   },
   [ADD_TRAINING_PLAN]: (state, plantraining) => {
+    console.log('asccacsacaca')
     state.plantrainings.push(plantraining)
   },
   [MODIFY_TRAINING_PLAN]: (state,plantraining) => {

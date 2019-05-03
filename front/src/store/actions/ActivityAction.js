@@ -45,7 +45,6 @@ export default {
       let response = await activityClient.modifyActivity(params.plantraining_id,
         params.training_id,
         params.id,params)
-        console.log(response)
       commit(MODIFY_ACTIVITY,response.data)
     } catch (error) {
       return error

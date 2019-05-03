@@ -44,7 +44,7 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import { GET_TRAININGS, GET_TRAINING_BY_ID, ADD_TRAINING, MODIFY_TRAINING,
-  DELETE_TRAINING } from '../store/types/TrainingTypes'
+  CLONE_TRAINING, DELETE_TRAINING } from '../store/types/TrainingTypes'
 import TrainingCard from '../components/TrainingCard.vue'
 import BackTopBar from '../components/BackTopBar.vue'
 import TrainingModifyForm from '../components/TrainingModifyForm.vue'
@@ -67,7 +67,7 @@ export default {
       dialog: false,
       url: 'ACTIVITIES',
       methods: {
-        clone: (params) => this.addTraining(params),
+        clone: (params) => this.cloneTraining(params),
         update: (params) => this.modifyTraining(params),
         delete: (params) => this.deleteTraining(params)
       },
@@ -101,6 +101,7 @@ export default {
     ...mapActions({
       getTrainings: GET_TRAININGS,
       addTraining: ADD_TRAINING,
+      cloneTraining: CLONE_TRAINING,
       modifyTraining: MODIFY_TRAINING,
       deleteTraining: DELETE_TRAINING
     })

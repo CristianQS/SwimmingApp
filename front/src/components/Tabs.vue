@@ -42,7 +42,7 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import { GET_PLANTRAININGS, DELETE_TRAINING_PLAN, 
-ADD_TRAINING_PLAN, MODIFY_TRAINING_PLAN } from '../store/types/TrainingPlanTypes'
+ADD_TRAINING_PLAN, MODIFY_TRAINING_PLAN, CLONE_TRAINING_PLAN } from '../store/types/TrainingPlanTypes'
 import TrainingCard from './TrainingCard.vue'
 import ModifyForm from './ModifyForm.vue'
 import draggable from 'vuedraggable'
@@ -69,7 +69,7 @@ export default {
   methods: {
     ...mapActions({
       getPlanTrainings: GET_PLANTRAININGS,
-      clonePlanTrainings:ADD_TRAINING_PLAN,
+      clonePlanTrainings:CLONE_TRAINING_PLAN,
       deletePlanTrainings: DELETE_TRAINING_PLAN,
       modifyPlanTraining: MODIFY_TRAINING_PLAN
     }),

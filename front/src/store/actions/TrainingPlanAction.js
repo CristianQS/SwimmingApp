@@ -1,6 +1,6 @@
 import { GET_PLANTRAININGS, ADD_TRAINING_PLAN, MODIFY_TRAINING_PLAN,
-  DELETE_TRAINING_PLAN } from '../types/TrainingPlanTypes'
-import { planTrainingClient } from '../../clients/factory'
+  CLONE_TRAINING_PLAN, DELETE_TRAINING_PLAN } from '../types/TrainingPlanTypes'
+import { planTrainingClient, trainingClient, activityClient } from '../../clients/factory'
 
 export default {
   [GET_PLANTRAININGS]: async ({ commit }, params) => {
@@ -20,6 +20,54 @@ export default {
       }
       let response = await planTrainingClient.addPlanTraining(post)
       commit(ADD_TRAINING_PLAN,response.data)
+    } catch (error) {
+      return error
+    }
+  },
+  [CLONE_TRAINING_PLAN]: async({ commit }, params) => {
+    try {
+      let post = {
+        name: params.name,
+        description: params.description,
+        user: [1,2]
+      }
+      let responses = await Promise.all([
+        planTrainingClient.addPlanTraining(post),
+        trainingClient.getTrainings(params.id)
+      ])
+      let trainings = responses[1].data
+      let planTrainingCloned = responses[0].data
+
+      trainings.forEach( async (training) =>  {
+        let request = {
+          plantraining: planTrainingCloned.id,
+          name: training.name,
+          description: training.description
+        }
+
+        let trainingResponses = await Promise.all([
+          trainingClient.addTraining(planTrainingCloned.id,request),
+          activityClient.getActivities(training.plantraining_id,training.id)
+        ])
+        let clonedTraining = trainingResponses[0].data
+        let activities = trainingResponses[1].data
+        
+        activities.forEach( async (activity) => {
+          let request = {
+            id: activity.id,
+            plantraining: planTrainingCloned.id,
+            training: clonedTraining.id,
+            series: activity.series ,
+            meters: activity.meters, 
+            exercise: activity.exercise, 
+            style: activity.style,
+            type: activity.type, 
+            rhythm: activity.rhythm 
+          }
+          await activityClient.addActivity(planTrainingCloned.id,clonedTraining.id,request)
+        })
+      })
+      commit(ADD_TRAINING_PLAN,planTrainingCloned)
     } catch (error) {
       return error
     }
