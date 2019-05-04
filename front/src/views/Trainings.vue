@@ -90,7 +90,8 @@ export default {
       var request = {
         plantraining_id: this.idplan,
         name: this.train.name,
-        description: this.train.description
+        description: this.train.description,
+        timetraining: this.train.timetraining,
       }
       this.addTraining(request)
       this.dialog = !this.dialog

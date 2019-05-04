@@ -33,7 +33,7 @@
     <template v-slot:day="{ date }">
       <template v-for="event in eventsMap[date]">
         <v-card
-          :key="event.name"
+          :key="event.id"
           v-html="event.name"
           @click="goTo(event)"
           class="trainingCard"
@@ -101,11 +101,11 @@ export default {
       return months[this.month]
     }
   },
-  async created () {
+  async mounted () {
     this.plantrainings.forEach(async plantraining => {
       let trainings = await this.getTrainings(plantraining.id)
       for (let i = 0; i < trainings.length; i++) {
-        var date = new Date(trainings[i].timetraining*1000)
+        var date = new Date(trainings[i].timetraining)
         trainings[i].timetraining = date.toISOString().substr(0, 10)
         this.events.push(trainings[i])
       }

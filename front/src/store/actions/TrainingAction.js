@@ -30,6 +30,8 @@ export default {
         description: params.description,
         timetraining: params.timetraining
       }
+      console.log(request)
+      console.log(params)
       let response = await trainingClient.addTraining(request.plantraining,request)
       commit(ADD_TRAINING,response.data)
     } catch (error) {
