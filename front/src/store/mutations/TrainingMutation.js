@@ -11,7 +11,8 @@ export default {
       id: training.id,
       plantraining_id: training.plantraining,
       name: training.name,
-      description: training.description
+      description: training.description,
+      timetraining: training.timetraining
     }
     state.trainings.push(request)
   },

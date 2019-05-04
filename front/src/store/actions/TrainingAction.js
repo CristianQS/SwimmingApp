@@ -26,7 +26,8 @@ export default {
       let request = {
         plantraining: params.plantraining_id,
         name: params.name,
-        description: params.description
+        description: params.description,
+        timetraining: params.timetraining
       }
       let response = await trainingClient.addTraining(request.plantraining,request)
       commit(ADD_TRAINING,response.data)
@@ -39,7 +40,8 @@ export default {
       let request = {
         plantraining: params.plantraining_id,
         name: params.name,
-        description: params.description
+        description: params.description,
+        timetraining: params.timetraining
       }
       let clonedTraining = await trainingClient.addTraining(request.plantraining,request)
       let activities = await activityClient.getActivities(request.plantraining,params.id).catch(()=> {
@@ -70,20 +72,3 @@ export default {
     }
   }
 }
-
-// function cloneActivities (clonedPlanTrainingId,clonedTrainingId,activities) {
-//   activities.forEach( async (activity) => {
-//     let request = {
-//       id: activity.id,
-//       plantraining: clonedPlanTrainingId,
-//       training: clonedTrainingId,
-//       series: activity.series ,
-//       meters: activity.meters, 
-//       exercise: activity.exercise, 
-//       style: activity.style,
-//       type: activity.type, 
-//       rhythm: activity.rhythm 
-//     }
-//     await activityClient.addActivity(clonedPlanTrainingId,clonedTrainingId,request)
-//   })
-// }

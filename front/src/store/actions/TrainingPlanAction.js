@@ -42,7 +42,8 @@ export default {
         let request = {
           plantraining: planTrainingCloned.data.id,
           name: training.name,
-          description: training.description
+          description: training.description,
+          timetraining: training.timetraining
         }
 
         let clonedTraining = await trainingClient.addTraining(planTrainingCloned.data.id,request)

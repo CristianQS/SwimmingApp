@@ -1,20 +1,23 @@
 <template>
   <v-card class="card">
-    <v-layout>
+    <v-layout align-center>
       <v-card-text @click="goTo(url,params)">
         <p class="headline font-weight-bold">{{training.name}}</p>
+        <p class="font-weight-light">{{training.description}}</p>
         <p v-if="training.training_id" 
         class="headline font-weight-bold">{{ `${training.series}x${training.meters}
        ${training.style} (${training.exercise})` }}</p>
       </v-card-text>
-      <v-btn color="blue" dark @click="clonePlan()">Clonar</v-btn>
-      <form-dialog
-        :methods="methods"
-        :newUpdate="newUpdate"
-      >
-        <slot name="modify"></slot>
-      </form-dialog>
-      <v-btn color="red" dark @click="deletePlan()">Eliminar</v-btn>
+      <div>
+        <v-btn color="blue" dark @click="clonePlan()">Clonar</v-btn>
+        <form-dialog
+          :methods="methods"
+          :newUpdate="newUpdate"
+        >
+          <slot name="modify"></slot>
+        </form-dialog>
+        <v-btn color="red" dark @click="deletePlan()">Eliminar</v-btn>
+      </div>
     </v-layout>
   </v-card>
 </template>
