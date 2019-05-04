@@ -8,6 +8,7 @@ export default {
     try {
       let response = await planTrainingClient.getPlanTrainingByUserId(params.userid)
       commit(GET_PLANTRAININGS,response.data)
+      return response.data
     } catch (error) {
       return error
     }

@@ -9,6 +9,7 @@ export default {
       commit(GET_TRAININGS,[])
       let response = await trainingClient.getTrainings(plantraining)
       commit(GET_TRAININGS,response.data)
+      return response.data
     } catch (error) {
       return error
     }

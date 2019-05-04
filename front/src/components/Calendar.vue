@@ -33,8 +33,8 @@
     <template v-slot:day="{ date }">
       <template v-for="event in eventsMap[date]">
         <v-card
-          :key="event.title"
-          v-html="event.title"
+          :key="event.name"
+          v-html="event.name"
           dark
         >
         </v-card>
@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+import { GET_TRAININGS } from '../store/types/TrainingTypes'
 export default {
   name: 'Calendar',
   data () {
@@ -52,38 +54,7 @@ export default {
       date: new Date().getTime().toString(),
       month: new Date().getMonth(),
       year: new Date().getFullYear(),
-      events: [
-        {
-          title: 'Vacation',
-          details: 'Going to the beach!',
-          date: '2018-12-31',
-          open: false
-        },
-        {
-          title: 'Vacation',
-          details: 'Going to the beach!',
-          date: '2019-01-01',
-          open: false
-        },
-        {
-          title: 'Meeting',
-          details: 'Spending time on how we do not have enough time',
-          date: '2019-01-07',
-          open: false
-        },
-        {
-          title: '30th Birthday',
-          details: 'Celebrate responsibly',
-          date: '2019-01-03',
-          open: false
-        },
-        {
-          title: 'New Year',
-          details: 'Eat chocolate until you pass out',
-          date: '2019-01-01',
-          open: false
-        }
-      ]
+      events: []
     }
   },
   methods: {
@@ -102,12 +73,19 @@ export default {
         this.year++
       } 
       this.$refs.calendar.next()
-    }
+    },
+    ...mapActions({
+      getTrainings: GET_TRAININGS,
+    })
   },
   computed: {
+    ...mapState({
+      plantrainings: state => state.plantrainings
+    }),
     eventsMap () {
       const map = {}
-      this.events.forEach(e => (map[e.date] = map[e.date] || []).push(e))
+      this.events.forEach(e => (map[e.timetraining] = map[e.timetraining] || []).push(e))
+      console.log(map)
       return map
     },
     mappingMonth () {
@@ -116,6 +94,16 @@ export default {
       return months[this.month]
     }
   },
+  async mounted () {
+    this.plantrainings.forEach(async plantraining => {
+      let trainings = await this.getTrainings(plantraining.id)
+      for (let i = 0; i < trainings.length; i++) {
+        var date = new Date(trainings[i].timetraining*1000)
+        trainings[i].timetraining = date.toISOString().substr(0, 10)
+        this.events.push(trainings[i])
+      }
+    })
+  }
 }
 </script>
 

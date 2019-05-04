@@ -89,12 +89,6 @@ export default {
         ghostClass: "ghost"
       }
     }
-  },
-  created () {
-    let user = {
-      userid: 1
-    }
-    this.getPlanTrainings(user)
   }
 }
 </script>
