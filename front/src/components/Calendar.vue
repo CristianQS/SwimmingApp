@@ -35,6 +35,8 @@
         <v-card
           :key="event.name"
           v-html="event.name"
+          @click="goTo(event)"
+          class="trainingCard"
           dark
         >
         </v-card>
@@ -47,6 +49,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { GET_TRAININGS } from '../store/types/TrainingTypes'
+
 export default {
   name: 'Calendar',
   data () {
@@ -74,6 +77,11 @@ export default {
       } 
       this.$refs.calendar.next()
     },
+    goTo (event) {
+      this.$router.push({name: 'ACTIVITIES', 
+      params: {idPlan: event.plantraining_id, idTraining: event.id}})
+      
+    },
     ...mapActions({
       getTrainings: GET_TRAININGS,
     })
@@ -85,7 +93,6 @@ export default {
     eventsMap () {
       const map = {}
       this.events.forEach(e => (map[e.timetraining] = map[e.timetraining] || []).push(e))
-      console.log(map)
       return map
     },
     mappingMonth () {
@@ -94,7 +101,7 @@ export default {
       return months[this.month]
     }
   },
-  async mounted () {
+  async created () {
     this.plantrainings.forEach(async plantraining => {
       let trainings = await this.getTrainings(plantraining.id)
       for (let i = 0; i < trainings.length; i++) {
@@ -116,5 +123,10 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.trainingCard {
+  cursor: pointer;
+  margin: 6px 0;
 }
 </style>
