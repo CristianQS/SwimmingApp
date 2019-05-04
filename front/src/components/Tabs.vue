@@ -5,14 +5,14 @@
       Training Plan
       </v-tab>
       <v-tab-item>
-        <draggable
+        <!-- <draggable
           class="list-group"
           v-model="plantraings"
           v-bind="dragOptions"
           @start="drag = true"
           @end="drag = false"
-        >
-          <transition-group type="transition" :name="!drag ? 'flip-list' : null">
+        > -->
+          <!-- <transition-group type="transition" :name="!drag ? 'flip-list' : null"> -->
             <training-card v-for="plantraing in plantraings"
               class="trainingCard"
               :key="plantraing.id"
@@ -28,8 +28,8 @@
                 :plantraining="plantraing"/>
               </template>
             </training-card>
-          </transition-group>
-        </draggable>
+          <!-- </transition-group> -->
+        <!-- </draggable> -->
       </v-tab-item>
       <v-tab>
         Graphics
