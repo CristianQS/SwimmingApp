@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store/store'
 import Vuetify from 'vuetify'
+import { LOGIN, SIGN_UP } from './constants/routerConstant'
 import 'vuetify/dist/vuetify.min.css'
 
 Vue.config.productionTip = false
