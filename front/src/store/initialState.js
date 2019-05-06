@@ -1,5 +1,4 @@
 export default {
-  token: {},
   plantrainings : [],
   trainings: [],
   activities: [],

@@ -71,7 +71,7 @@ export default new Router({
 })
 
 function checkUser(to, from, next) {
-  if(store.state.token.length === undefined){
+  if(sessionStorage.getItem("token") === null){
     next({path:'/auth/login'})
   } else {
     next()
