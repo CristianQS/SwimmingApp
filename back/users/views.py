@@ -94,9 +94,13 @@ class UsersById(APIView):
 
     def delete(self, request, *args, **kwargs):
         try:
-            activity = User.objects.get(id=kwargs['id'])
-            activity.delete()
+            user = User.objects.get(id=kwargs['id'])
+            user.delete()
             return Response({"message": "User with id `{}` "
                             "has been deleted.".format(kwargs['id'])}, status=status.HTTP_204_NO_CONTENT)
         except User.DoesNotExist:
             return Response({"message": "PlanTraining Not Found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+#class LogOut(APIView):
+            #def post(self):

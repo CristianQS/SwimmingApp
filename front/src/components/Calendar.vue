@@ -52,12 +52,14 @@ import { GET_TRAININGS } from '../store/types/TrainingTypes'
 
 export default {
   name: 'Calendar',
+  props: {
+    events: { type: Array, required: true }
+  },
   data () {
     return {
       date: new Date().getTime().toString(),
       month: new Date().getMonth(),
-      year: new Date().getFullYear(),
-      events: []
+      year: new Date().getFullYear()
     }
   },
   methods: {
@@ -100,16 +102,6 @@ export default {
       "June", "July", "August", "September", "October", "November", "December"]
       return months[this.month]
     }
-  },
-  async mounted () {
-    this.plantrainings.forEach(async plantraining => {
-      let trainings = await this.getTrainings(plantraining.id)
-      for (let i = 0; i < trainings.length; i++) {
-        var date = new Date(trainings[i].timetraining)
-        trainings[i].timetraining = date.toISOString().substr(0, 10)
-        this.events.push(trainings[i])
-      }
-    })
   }
 }
 </script>

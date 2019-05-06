@@ -1,4 +1,4 @@
-import { USER_LOGIN, USER_SIGNUP } from '../types/UserTypes'
+import { USER_LOGIN, USER_SIGNUP, USER_LOGOUT } from '../types/UserTypes'
 import { userClient } from '../../clients/factory'
 
 export default {
@@ -13,5 +13,7 @@ export default {
   [USER_SIGNUP]: async ({commit}, user) => {
     return true
   },
-
+  [USER_LOGOUT]: async ({commit}) => {
+    commit(USER_LOGOUT)
+  }
 }

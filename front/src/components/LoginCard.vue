@@ -49,7 +49,7 @@ export default {
       this.$router.push(route)
     },
     async makeLogin () {
-      await this.login(this.user)
+      await this.login(Object.assign({},this.user))
       if (this.token.length > 0) {
         this.goTo('/profile')
       } else {
