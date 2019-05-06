@@ -11,8 +11,7 @@
             />
           </v-flex>
           <v-flex xs2 offset-xs3 sm4 offset-sm2 md1>
-              <p class="headline font-weight-bold">{{user.name}}</p>
-              <p class="font-weight-light">{{user.nick}}</p>
+              <p class="headline font-weight-bold">{{user.username}}</p>
           </v-flex>
           <v-flex xs2 offset-xs3 sm4 offset-sm2 md1>
             <v-layout>
@@ -32,12 +31,10 @@
 
 <script>
 import UserSettings from './UserSettings.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'CardProfile',
-  props: {
-    user: { type: Object, required: true }
-  },
   components: {
     UserSettings
   },
@@ -45,6 +42,11 @@ export default {
     goTo (route) {
       this.$router.push(route)
     }
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user
+    })
   }
 }
 </script>

@@ -82,7 +82,8 @@ function checkUser(to, from, next) {
 }
 
 function checkUserState () {
-  if (store.state.user == undefined) {
+  var obj = store.state.user
+  if (Object.entries(obj).length === 0 && obj.constructor === Object) {
     store.dispatch(AUTHENTICATE)
   }
 }
