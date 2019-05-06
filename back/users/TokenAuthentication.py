@@ -14,8 +14,6 @@ class TokenAuthentication(BaseAuthentication):
 
     def authenticate(self, request):
         auth = get_authorization_header(request).split()
-        print(auth[0])
-        print(auth[1])
         if not auth or auth[0].lower() != b'token':
             return None
 

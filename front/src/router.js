@@ -9,6 +9,8 @@ import InitialLoader from './views/InitialLoader.vue'
 import SeacherView from './views/SeacherView.vue'
 import Trainings from './views/Trainings.vue'
 import Activities from './views/Activities.vue'
+import { AUTHENTICATE } from './store/types/UserTypes'
+
 
 Vue.use(Router)
 
@@ -74,6 +76,13 @@ function checkUser(to, from, next) {
   if(sessionStorage.getItem("token") === null){
     next({path:'/auth/login'})
   } else {
+    checkUserState()
     next()
+  }
+}
+
+function checkUserState () {
+  if (store.state.user == undefined) {
+    store.dispatch(AUTHENTICATE)
   }
 }

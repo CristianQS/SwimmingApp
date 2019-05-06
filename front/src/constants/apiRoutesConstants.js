@@ -1,6 +1,7 @@
 const BASE_URL = 'http://localhost:8000'
 
 export const LOGIN = () => `${BASE_URL}/auth/login/`
+export const AUTHENTICATE = () => `${BASE_URL}/authenticate/`
 export const SIGN_UP = () => `${BASE_URL}/signup/`
 export const USERS = () => `${BASE_URL}/users`
 export const USERS_BY_ID = (id) => `${BASE_URL}/users/${id}`

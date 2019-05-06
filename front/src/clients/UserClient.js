@@ -1,4 +1,4 @@
-import { LOGIN } from '../constants/apiRoutesConstants'
+import { LOGIN, AUTHENTICATE } from '../constants/apiRoutesConstants'
 import { sha256 } from 'js-sha256'
 
 export default function userClient (restClient) {
@@ -6,7 +6,11 @@ export default function userClient (restClient) {
     user.password = sha256(user.password)
     return restClient.post(LOGIN(), user)
   }
+  function authenticate () {
+    return restClient.get(AUTHENTICATE())
+  }
   return {
-    login
+    login,
+    authenticate
   }
 }

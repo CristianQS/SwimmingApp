@@ -107,16 +107,25 @@ class UsersById(APIView):
 class Authenticate(APIView):
     def get(self, request):
         auth = get_authorization_header(request).split()
-        print(auth[0])
-        print(auth[1])
+        print(auth)
         if auth[0] != b'Bearer':
             return Response({'Error': "Internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        token = auth[1]
-        [user,token] = self.authenticate_credentials(token)
+        if len(auth) == 1:
+            msg = 'Invalid token header. No credentials provided.'
+            raise exceptions.AuthenticationFailed(msg)
+        elif len(auth) > 2:
+            msg = 'Invalid token header'
+            raise exceptions.AuthenticationFailed(msg)
+        try:
+            token = auth[1]
+            if token == "null":
+                msg = 'Null token not allowed'
+                raise exceptions.AuthenticationFailed(msg)
+        except UnicodeError:
+            msg = 'Invalid token header. Token string should not contain invalid characters.'
+            raise exceptions.AuthenticationFailed(msg)
+        [user, token] = self.authenticate_credentials(token)
         return Response(user, status=status.HTTP_200_OK)
-
-
 
     def authenticate_credentials(self, token):
         payload = jwt.decode(token, "SECRET_KEY")
