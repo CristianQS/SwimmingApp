@@ -1,6 +1,7 @@
 from rest_framework import status, exceptions
-from django.http import HttpResponse
 from rest_framework.authentication import get_authorization_header, BaseAuthentication
+from rest_framework.response import Response
+
 from .models import User
 import jwt
 
@@ -13,6 +14,8 @@ class TokenAuthentication(BaseAuthentication):
 
     def authenticate(self, request):
         auth = get_authorization_header(request).split()
+        print(auth[0])
+        print(auth[1])
         if not auth or auth[0].lower() != b'token':
             return None
 
@@ -45,16 +48,15 @@ class TokenAuthentication(BaseAuthentication):
             user = User.objects.get(
                 email=email,
                 id=userid,
-                is_active=True
             )
 
             #if not user.token['token'] == token:
             #    raise exceptions.AuthenticationFailed(msg)
 
         except jwt.ExpiredSignature or jwt.DecodeError or jwt.InvalidTokenError:
-            return HttpResponse({'Error': "Token is invalid"}, status=status.HTTP_403_FORBIDDEN)
+            return Response({'Error': "Token is invalid"}, status=status.HTTP_403_FORBIDDEN)
         except User.DoesNotExist:
-            return HttpResponse({'Error': "Internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'Error': "Internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return user, token
 

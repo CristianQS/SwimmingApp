@@ -1,12 +1,15 @@
 import jwt
 
 # Create your views here.
+from jwt import exceptions
 from rest_framework import status
+from rest_framework.authentication import get_authorization_header
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import User
 from .serializers import UserSerializer
+from .TokenAuthentication import TokenAuthentication
 
 
 class CreateUser(APIView):
@@ -42,7 +45,6 @@ class Login(APIView):
                 'email': user.email,
             }
             jwt_token = {'token': jwt.encode(payload, "SECRET_KEY")}
-            print(jwt_token)
             return Response(
                 jwt_token,
                 status=status.HTTP_200_OK,
@@ -71,7 +73,7 @@ class FindUserByName(APIView):
 
 
 class UsersById(APIView):
-    def get(self, request,*args, **kwargs):
+    def get(self, request, *args, **kwargs):
         try:
             queryset = User.objects.all()
             user = queryset.filter(id=kwargs['id']).values()
@@ -82,7 +84,7 @@ class UsersById(APIView):
         except User.DoesNotExist:
             return Response([{'msg': 'No user found'}], status=status.HTTP_404_NOT_FOUND)
 
-    def put(self,request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         try:
             user = User.objects.get(id=kwargs['id'])
             serializer = UserSerializer(instance=user, data=request.data, partial=True)
@@ -97,10 +99,38 @@ class UsersById(APIView):
             user = User.objects.get(id=kwargs['id'])
             user.delete()
             return Response({"message": "User with id `{}` "
-                            "has been deleted.".format(kwargs['id'])}, status=status.HTTP_204_NO_CONTENT)
+                                        "has been deleted.".format(kwargs['id'])}, status=status.HTTP_204_NO_CONTENT)
         except User.DoesNotExist:
             return Response({"message": "PlanTraining Not Found"}, status=status.HTTP_404_NOT_FOUND)
 
 
-#class LogOut(APIView):
-            #def post(self):
+class Authenticate(APIView):
+    def get(self, request):
+        auth = get_authorization_header(request).split()
+        print(auth[0])
+        print(auth[1])
+        if auth[0] != b'Bearer':
+            return Response({'Error': "Internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        token = auth[1]
+        [user,token] = self.authenticate_credentials(token)
+        return Response(user, status=status.HTTP_200_OK)
+
+
+
+    def authenticate_credentials(self, token):
+        payload = jwt.decode(token, "SECRET_KEY")
+        email = payload['email']
+        userid = payload['id']
+        try:
+            queryset = User.objects.all()
+            user = queryset.filter(id=userid, email=email).values('username','email','description','userType','club')
+        except jwt.ExpiredSignature or jwt.DecodeError or jwt.InvalidTokenError:
+            return Response({'Error': "Token is invalid"}, status=status.HTTP_403_FORBIDDEN)
+        except User.DoesNotExist:
+            return Response({'Error': "Internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        return user, token
+
+    def authenticate_header(self, request):
+        return 'Token'
