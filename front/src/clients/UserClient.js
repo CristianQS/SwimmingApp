@@ -1,10 +1,14 @@
-import { LOGIN, USERS_BY_ID, AUTHENTICATE } from '../constants/apiRoutesConstants'
+import { LOGIN, USERS_BY_ID, AUTHENTICATE, SIGN_UP } from '../constants/apiRoutesConstants'
 import { sha256 } from 'js-sha256'
 
 export default function userClient (restClient) {
   function login (user) {
     user.password = sha256(user.password)
     return restClient.post(LOGIN(), user)
+  }
+  function signUp (user) {
+    user.password = sha256(user.password)
+    return restClient.post(SIGN_UP(), user)
   }
   function authenticate () {
     return restClient.get(AUTHENTICATE())
@@ -16,6 +20,7 @@ export default function userClient (restClient) {
   return {
     login,
     authenticate,
-    modifyUser
+    modifyUser,
+    signUp
   }
 }
