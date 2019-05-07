@@ -73,7 +73,6 @@ export default {
       this.dialog = value
     },
     modifyUser (value) {
-      console.log(value)
       this.updateUser(value)
     },
     ...mapActions({

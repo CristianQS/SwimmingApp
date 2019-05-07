@@ -46,7 +46,6 @@ export default {
         if (this.password.length > 0) {
           this.editUser.password = this.password
         }
-        console.log(this.editUser)
         this.$emit('modifyUser',this.editUser)
         this.dialog = !this.dialog
       } else {

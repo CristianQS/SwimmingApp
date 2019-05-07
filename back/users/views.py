@@ -20,10 +20,23 @@ class CreateUser(APIView):
         return Response(serializer.data)
 
     def post(self, request):
+        queryset = User.objects.all()
+        user = queryset.filter(email=request.data['email']).values()
+        if len(user):
+            return Response({'error': 'Email registered'}, status=status.HTTP_409_CONFLICT)
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            payload = {
+                'id': serializer.data['id'],
+                'email': serializer.data['email'],
+            }
+            jwt_token = {'token': jwt.encode(payload, "SECRET_KEY")}
+            return Response(
+                jwt_token,
+                status=status.HTTP_201_CREATED,
+                content_type="application/json"
+            )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
