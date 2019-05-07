@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapActions} from 'vuex'
+import { mapActions } from 'vuex'
 import { AUTHENTICATE } from '../store/types/UserTypes'
 
 export default {

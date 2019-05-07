@@ -33,7 +33,8 @@
 <script>
 import UserSettings from './UserSettings.vue'
 import UserEditDialog from './UserEditDialog.vue'
-import { mapState } from 'vuex'
+import { mapActions } from 'vuex'
+import { AUTHENTICATE } from '../store/types/UserTypes'
 
 export default {
   name: 'CardProfile',
@@ -41,18 +42,26 @@ export default {
     UserSettings,
     UserEditDialog
   },
+  data () {
+    return {
+      user: {}
+    }
+  },
   methods: {
     goTo (route) {
       this.$router.push(route)
     },
     modifyUser (value) {
       this.$emit('modifyUser', value)
-    }
-  },
-  computed: {
-    ...mapState({
-      user: state => state.user
+    },
+    ...mapActions({
+      getUser: AUTHENTICATE
     })
+  },
+  async created () {
+    let userResponse = await this.getUser()
+    this.user = Object.assign({}, userResponse)
+    this.user.password =""
   }
 }
 </script>

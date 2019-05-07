@@ -73,7 +73,7 @@ export default new Router({
 })
 
 function checkUser(to, from, next) {
-  if(sessionStorage.getItem("token") === null){
+  if(sessionStorage.getItem("token") === null || sessionStorage.getItem("token") === undefined){
     next({path:'/auth/login'})
   } else {
     checkUserState()
@@ -83,7 +83,7 @@ function checkUser(to, from, next) {
 
 function checkUserState () {
   var obj = store.state.user
-  if (Object.entries(obj).length === 0 && obj.constructor === Object) {
+  if (Object.entries(obj).length === 0 && obj.constructor === Object || obj == undefined) {
     store.dispatch(AUTHENTICATE)
   }
 }

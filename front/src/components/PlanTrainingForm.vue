@@ -10,6 +10,15 @@
           required/>
       </v-flex>
       <v-flex xs12 sm2 md12>
+        <v-select
+          v-model="value"
+          :items="items"
+          label="Select Users"
+          multiple
+          chips
+        />
+      </v-flex>
+      <v-flex xs12 sm2 md12>
         <h3>Description</h3>
         <v-textarea 
           @focus="newPlanTraining()"
@@ -32,6 +41,8 @@ export default {
         name: '',
         description: '',
       },
+      items: [{value:1,text:'pepe'}, {value:2,text:'pep'}],
+      value: []
     }
   },
   methods: {
