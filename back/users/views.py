@@ -87,6 +87,7 @@ class UsersById(APIView):
     def put(self, request, *args, **kwargs):
         try:
             user = User.objects.get(id=kwargs['id'])
+            print(request.data)
             serializer = UserSerializer(instance=user, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
@@ -107,7 +108,6 @@ class UsersById(APIView):
 class Authenticate(APIView):
     def get(self, request):
         auth = get_authorization_header(request).split()
-        print(auth)
         if auth[0] != b'Bearer':
             return Response({'Error': "Internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         if len(auth) == 1:
@@ -133,7 +133,7 @@ class Authenticate(APIView):
         userid = payload['id']
         try:
             queryset = User.objects.all()
-            user = queryset.filter(id=userid, email=email).values('username','email','description','userType','club')
+            user = queryset.filter(id=userid, email=email).values('id','username','email','description','userType','club')
         except jwt.ExpiredSignature or jwt.DecodeError or jwt.InvalidTokenError:
             return Response({'Error': "Token is invalid"}, status=status.HTTP_403_FORBIDDEN)
         except User.DoesNotExist:

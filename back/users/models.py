@@ -5,7 +5,7 @@ from django.db import models
 
 class User(models.Model):
     username = models.TextField(max_length=20)
-    password = models.TextField(max_length=32)
+    password = models.TextField(max_length=64)
     email = models.TextField(max_length=30)
     description = models.TextField(max_length=150, null=True)
     USER_TYPE_CHOICES = (

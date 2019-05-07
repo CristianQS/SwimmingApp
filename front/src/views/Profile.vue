@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-flex xs12 sm8 offset-sm2 md8>
-      <card-profile></card-profile>
+      <card-profile @modifyUser="modifyUser"/>
     </v-flex>
     <v-flex xs12 sm8 offset-sm2 md8>
       <calendar :events="events"></calendar>
@@ -30,6 +30,7 @@
 import { mapActions } from 'vuex'
 import { ADD_TRAINING_PLAN, GET_PLANTRAININGS } from '../store/types/TrainingPlanTypes'
 import { GET_TRAININGS } from '../store/types/TrainingTypes'
+import { MODIFY_USER } from '../store/types/UserTypes'
 import Tabs from '../components/Tabs.vue'
 import CardProfile from '../components/CardProfile.vue'
 import Calendar from '../components/Calendar.vue'
@@ -71,10 +72,15 @@ export default {
     isDialogActivated (value) {
       this.dialog = value
     },
+    modifyUser (value) {
+      console.log(value)
+      this.updateUser(value)
+    },
     ...mapActions({
       addPlanTraining: ADD_TRAINING_PLAN,
       getPlanTrainings: GET_PLANTRAININGS,
-      getTrainings: GET_TRAININGS
+      getTrainings: GET_TRAININGS,
+      updateUser: MODIFY_USER,
     })
   },
   async created () {
