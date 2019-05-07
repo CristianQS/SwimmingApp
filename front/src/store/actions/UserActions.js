@@ -13,10 +13,8 @@ export default {
   },
   [USER_SIGNUP]: async ({commit}, user) => {
     try {
-      console.log(user)
       let response = await userClient.signUp(user)
-      commit(USER_SIGNUP,response.data.token)
-      
+      commit(USER_SIGNUP, {user: user, token: response.data.token})
     } catch (error) {
       return error
     }

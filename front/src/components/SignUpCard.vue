@@ -85,7 +85,7 @@ export default {
       try {
         this.newUser.password = this.password
         let response = await this.signUp(this.newUser)
-        // this.goTo('/profile')
+        this.goTo('/profile')
       } catch (error) {
         alert(error)
       }

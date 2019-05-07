@@ -146,7 +146,8 @@ class Authenticate(APIView):
         userid = payload['id']
         try:
             queryset = User.objects.all()
-            user = queryset.filter(id=userid, email=email).values('id','username','email','description','userType','club')
+            user = queryset.filter(id=userid, email=email).values('id', 'username', 'email', 'description',
+                                                                  'userType', 'club')
         except jwt.ExpiredSignature or jwt.DecodeError or jwt.InvalidTokenError:
             return Response({'Error': "Token is invalid"}, status=status.HTTP_403_FORBIDDEN)
         except User.DoesNotExist:

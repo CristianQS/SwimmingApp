@@ -11,14 +11,14 @@ export default {
   [AUTHENTICATE]: (state, user) => {
     state.user = user
   },
-  [USER_SIGNUP]: async (state, user) => {
-    sessionStorage.setItem("token", token)
-    state.user = user
+  [USER_SIGNUP]: async (state, response) => {
+    state.user = response.user
+    sessionStorage.setItem("token", response.token)
+    var token = sessionStorage.getItem("token")
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+token
   },
   [MODIFY_USER]: (state, user) => {
     state.user = user
-  },
-  [USER_SIGNUP]: (state, token) => {
   },
   [USER_LOGOUT]: (state) => {
     sessionStorage.removeItem("token")
