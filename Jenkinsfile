@@ -7,7 +7,6 @@ pipeline{
       stage ('Install front Dependecies') {
         steps {
           dir ("front/") {
-            sh 'docker stop front_front_1'
             sh 'docker-compose build'
           }
         }
@@ -29,7 +28,6 @@ pipeline{
       stage ('Install back Dependecies') {
         steps {
           dir ("back/") {
-            sh 'docker stop back_web_1'
             sh 'docker-compose build'
           }
         }
