@@ -15,5 +15,15 @@ class User(models.Model):
 
     userType = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=1)
 
+    CLUB_CHOICES = (
+        (1, 'CN Las Palmas'),
+        (2, 'CN Fainagua C. Telde'),
+        (3, 'CN Salinas Sta.Lucia'),
+        (4, 'CN Metropole'),
+
+    )
+
+    club = models.PositiveSmallIntegerField(choices=CLUB_CHOICES, default=1)
+
     def __str__(self):
         return self.email
