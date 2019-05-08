@@ -1,16 +1,14 @@
 import { shallowMount } from '@vue/test-utils'
-import Tabs from '@/components/Tabs.vue'
+import InitialLoader from '@/views/InitialLoader.vue'
 import TrainingCard from '@/components/TrainingCard.vue'
 import VTabs from '../components/VTabs'
 
 
 describe('Tabs.vue', () => {
   it('renders props.msg when passed', () => {
-    const wrapper = shallowMount(Tabs,{
-      stubs: {
-        ['v-tabs']: VTabs,
-      }
+    const wrapper = shallowMount(InitialLoader,{
+
     })
-    expect(wrapper.find(TrainingCard))
+    
   })
 })

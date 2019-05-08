@@ -21,8 +21,10 @@ pipeline{
       stage ('Deploy front') {
         steps {
           dir ("front/") {
-            sh 'chmod +x ./scripts/deploy.sh'
-            sh './scripts/deploy.sh'
+            withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+              sh 'chmod +x ./scripts/deploy.sh'
+              sh './scripts/deploy.sh'
+            }
           }
         }
       }
@@ -43,7 +45,9 @@ pipeline{
       stage ('Deploy backend') {
         steps {
           dir ("back/") {
-            sh 'python3 manage.py runserver &'
+            withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+              sh 'python3 manage.py runserver &'
+            }
           }
         }
       }
