@@ -7,30 +7,30 @@ pipeline{
       stage ('Install front Dependecies') {
         steps {
           dir ("front/") {
-            sh 'npm install'
+            sh 'docker stop front_front_1'
+            sh 'docker-compose build'
           }
         }
       }
       stage ('Test front') {
         steps {
           dir ("front/") {
-            sh 'npm run test:unit'
+            sh 'docker-compose run front npm run test:unit'
           }
         }
       }
       stage ('Deploy front') {
         steps {
           dir ("front/") {
-              sh 'chmod +x ./scripts/deploy.sh'
-              sh './scripts/deploy.sh'
-            
+              sh 'docker-compose up -d'            
           }
         }
       }
       stage ('Install back Dependecies') {
         steps {
           dir ("back/") {
-            
+            sh 'docker stop back_web_1'
+            sh 'docker-compose build'
           }
         }
       }

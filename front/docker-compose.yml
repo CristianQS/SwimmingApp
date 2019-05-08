@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  front:
+    build: .
+    command: npm run serve -- --port 8081
+    volumes:
+      - .:/code
+    ports:
+      - "8081:8081"
