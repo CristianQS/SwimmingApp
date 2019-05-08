@@ -28,7 +28,6 @@ pipeline{
       stage ('Install back Dependecies') {
         steps {
           dir ("back/") {
-            sh 'docker-compose build'
           }
         }
       }
