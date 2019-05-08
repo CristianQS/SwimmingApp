@@ -11,22 +11,19 @@
             />
           </v-flex>
           <v-flex xs2 offset-xs3 sm4 offset-sm2 md1>
-              <p class="headline font-weight-bold">{{user.name}}</p>
-              <p class="font-weight-light">{{user.nick}}</p>
+              <p class="headline font-weight-bold">{{userState.username}}</p>
+              <p class="font-weight-light">{{userState.email}}</p>
           </v-flex>
           <v-flex xs2 offset-xs3 sm4 offset-sm2 md1>
-            <v-layout>
-            <v-btn depressed color="grey">Edit Profile</v-btn>
-            <v-btn @click="goTo('/search')" flat icon>
-              <v-icon color="grey">settings</v-icon>
-            </v-btn>
-
+            <v-layout align-center>
+              <user-edit-dialog @modifyUser="modifyUser"/>
+              <user-settings/>
             </v-layout>
           </v-flex>
         </v-layout>
         <v-flex xs12 sm12 md12>
           <h3>Description</h3>
-          {{user.description}}
+          {{userState.description}}
         </v-flex>
       </v-card-text>
     </v-layout>
@@ -34,15 +31,32 @@
 </template>
 
 <script>
+import UserSettings from './UserSettings.vue'
+import UserEditDialog from './UserEditDialog.vue'
+import { mapActions, mapState } from 'vuex'
+import { AUTHENTICATE } from '../store/types/UserTypes'
+
 export default {
   name: 'CardProfile',
-  props: {
-    user: { type: Object, required: true }
+  components: {
+    UserSettings,
+    UserEditDialog
   },
   methods: {
     goTo (route) {
       this.$router.push(route)
-    }
+    },
+    modifyUser (value) {
+      this.$emit('modifyUser', value)
+    },
+    ...mapActions({
+      getUser: AUTHENTICATE
+    })
+  },
+  computed: {
+    ...mapState({
+      userState: state => state.user
+    })
   }
 }
 </script>
@@ -51,5 +65,7 @@ export default {
 .card {
   padding: 10px 5px;
 }
-
+.card__img {
+  margin: 10px 0;
+}
 </style>

@@ -65,7 +65,6 @@ export default {
   },
   methods: {
     passActivity() {
-      console.log(this.updatedActivity)
       this.$emit('updatedActivity',this.updatedActivity)
     }
   }

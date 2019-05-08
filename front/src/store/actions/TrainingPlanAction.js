@@ -1,12 +1,14 @@
 import { GET_PLANTRAININGS, ADD_TRAINING_PLAN, MODIFY_TRAINING_PLAN,
   CLONE_TRAINING_PLAN, DELETE_TRAINING_PLAN } from '../types/TrainingPlanTypes'
 import { planTrainingClient, trainingClient, activityClient } from '../../clients/factory'
+import cloneActivities  from '../../helpers/cloneActionsHelpers'
 
 export default {
   [GET_PLANTRAININGS]: async ({ commit }, params) => {
     try {
-      let response = await planTrainingClient.getPlanTrainingByUserId(params.userid)
+      let response = await planTrainingClient.getPlanTrainingByUserId(params.id)
       commit(GET_PLANTRAININGS,response.data)
+      return response.data
     } catch (error) {
       return error
     }
@@ -16,7 +18,7 @@ export default {
       let post = {
         name: params.name,
         description: params.description,
-        user: [1,2]
+        user: params.user
       }
       let response = await planTrainingClient.addPlanTraining(post)
       commit(ADD_TRAINING_PLAN,response.data)
@@ -29,45 +31,31 @@ export default {
       let post = {
         name: params.name,
         description: params.description,
-        user: [1,2]
+        user: params.user
       }
-      let responses = await Promise.all([
-        planTrainingClient.addPlanTraining(post),
-        trainingClient.getTrainings(params.id)
-      ])
-      let trainings = responses[1].data
-      let planTrainingCloned = responses[0].data
 
-      trainings.forEach( async (training) =>  {
+      let planTrainingCloned = await planTrainingClient.addPlanTraining(post)
+      let trainings = await trainingClient.getTrainings(params.id).catch(()=> {
+        commit(ADD_TRAINING_PLAN,planTrainingCloned.data)
+      })  
+
+      trainings.data.forEach( async (training) =>  {
         let request = {
-          plantraining: planTrainingCloned.id,
+          plantraining: planTrainingCloned.data.id,
           name: training.name,
-          description: training.description
+          description: training.description,
+          timetraining: training.timetraining
         }
 
-        let trainingResponses = await Promise.all([
-          trainingClient.addTraining(planTrainingCloned.id,request),
-          activityClient.getActivities(training.plantraining_id,training.id)
-        ])
-        let clonedTraining = trainingResponses[0].data
-        let activities = trainingResponses[1].data
-        
-        activities.forEach( async (activity) => {
-          let request = {
-            id: activity.id,
-            plantraining: planTrainingCloned.id,
-            training: clonedTraining.id,
-            series: activity.series ,
-            meters: activity.meters, 
-            exercise: activity.exercise, 
-            style: activity.style,
-            type: activity.type, 
-            rhythm: activity.rhythm 
-          }
-          await activityClient.addActivity(planTrainingCloned.id,clonedTraining.id,request)
+        let clonedTraining = await trainingClient.addTraining(planTrainingCloned.data.id,request)
+        let activities = await activityClient.getActivities(training.plantraining_id,training.id).catch((error) => {
+          return error
         })
+        if(activities.data !== undefined){
+          cloneActivities(planTrainingCloned.data.id,clonedTraining.data.id, activities.data)
+        }
       })
-      commit(ADD_TRAINING_PLAN,planTrainingCloned)
+      commit(ADD_TRAINING_PLAN,planTrainingCloned.data)
     } catch (error) {
       return error
     }

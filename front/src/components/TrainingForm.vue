@@ -1,8 +1,8 @@
 <template>
   <v-container grid-list-md>
-    <h3>Templates</h3>
+    <!-- <h3>Templates</h3> -->
     <v-layout wrap>
-      <v-flex xs12 sm4 md4>
+      <!-- <v-flex xs12 sm4 md4>
         <v-btn block dark large @click="getSpeedTraining()" >Speed</v-btn>
       </v-flex>
       <v-flex xs12 sm4 md4>
@@ -14,31 +14,43 @@
       <v-flex xs12 sm12 md12>
         <h3>Contain</h3>
         <div v-for="activity in training.activitities" :key="activity.name">{{activity.name}}</div>
-      </v-flex>
+      </v-flex> -->
+
       <v-flex xs12 sm2 md12>
         <h3>Name</h3>
         <v-text-field 
         @focus="newTraining()" 
         v-model="training.name" label="Name" required/>
       </v-flex>
+      <date-time-picker
+        :title="'Fecha de Entreno'"
+        @datePicker="getEntryDate"
+      />
       <v-flex xs12 sm2 md12>
         <h3>Description</h3>
         <v-textarea 
         @focus="newTraining()" 
         outline v-model="training.description" label="Name" required/>
       </v-flex>
+
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import DateTimePicker from './DateTimePicker.vue'
+
 export default {
   name: 'TrainingForm',
+  components: {
+    DateTimePicker
+  },
   data () {
     return {
       training: {
         name: '',
-        description: ''
+        description: '',
+        timetraining: 0
       },
     }
   },
@@ -69,6 +81,9 @@ export default {
     },
     newTraining () {
       this.$emit('training',this.training)
+    },
+    getEntryDate (value) {
+      this.training.timetraining = value
     }
   },
 }

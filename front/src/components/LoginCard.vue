@@ -49,8 +49,8 @@ export default {
       this.$router.push(route)
     },
     async makeLogin () {
-      await this.login(this.user)
-      if (this.token.length > 0) {
+      await this.login(Object.assign({},this.user))
+      if (sessionStorage.getItem("token")) {
         this.goTo('/profile')
       } else {
         this.check = false
@@ -66,10 +66,7 @@ export default {
       this.user.email === '' && errors.push('empty')
       this.check === false && errors.push('User does not exist')
       return errors
-    },
-    ...mapState({
-      token: state => state.token
-    })
+    }
   }
 }
 </script>

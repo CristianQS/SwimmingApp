@@ -11,6 +11,15 @@
           />
       </v-flex>
       <v-flex xs12 sm2 md12>
+        <v-select
+          v-model="newPlantraining.user"
+          :items="usersClub"
+          label="Select Users"
+          multiple
+          chips
+        />
+      </v-flex>
+      <v-flex xs12 sm2 md12>
         <h3>Description</h3>
         <v-textarea 
           @focus="newPlanTraining()"
@@ -24,6 +33,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'ModifyForm',
   props: {
@@ -43,6 +54,11 @@ export default {
       this.$emit('updateInstance',response)
     }
   },
+  computed: {
+    ...mapState({
+      usersClub: state => state.usersClub,
+    })
+  }
 }
 </script>
 

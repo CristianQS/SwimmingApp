@@ -1,6 +1,7 @@
 import { GET_TRAININGS,GET_TRAINING_BY_ID, ADD_TRAINING, MODIFY_TRAINING,
   CLONE_TRAINING, DELETE_TRAINING } from '../types/TrainingTypes'
 import { trainingClient, activityClient } from '../../clients/factory'
+import cloneActivities  from '../../helpers/cloneActionsHelpers'
 
 export default {
   [GET_TRAININGS]: async ({ commit }, plantraining) => {
@@ -8,6 +9,7 @@ export default {
       commit(GET_TRAININGS,[])
       let response = await trainingClient.getTrainings(plantraining)
       commit(GET_TRAININGS,response.data)
+      return response.data
     } catch (error) {
       return error
     }
@@ -25,7 +27,8 @@ export default {
       let request = {
         plantraining: params.plantraining_id,
         name: params.name,
-        description: params.description
+        description: params.description,
+        timetraining: params.timetraining
       }
       let response = await trainingClient.addTraining(request.plantraining,request)
       commit(ADD_TRAINING,response.data)
@@ -38,30 +41,16 @@ export default {
       let request = {
         plantraining: params.plantraining_id,
         name: params.name,
-        description: params.description
+        description: params.description,
+        timetraining: params.timetraining
       }
-      let trainingResponses = await Promise.all([
-        trainingClient.addTraining(request.plantraining,request),
-        activityClient.getActivities(request.plantraining,params.id)
-      ])
-      let clonedTraining = trainingResponses[0].data
-      let activities = trainingResponses[1].data
-              
-      activities.forEach( async (activity) => {
-        let request = {
-          id: activity.id,
-          plantraining: params.plantraining_id,
-          training: clonedTraining.id,
-          series: activity.series ,
-          meters: activity.meters, 
-          exercise: activity.exercise, 
-          style: activity.style,
-          type: activity.type, 
-          rhythm: activity.rhythm 
-        }
-        await activityClient.addActivity(request.plantraining,clonedTraining.id,request)
+      let clonedTraining = await trainingClient.addTraining(request.plantraining,request)
+      let activities = await activityClient.getActivities(request.plantraining,params.id).catch(()=> {
+        commit(ADD_TRAINING,clonedTraining.data)
       })
-      commit(ADD_TRAINING,clonedTraining)
+
+      cloneActivities(params.plantraining_id,clonedTraining.data.id,activities.data) 
+      commit(ADD_TRAINING,clonedTraining.data)
     } catch (error) {
       return error
     }

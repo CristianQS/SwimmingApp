@@ -1,9 +1,11 @@
 const BASE_URL = 'http://localhost:8000'
 
 export const LOGIN = () => `${BASE_URL}/auth/login/`
+export const AUTHENTICATE = () => `${BASE_URL}/authenticate/`
 export const SIGN_UP = () => `${BASE_URL}/signup/`
 export const USERS = () => `${BASE_URL}/users`
 export const USERS_BY_ID = (id) => `${BASE_URL}/users/${id}`
+export const USERS_BY_IDCLUB = (id) => `${BASE_URL}/users/clubs/${id}`
 export const PLANTRAINING = () => `${BASE_URL}/plantrainings`
 export const PLANTRAINING_BY_ID = (id) => `${BASE_URL}/plantrainings/${id}`
 export const TRAINING = (plantraining) => `${BASE_URL}/plantrainings/${plantraining}/trainings`

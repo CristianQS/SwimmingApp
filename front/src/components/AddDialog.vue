@@ -33,7 +33,6 @@ export default {
   methods: {
     ua (value) {
       this.val = value
-      console.log(value)
     }
   },
   watch: {

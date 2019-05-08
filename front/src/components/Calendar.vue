@@ -33,8 +33,10 @@
     <template v-slot:day="{ date }">
       <template v-for="event in eventsMap[date]">
         <v-card
-          :key="event.title"
-          v-html="event.title"
+          :key="event.id"
+          v-html="event.name"
+          @click="goTo(event)"
+          class="trainingCard"
           dark
         >
         </v-card>
@@ -45,45 +47,19 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+import { GET_TRAININGS } from '../store/types/TrainingTypes'
+
 export default {
   name: 'Calendar',
+  props: {
+    events: { type: Array, required: true }
+  },
   data () {
     return {
       date: new Date().getTime().toString(),
       month: new Date().getMonth(),
-      year: new Date().getFullYear(),
-      events: [
-        {
-          title: 'Vacation',
-          details: 'Going to the beach!',
-          date: '2018-12-31',
-          open: false
-        },
-        {
-          title: 'Vacation',
-          details: 'Going to the beach!',
-          date: '2019-01-01',
-          open: false
-        },
-        {
-          title: 'Meeting',
-          details: 'Spending time on how we do not have enough time',
-          date: '2019-01-07',
-          open: false
-        },
-        {
-          title: '30th Birthday',
-          details: 'Celebrate responsibly',
-          date: '2019-01-03',
-          open: false
-        },
-        {
-          title: 'New Year',
-          details: 'Eat chocolate until you pass out',
-          date: '2019-01-01',
-          open: false
-        }
-      ]
+      year: new Date().getFullYear()
     }
   },
   methods: {
@@ -102,12 +78,23 @@ export default {
         this.year++
       } 
       this.$refs.calendar.next()
-    }
+    },
+    goTo (event) {
+      this.$router.push({name: 'ACTIVITIES', 
+      params: {idPlan: event.plantraining_id, idTraining: event.id}})
+      
+    },
+    ...mapActions({
+      getTrainings: GET_TRAININGS,
+    })
   },
   computed: {
+    ...mapState({
+      plantrainings: state => state.plantrainings
+    }),
     eventsMap () {
       const map = {}
-      this.events.forEach(e => (map[e.date] = map[e.date] || []).push(e))
+      this.events.forEach(e => (map[e.timetraining] = map[e.timetraining] || []).push(e))
       return map
     },
     mappingMonth () {
@@ -115,7 +102,7 @@ export default {
       "June", "July", "August", "September", "October", "November", "December"]
       return months[this.month]
     }
-  },
+  }
 }
 </script>
 
@@ -128,5 +115,10 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.trainingCard {
+  cursor: pointer;
+  margin: 6px 0;
 }
 </style>

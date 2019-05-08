@@ -1,17 +1,16 @@
 <template>
   <v-container grid-list-md>
-    <h3>Templates</h3>
     <v-layout wrap>
-      <v-flex xs12 sm12 md12>
-        <h3>Contain</h3>
-        <div v-for="activity in training.activitities" :key="activity.name">{{activity.name}}</div>
-      </v-flex>
       <v-flex xs12 sm2 md12>
         <h3>Name</h3>
         <v-text-field 
         @focus="newTraining()" 
         v-model="newtraining.name" label="Name" required/>
       </v-flex>
+      <date-time-picker
+        :title="'Fecha de Entreno'"
+        @datePicker="getEntryDate"
+      />
       <v-flex xs12 sm2 md12>
         <h3>Description</h3>
         <v-textarea 
@@ -23,10 +22,14 @@
 </template>
 
 <script>
+import DateTimePicker from './DateTimePicker.vue'
 export default {
   name: 'TrainingForm',
   props: {
     training: { type:Object, required: true }
+  },
+  components: {
+    DateTimePicker
   },
   data () {
     return {
@@ -40,6 +43,9 @@ export default {
         training: this.newtraining
       }
       this.$emit('updateInstance',response)
+    },
+    getEntryDate (value) {
+      this.newtraining.timetraining = value
     }
   },
 }
