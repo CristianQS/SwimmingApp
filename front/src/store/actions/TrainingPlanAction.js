@@ -6,7 +6,7 @@ import cloneActivities  from '../../helpers/cloneActionsHelpers'
 export default {
   [GET_PLANTRAININGS]: async ({ commit }, params) => {
     try {
-      let response = await planTrainingClient.getPlanTrainingByUserId(params.userid)
+      let response = await planTrainingClient.getPlanTrainingByUserId(params.id)
       commit(GET_PLANTRAININGS,response.data)
       return response.data
     } catch (error) {
@@ -18,7 +18,7 @@ export default {
       let post = {
         name: params.name,
         description: params.description,
-        user: [1,2]
+        user: params.user
       }
       let response = await planTrainingClient.addPlanTraining(post)
       commit(ADD_TRAINING_PLAN,response.data)
@@ -31,7 +31,7 @@ export default {
       let post = {
         name: params.name,
         description: params.description,
-        user: [1,2]
+        user: params.user
       }
 
       let planTrainingCloned = await planTrainingClient.addPlanTraining(post)

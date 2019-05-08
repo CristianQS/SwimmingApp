@@ -1,5 +1,5 @@
 import { USER_LOGIN, USER_SIGNUP, USER_LOGOUT, AUTHENTICATE,
-  MODIFY_USER } from '../types/UserTypes'
+  MODIFY_USER, GET_USERS_BY_CLUB } from '../types/UserTypes'
 import { userClient } from '../../clients/factory'
 
 export default {
@@ -30,5 +30,9 @@ export default {
   },
   [USER_LOGOUT]: async ({commit}) => {
     commit(USER_LOGOUT)
+  },
+  [GET_USERS_BY_CLUB]: async ({commit},id) => {
+    let response = await userClient.getUsersByClub(id)
+    commit(GET_USERS_BY_CLUB,response.data)
   }
 }

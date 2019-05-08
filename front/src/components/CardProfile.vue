@@ -11,8 +11,8 @@
             />
           </v-flex>
           <v-flex xs2 offset-xs3 sm4 offset-sm2 md1>
-              <p class="headline font-weight-bold">{{user.username}}</p>
-              <p class="font-weight-light">{{user.email}}</p>
+              <p class="headline font-weight-bold">{{userState.username}}</p>
+              <p class="font-weight-light">{{userState.email}}</p>
           </v-flex>
           <v-flex xs2 offset-xs3 sm4 offset-sm2 md1>
             <v-layout align-center>
@@ -23,7 +23,7 @@
         </v-layout>
         <v-flex xs12 sm12 md12>
           <h3>Description</h3>
-          {{user.description}}
+          {{userState.description}}
         </v-flex>
       </v-card-text>
     </v-layout>
@@ -33,7 +33,7 @@
 <script>
 import UserSettings from './UserSettings.vue'
 import UserEditDialog from './UserEditDialog.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { AUTHENTICATE } from '../store/types/UserTypes'
 
 export default {
@@ -41,11 +41,6 @@ export default {
   components: {
     UserSettings,
     UserEditDialog
-  },
-  data () {
-    return {
-      user: {}
-    }
   },
   methods: {
     goTo (route) {
@@ -58,10 +53,10 @@ export default {
       getUser: AUTHENTICATE
     })
   },
-  async created () {
-    let userResponse = await this.getUser()
-    this.user = Object.assign({}, userResponse)
-    this.user.password =""
+  computed: {
+    ...mapState({
+      userState: state => state.user
+    })
   }
 }
 </script>

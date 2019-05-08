@@ -157,3 +157,16 @@ class Authenticate(APIView):
 
     def authenticate_header(self, request):
         return 'Token'
+
+
+class UsersByClub(APIView):
+    def get(self,request,*args, **kwargs):
+        try:
+            queryset = User.objects.all()
+            users = queryset.filter(club=kwargs['id']).values()
+            if len(users) == 0:
+                return Response([{'msg': 'No users found'}], status=status.HTTP_404_NOT_FOUND)
+            else:
+                return Response(users, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response([{'msg': 'No user found'}], status=status.HTTP_404_NOT_FOUND)

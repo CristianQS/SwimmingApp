@@ -16,7 +16,7 @@
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>
-          <plan-training-form @plantraining="newPlanTraining"/>
+          <plan-training-form :usersClub="usersClubs" @plantraining="newPlanTraining"/>
         </template>
         <template v-slot:buttons>
           <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
@@ -30,7 +30,7 @@
 import { mapActions } from 'vuex'
 import { ADD_TRAINING_PLAN, GET_PLANTRAININGS } from '../store/types/TrainingPlanTypes'
 import { GET_TRAININGS } from '../store/types/TrainingTypes'
-import { MODIFY_USER } from '../store/types/UserTypes'
+import { MODIFY_USER, AUTHENTICATE, GET_USERS_BY_CLUB } from '../store/types/UserTypes'
 import Tabs from '../components/Tabs.vue'
 import CardProfile from '../components/CardProfile.vue'
 import Calendar from '../components/Calendar.vue'
@@ -52,7 +52,8 @@ export default {
     return {
       dialog: false,
       plantraining : {},
-      events: []
+      events: [],
+      usersClubs: []
     }
   },
   methods: {
@@ -80,12 +81,13 @@ export default {
       getPlanTrainings: GET_PLANTRAININGS,
       getTrainings: GET_TRAININGS,
       updateUser: MODIFY_USER,
+      getUser: AUTHENTICATE,
+      getUsersByClub: GET_USERS_BY_CLUB
     })
   },
   async created () {
-    let user = {
-      userid: 1
-    }
+    let user = await this.getUser()
+    this.usersClubs = await this.getUsersByClub(user.club)    
     let plantrainings = await this.getPlanTrainings(user)    
     plantrainings.forEach(async plantraining => {
       let trainings = await this.getTrainings(plantraining.id)
@@ -96,7 +98,6 @@ export default {
       }
     })
   }
-
 }
 </script>
 

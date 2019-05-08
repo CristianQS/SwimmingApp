@@ -2,5 +2,6 @@ export default {
   plantrainings : [],
   trainings: [],
   activities: [],
-  user: {}
+  user: {},
+  usersClub: []
 }

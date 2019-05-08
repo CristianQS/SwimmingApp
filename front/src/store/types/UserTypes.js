@@ -1,5 +1,6 @@
 export const USER_LOGIN = 'USER_LOGIN'
 export const USER_SIGNUP = 'USER_SIGNUP'
 export const USER_LOGOUT = 'USER_LOGOUT'
+export const GET_USERS_BY_CLUB = 'GET_USERS_BY_CLUB'
 export const AUTHENTICATE = 'AUTHENTICATE'
 export const MODIFY_USER = 'MODIFY_USER'

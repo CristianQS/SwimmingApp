@@ -1,5 +1,5 @@
 import { USER_LOGIN, USER_SIGNUP, USER_LOGOUT, AUTHENTICATE,
-MODIFY_USER, } from '../types/UserTypes'
+MODIFY_USER, GET_USERS_BY_CLUB } from '../types/UserTypes'
 import axios from 'axios'
 
 export default {
@@ -22,5 +22,15 @@ export default {
   },
   [USER_LOGOUT]: (state) => {
     sessionStorage.removeItem("token")
+  },
+  [GET_USERS_BY_CLUB]: (state, users) => {
+    state.usersClub = []
+    users.forEach(user => {
+      let userClub = {
+        value: user.id,
+        text: user.email,
+      }
+      state.usersClub.push(userClub)
+    });
   }
 }
