@@ -30,22 +30,21 @@ pipeline{
       stage ('Install back Dependecies') {
         steps {
           dir ("back/") {
-            sh 'pip3 install -r requirements.txt'
+            sh 'docker-compose build'
           }
         }
       }
       stage ('Test backend') {
         steps {
           dir ("back/") {
-            sh 'python3 manage.py test'
+            sh 'docker-compose run web python manage.py test'
           }
         }
       }
       stage ('Deploy backend') {
         steps {
           dir ("back/") {
-              sh 'python3 manage.py runserver &'
-            
+              sh 'docker-compose up -d'     
           }
         }
       }
