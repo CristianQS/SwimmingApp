@@ -7,7 +7,7 @@ pipeline{
       stage ('Install front Dependecies') {
         steps {
           dir ("front/") {
-            sh 'docker-compose build'
+            sh 'npm install'
           }
         }
       }
