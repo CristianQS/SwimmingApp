@@ -27,6 +27,13 @@ pipeline{
           }
         }
       }
+      stage ('Install back Dependecies') {
+        steps {
+          dir ("back/") {
+            
+          }
+        }
+      }
       stage ('Test backend') {
         steps {
           dir ("back/") {
