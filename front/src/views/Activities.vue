@@ -16,7 +16,7 @@
           :newUpdate="updateActivity"
           >
           <template v-slot:modify>
-            <activity-modify-form :activity="activity" 
+            <activity-modify-form :activity="activity"
             @updatedActivity="updateInstance"/>
           </template>
       </training-card>
@@ -24,7 +24,7 @@
     <floating-button @click.native="dialog = !dialog">
       add
     </floating-button>
-    <add-dialog 
+    <add-dialog
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapActions, mapState} from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { GET_ACTIVITIES, ADD_ACTIVITY, MODIFY_ACTIVITY,
   DELETE_ACTIVITY } from '../store/types/ActivityTypes'
 import TrainingCard from '../components/TrainingCard.vue'
@@ -70,7 +70,7 @@ export default {
       idplan: this.$route.params.idPlan,
       idtraining: this.$route.params.idTraining,
       newActivity: {},
-      updateActivity: {},
+      updateActivity: {}
     }
   },
   methods: {
@@ -105,7 +105,7 @@ export default {
   created () {
     let params = {
       plantraining_id: this.idplan,
-      training_id: this.idtraining,
+      training_id: this.idtraining
     }
     this.getActivities(params)
   }

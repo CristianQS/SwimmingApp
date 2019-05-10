@@ -1,5 +1,5 @@
 export default {
-  plantrainings : [],
+  plantrainings: [],
   trainings: [],
   activities: [],
   user: {},

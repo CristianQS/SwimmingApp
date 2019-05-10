@@ -12,7 +12,7 @@
     <floating-button @click.native="dialog = !dialog">
       add
     </floating-button>
-    <add-dialog 
+    <add-dialog
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>
@@ -51,7 +51,7 @@ export default {
   data () {
     return {
       dialog: false,
-      plantraining : {},
+      plantraining: {},
       events: [],
       usersClubs: []
     }
@@ -61,7 +61,7 @@ export default {
       this.plantraining = value
     },
     changeTraining (value) {
-      this.val= value
+      this.val = value
     },
     closeDialog () {
       this.dialog = !this.dialog
@@ -87,8 +87,8 @@ export default {
   },
   async created () {
     let user = await this.getUser()
-    this.usersClubs = await this.getUsersByClub(user.club)    
-    let plantrainings = await this.getPlanTrainings(user)    
+    this.usersClubs = await this.getUsersByClub(user.club)
+    let plantrainings = await this.getPlanTrainings(user)
     plantrainings.forEach(async plantraining => {
       let trainings = await this.getTrainings(plantraining.id)
       for (let i = 0; i < trainings.length; i++) {

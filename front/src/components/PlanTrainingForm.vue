@@ -3,10 +3,10 @@
     <v-layout wrap>
       <v-flex xs12 sm2 md12>
         <h3>Name</h3>
-        <v-text-field 
-          @focus="newPlanTraining()" 
-          v-model="plantraining.name" 
-          label="Name" 
+        <v-text-field
+          @focus="newPlanTraining()"
+          v-model="plantraining.name"
+          label="Name"
           required/>
       </v-flex>
       <v-flex xs12 sm2 md12>
@@ -20,11 +20,11 @@
       </v-flex>
       <v-flex xs12 sm2 md12>
         <h3>Description</h3>
-        <v-textarea 
+        <v-textarea
           @focus="newPlanTraining()"
-          outline 
-          v-model="plantraining.description" 
-          label="Description" 
+          outline
+          v-model="plantraining.description"
+          label="Description"
           required/>
       </v-flex>
     </v-layout>
@@ -42,14 +42,14 @@ export default {
       plantraining: {
         user: [],
         name: '',
-        description: '',
+        description: ''
       },
       value: []
     }
   },
   methods: {
     newPlanTraining () {
-      this.$emit('plantraining',this.plantraining)
+      this.$emit('plantraining', this.plantraining)
     },
     ...mapActions({
       getUsersByClub: GET_USERS_BY_CLUB
@@ -57,7 +57,7 @@ export default {
   },
   computed: {
     ...mapState({
-      usersClub: state => state.usersClub,
+      usersClub: state => state.usersClub
     })
   }
 }

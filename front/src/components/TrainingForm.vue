@@ -18,8 +18,8 @@
 
       <v-flex xs12 sm2 md12>
         <h3>Name</h3>
-        <v-text-field 
-        @focus="newTraining()" 
+        <v-text-field
+        @focus="newTraining()"
         v-model="training.name" label="Name" required/>
       </v-flex>
       <date-time-picker
@@ -28,8 +28,8 @@
       />
       <v-flex xs12 sm2 md12>
         <h3>Description</h3>
-        <v-textarea 
-        @focus="newTraining()" 
+        <v-textarea
+        @focus="newTraining()"
         outline v-model="training.description" label="Name" required/>
       </v-flex>
 
@@ -51,7 +51,7 @@ export default {
         name: '',
         description: '',
         timetraining: 0
-      },
+      }
     }
   },
   methods: {
@@ -61,7 +61,7 @@ export default {
           name: 'speed'
         }
       ]
-      this.$emit('training',this.training)
+      this.$emit('training', this.training)
     },
     getTechniqueTraining () {
       this.training.activitities = [
@@ -69,7 +69,7 @@ export default {
           name: 'technique'
         }
       ]
-      this.$emit('training',this.training)
+      this.$emit('training', this.training)
     },
     getEnduranceTraining () {
       this.training.activitities = [
@@ -77,15 +77,15 @@ export default {
           name: 'endurance'
         }
       ]
-      this.$emit('training',this.training)
+      this.$emit('training', this.training)
     },
     newTraining () {
-      this.$emit('training',this.training)
+      this.$emit('training', this.training)
     },
     getEntryDate (value) {
       this.training.timetraining = value
     }
-  },
+  }
 }
 </script>
 

@@ -4,7 +4,6 @@ import PlanTrainingClient from './PlanTrainingClient'
 import TrainingClient from './TrainingClient'
 import ActivityClient from './ActivityClient'
 
-
 export const userClient = UserClient(restClient)
 export const planTrainingClient = PlanTrainingClient(restClient)
 export const trainingClient = TrainingClient(restClient)

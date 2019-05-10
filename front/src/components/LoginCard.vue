@@ -49,8 +49,8 @@ export default {
       this.$router.push(route)
     },
     async makeLogin () {
-      await this.login(Object.assign({},this.user))
-      if (sessionStorage.getItem("token")) {
+      await this.login(Object.assign({}, this.user))
+      if (sessionStorage.getItem('token')) {
         this.goTo('/profile')
       } else {
         this.check = false

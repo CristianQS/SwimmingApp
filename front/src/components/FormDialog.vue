@@ -34,11 +34,11 @@ export default {
   },
   props: {
     methods: { type: Object, required: true },
-    newUpdate: { type: Object, required: false },
+    newUpdate: { type: Object, required: false }
   },
   data () {
     return {
-      dialog: false,
+      dialog: false
     }
   },
   methods: {

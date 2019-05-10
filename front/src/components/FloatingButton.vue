@@ -16,8 +16,8 @@
 <script>
 export default {
   name: 'FloatingButton',
-  props:{
-    color: { type: String, required: false, default: 'green'}
+  props: {
+    color: { type: String, required: false, default: 'green' }
   }
 }
 </script>

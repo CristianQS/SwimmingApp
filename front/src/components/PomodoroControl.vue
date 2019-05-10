@@ -18,7 +18,7 @@
 <script>
 export default {
   name: 'PomodoroControl',
-  data() {
+  data () {
     return {
       isTimerActive: false
     }
@@ -45,7 +45,6 @@ export default {
 </script>
 
 <style scoped>
-
 
 button:not(:disabled) {
   cursor: pointer;

@@ -26,7 +26,7 @@
       </training-card>
     </div>
     <floating-button @click.native="dialog = !dialog">add</floating-button>
-    <add-dialog 
+    <add-dialog
       :dialog="dialog"
       @isActivated="isDialogActivated"
     >
@@ -81,7 +81,7 @@ export default {
       this.train = value
     },
     updateInstance (value) {
-      this.updatetraining=value
+      this.updatetraining = value
     },
     closeDialog () {
       this.dialog = !this.dialog
@@ -91,7 +91,7 @@ export default {
         plantraining_id: this.idplan,
         name: this.train.name,
         description: this.train.description,
-        timetraining: this.train.timetraining,
+        timetraining: this.train.timetraining
       }
       this.addTraining(request)
       this.dialog = !this.dialog
@@ -110,7 +110,7 @@ export default {
   computed: {
     ...mapState({
       trainings: state => state.trainings
-    }),
+    })
   },
   created () {
     this.getTrainings(this.$route.params.idPlan)

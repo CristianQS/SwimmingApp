@@ -10,7 +10,7 @@
       <v-card-text>
         <v-text-field label="Username" v-model="editUser.username"></v-text-field>
         <v-text-field type="password" label="Password" v-model="password"></v-text-field>
-        <v-text-field type="password" label="Confirm Password" 
+        <v-text-field type="password" label="Confirm Password"
         :disabled="diabledField" v-model="confirmPassword"></v-text-field>
         <v-textarea label="Description" outline v-model="editUser.description"></v-textarea>
       </v-card-text>
@@ -33,10 +33,10 @@ export default {
     return {
       dialog: false,
       editUser: {},
-      password:"",
-      confirmPassword:""
+      password: '',
+      confirmPassword: ''
     }
-  },  
+  },
   methods: {
     closeDialog () {
       this.dialog = !this.dialog
@@ -46,7 +46,7 @@ export default {
         if (this.password.length > 0) {
           this.editUser.password = this.password
         }
-        this.$emit('modifyUser',this.editUser)
+        this.$emit('modifyUser', this.editUser)
         this.dialog = !this.dialog
       } else {
 
@@ -63,8 +63,8 @@ export default {
   },
   async created () {
     let user = await this.getUser()
-    this.editUser = Object.assign({},user)
-    this.editUser.password =""
+    this.editUser = Object.assign({}, user)
+    this.editUser.password = ''
   }
 }
 </script>

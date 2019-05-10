@@ -1,6 +1,6 @@
 <template>
   <v-card class="card">
-    <v-layout> 
+    <v-layout>
       <v-card-text>
         <v-layout align-center wrap>
           <v-flex xs2 sm4 md1>
