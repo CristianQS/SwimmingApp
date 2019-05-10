@@ -9,14 +9,21 @@
        ${training.style} (${training.exercise})` }}</p>
       </v-card-text>
       <div>
-        <v-btn color="blue" dark @click="clonePlan()">Clonar</v-btn>
+        <v-btn color="black" v-if="training.training_id" dark @click="goTo('CHRONOMETER',{})">
+          <v-icon >alarm</v-icon>
+        </v-btn>
+        <v-btn color="blue" dark @click="clonePlan()">
+          <v-icon >file_copy</v-icon>
+        </v-btn>
         <form-dialog
           :methods="methods"
           :newUpdate="newUpdate"
         >
           <slot name="modify"></slot>
         </form-dialog>
-        <v-btn color="red" dark @click="deletePlan()">Eliminar</v-btn>
+        <v-btn color="red" dark @click="deletePlan()">
+          <v-icon >delete</v-icon>
+        </v-btn>
       </div>
     </v-layout>
   </v-card>

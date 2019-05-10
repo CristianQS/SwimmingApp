@@ -5,9 +5,9 @@
         <div class="timer">
           <span class="timer__countdown js-countdown">{{chronoString}}</span>
         </div>
-      </div>   
+      </div>
     </main>
-    <pomodoro-control 
+    <pomodoro-control
       @start="startChrono"
       @reset="resetChrono"
       @stop="stopChrono"
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import PomodoroControl from './PomodoroControl.vue';
+import PomodoroControl from './PomodoroControl.vue'
 
 export default {
   name: 'Pomodoro',
@@ -33,15 +33,15 @@ export default {
     }
   },
   methods: {
-    startChrono() {
+    startChrono () {
       this.timer = setInterval(() => {
         this.hundredths += 1
-        if(this.hundredths == 100){
+        if (this.hundredths === 100) {
           this.hundredths = 0
           this.seconds += 1
-          this.getSeconds ()
+          this.getSeconds()
         }
-      },10)
+      }, 10)
     },
     resetChrono () {
       this.hundredths = 0
@@ -49,24 +49,24 @@ export default {
       this.minutes = 0
       this.stopChrono()
     },
-    stopChrono() {
+    stopChrono () {
       clearInterval(this.timer)
     },
     getSeconds () {
-      if(this.seconds == 60){
+      if (this.seconds === 60) {
         this.seconds = 0
         this.minutes += 1
       }
     }
-  }, 
+  },
   computed: {
     chronoString () {
       var hundredths = this.hundredths
       var seconds = this.seconds
       var minutes = this.minutes
-      if(this.hundredths < 10) hundredths= `0${this.hundredths}`
-      if(this.seconds < 10) seconds= `0${this.seconds}`
-      if(this.minutes < 10) minutes= `0${this.minutes}`
+      if (this.hundredths < 10) hundredths = `0${this.hundredths}`
+      if (this.seconds < 10) seconds = `0${this.seconds}`
+      if (this.minutes < 10) minutes = `0${this.minutes}`
       return `${minutes}:${seconds}.${hundredths}`
     }
   }
@@ -81,20 +81,20 @@ export default {
   line-height: 1.5;
   color: #fff;
   text-align: center;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased
 }
 .site__content {
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center
 }
 
 .container {
   padding: 0 1rem;
   margin: 0 auto;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1200px
 }
 
 .timer {
@@ -106,7 +106,7 @@ export default {
   max-width: 224px;
   height: 224px;
   border: 4px solid #fff;
-  border-radius: 50%;
+  border-radius: 50%
 }
 
 .timer::before,
@@ -118,7 +118,7 @@ export default {
   left: 50%;
   border: 1px solid rgba(255, 255, 255, .25);
   border-radius: 50%;
-  transform: translate(-50%, -50%);  
+  transform: translate(-50%, -50%)
 }
 
 .timer::after {
@@ -128,15 +128,15 @@ export default {
 
 .timer::before {
   width: 120%;
-  height: 120%; 
+  height: 120%
 }
 
 .timer__session {
-  font-weight: 500;
+  font-weight: 500
 }
 
 .timer__countdown {
-  font-size: 2.5rem;
+  font-size: 2.5rem
 }
 
 </style>
