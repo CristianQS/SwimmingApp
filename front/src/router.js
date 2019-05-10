@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store/store'
-import { LOGIN, SIGN_UP, PROFILE, SEARCH, TRAININGS, ACTIVITIES } from './constants/routerConstant'
+import { LOGIN, SIGN_UP, PROFILE, SEARCH, TRAININGS, ACTIVITIES,
+CHRONOMETER } from './constants/routerConstant'
 import LoginView from './views/Login.vue'
 import SignUpView from './views/SignUp.vue'
 import ProfileView from './views/Profile.vue'
@@ -9,6 +10,7 @@ import InitialLoader from './views/InitialLoader.vue'
 import SeacherView from './views/SeacherView.vue'
 import Trainings from './views/Trainings.vue'
 import Activities from './views/Activities.vue'
+import Chronometer from './views/Chronometer.vue'
 import { AUTHENTICATE } from './store/types/UserTypes'
 
 
@@ -65,6 +67,14 @@ export default new Router({
       path: ACTIVITIES,
       name: 'ACTIVITIES',
       component: Activities,
+      beforeEnter: (to, from, next) => {
+        checkUser(to, from, next)
+      },
+    },
+    {
+      path: CHRONOMETER,
+      name: 'CHRONOMETER',
+      component: Chronometer,
       beforeEnter: (to, from, next) => {
         checkUser(to, from, next)
       },
