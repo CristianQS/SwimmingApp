@@ -9,19 +9,21 @@
        ${training.style} (${training.exercise})` }}</p>
       </v-card-text>
       <div>
-        <v-btn color="black" v-if="training.training_id" dark @click="goTo('CHRONOMETER',{})">
+        <v-btn color="black" v-if="training.training_id && user.userType === 2" 
+          dark @click="goTo('CHRONOMETER',{})">
           <v-icon >alarm</v-icon>
         </v-btn>
-        <v-btn color="blue" dark @click="clonePlan()">
+        <v-btn v-if="user.userType === 2" color="blue" dark @click="clonePlan()">
           <v-icon >file_copy</v-icon>
         </v-btn>
         <form-dialog
+          v-if="user.userType === 2"
           :methods="methods"
           :newUpdate="newUpdate"
         >
           <slot name="modify"></slot>
         </form-dialog>
-        <v-btn color="red" dark @click="deletePlan()">
+        <v-btn v-if="user.userType === 2" color="red" dark @click="deletePlan()">
           <v-icon >delete</v-icon>
         </v-btn>
       </div>
@@ -31,6 +33,7 @@
 
 <script>
 import FormDialog from './FormDialog.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'TrainingCard',
@@ -62,7 +65,13 @@ export default {
       return `${training.series}x${training.meters}
        ${training.style} (${training.exercise})`
     }
-  }
+  },
+  computed: {
+    ...mapState({
+      trainings: state => state.trainings,
+      user: state => state.user
+    })
+  },
 }
 </script>
 

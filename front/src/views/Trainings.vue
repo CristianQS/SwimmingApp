@@ -28,7 +28,8 @@
       </template>
       </training-card>
     </div>
-    <floating-button @click.native="dialog = !dialog">add</floating-button>
+    <floating-button v-if="user.userType === 2" 
+      @click.native="dialog = !dialog">add</floating-button>
     <add-dialog
       :dialog="dialog"
       @isActivated="isDialogActivated"
@@ -113,7 +114,8 @@ export default {
   },
   computed: {
     ...mapState({
-      trainings: state => state.trainings
+      trainings: state => state.trainings,
+      user: state => state.user
     })
   },
   created () {

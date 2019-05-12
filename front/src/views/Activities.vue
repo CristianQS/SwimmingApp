@@ -62,7 +62,8 @@
         <p>There are not Calm Activities</p>
       </div>
     </div>
-    <floating-button @click.native="dialog = !dialog">
+    <floating-button v-if="user.userType === 2"
+    @click.native="dialog = !dialog">
       add
     </floating-button>
     <add-dialog
@@ -140,7 +141,8 @@ export default {
   },
   computed: {
     ...mapState({
-      activities: state => state.activities
+      activities: state => state.activities,
+      user: state => state.user
     }),
     activitiesWarn () {
       return this.activities.filter(activity => activity.type == "Warm up")

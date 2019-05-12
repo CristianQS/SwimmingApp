@@ -9,7 +9,8 @@
     <v-flex xs12 sm8 offset-sm2 md8>
       <tabs></tabs>
     </v-flex>
-    <floating-button @click.native="dialog = !dialog">
+    <floating-button v-if="user.userType === 2"
+      @click.native="dialog = !dialog">
       add
     </floating-button>
     <add-dialog
@@ -27,7 +28,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { ADD_TRAINING_PLAN, GET_PLANTRAININGS } from '../store/types/TrainingPlanTypes'
 import { GET_TRAININGS } from '../store/types/TrainingTypes'
 import { MODIFY_USER, AUTHENTICATE, GET_USERS_BY_CLUB } from '../store/types/UserTypes'
@@ -83,6 +84,11 @@ export default {
       updateUser: MODIFY_USER,
       getUser: AUTHENTICATE,
       getUsersByClub: GET_USERS_BY_CLUB
+    })
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user
     })
   },
   async created () {
