@@ -9,6 +9,7 @@
               label="Email"
               :error-messages="emailErrors"
               outline
+              @keydown.enter="makeLogin"
         />
         <v-text-field
             id="user_passwd"
@@ -18,6 +19,7 @@
             label="Password"
             type='password'
             outline
+            @keydown.enter="makeLogin"
         />
       </v-form>
   </v-card-text>
@@ -63,7 +65,7 @@ export default {
   computed: {
     emailErrors () {
       const errors = []
-      this.user.email === '' && errors.push('empty')
+      this.user.email === '' && errors.push('Email is empty')
       this.check === false && errors.push('User does not exist')
       return errors
     }

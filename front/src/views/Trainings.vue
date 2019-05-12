@@ -8,6 +8,9 @@
         </v-flex>
       </v-layout>
       <h2>Plan de Entrenamiento</h2>
+      <div v-if="trainings.length === 0">
+        <p>Not Trainings Found</p>
+      </div>
       <training-card v-for="training in trainings"
           class="trainingCard"
           :key="training.id"
@@ -73,7 +76,8 @@ export default {
       },
       idplan: this.$route.params.idPlan,
       train: {},
-      updatetraining: {}
+      updatetraining: {},
+      error: false
     }
   },
   methods: {
@@ -113,7 +117,7 @@ export default {
     })
   },
   created () {
-    this.getTrainings(this.$route.params.idPlan)
+      this.getTrainings(this.$route.params.idPlan)
   }
 }
 </script>

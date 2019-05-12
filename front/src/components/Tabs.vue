@@ -13,6 +13,9 @@
           @end="drag = false"
         > -->
           <!-- <transition-group type="transition" :name="!drag ? 'flip-list' : null"> -->
+            <div v-if="plantraings.length === 0">
+              <p>Not Trainings Found</p>
+            </div>
             <training-card v-for="plantraing in plantraings"
               class="trainingCard"
               :key="plantraing.id"

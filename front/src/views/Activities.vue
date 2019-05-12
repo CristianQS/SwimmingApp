@@ -7,19 +7,60 @@
           <v-text-field prepend-inner-icon="search"></v-text-field>
         </v-flex>
       </v-layout>
-      <h2>Entreno</h2>
-      <training-card v-for="activity in activities"
-          class="trainingCard"
-          :key="activity.id"
-          :methods="methods"
-          :training="activity"
-          :newUpdate="updateActivity"
-          >
-          <template v-slot:modify>
-            <activity-modify-form :activity="activity"
-            @updatedActivity="updateInstance"/>
-          </template>
-      </training-card>
+      <h2>Warp Up</h2>
+      <div v-if="activitiesWarn.length > 0">
+        <training-card v-for="activity in activitiesWarn"
+            class="trainingCard"
+            :key="activity.id"
+            :methods="methods"
+            :training="activity"
+            :newUpdate="updateActivity"
+            >
+            <template v-slot:modify>
+              <activity-modify-form :activity="activity"
+              @updatedActivity="updateInstance"/>
+            </template>
+        </training-card>
+      </div>
+      <div v-else>
+        <p>There are not Warn Up Activities</p>
+      </div>
+      <h2>Training</h2>
+      <div v-if="activitiesTrain.length > 0">
+        <training-card v-for="activity in activitiesTrain"
+            class="trainingCard"
+            :key="activity.id"
+            :methods="methods"
+            :training="activity"
+            :newUpdate="updateActivity"
+            >
+            <template v-slot:modify>
+              <activity-modify-form :activity="activity"
+              @updatedActivity="updateInstance"/>
+            </template>
+        </training-card>
+      </div>
+      <div v-else>
+        <p>There are not Training Activities</p>
+      </div>
+      <h2>Come to Calm</h2>
+      <div v-if="activitiesCalm.length > 0">
+        <training-card v-for="activity in activitiesCalm"
+            class="trainingCard"
+            :key="activity.id"
+            :methods="methods"
+            :training="activity"
+            :newUpdate="updateActivity"
+            >
+            <template v-slot:modify>
+              <activity-modify-form :activity="activity"
+              @updatedActivity="updateInstance"/>
+            </template>
+        </training-card>
+      </div>
+      <div v-else>
+        <p>There are not Calm Activities</p>
+      </div>
     </div>
     <floating-button @click.native="dialog = !dialog">
       add
@@ -100,7 +141,16 @@ export default {
   computed: {
     ...mapState({
       activities: state => state.activities
-    })
+    }),
+    activitiesWarn () {
+      return this.activities.filter(activity => activity.type == "Warm up")
+    },
+    activitiesTrain () {
+      return this.activities.filter(activity => activity.type == "Train")
+    },
+    activitiesCalm () {
+      return this.activities.filter(activity => activity.type == "Calm")
+    }
   },
   created () {
     let params = {

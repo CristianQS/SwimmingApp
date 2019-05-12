@@ -15,10 +15,10 @@ export default {
     state.activities.splice(index, 1, request)
   },
   [DELETE_ACTIVITY]: (state, id) => {
-    state.activities = state.activities.filter(plan => plan.id != id)
+    state.activities = state.activities.filter(plan => plan.id !== id)
   }
 }
-function mapActivity(activities) {
+function mapActivity (activities) {
   return {
     id: activities.id,
     training_id: activities.training,
@@ -31,4 +31,3 @@ function mapActivity(activities) {
     rhythm: activities.rhythm
   }
 }
-
