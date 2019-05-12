@@ -8,7 +8,7 @@
           prepend-inner-icon="search"></v-text-field>
         </v-flex>
       </v-layout>
-      <h2>Warp Up</h2>
+      <h2>Warn Up</h2>
       <div v-if="activitiesWarn.length > 0">
         <training-card v-for="activity in activitiesWarn"
             class="trainingCard"
