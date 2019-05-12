@@ -4,8 +4,8 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <strong> 
-          <a @click="goTo('PROFILE',{})">TrainingsPlan/</a><span>{{idplan}}</span>
-          <a @click="goTo('TRAININGS',{idPlan:idplan})">/Trainings/</a>
+          <a v-if="idplan" @click="goTo('PROFILE',{})">TrainingsPlan/</a><span>{{idplan}}</span>
+          <a v-if="idplan" @click="goTo('TRAININGS',{idPlan:idplan})">/Trainings/</a>
           <span v-if="idtraining">{{idtraining}}/Activities</span>
       </strong>
     </v-toolbar>
