@@ -4,7 +4,8 @@
     <div>
       <v-layout align-center justify-center>
         <v-flex xs12 md6>
-          <v-text-field prepend-inner-icon="search"></v-text-field>
+          <v-text-field v-model="searcherValue" 
+          prepend-inner-icon="search"></v-text-field>
         </v-flex>
       </v-layout>
       <h2>Warp Up</h2>
@@ -112,7 +113,8 @@ export default {
       idplan: this.$route.params.idPlan,
       idtraining: this.$route.params.idTraining,
       newActivity: {},
-      updateActivity: {}
+      updateActivity: {},
+      searcherValue: ""
     }
   },
   methods: {
@@ -132,6 +134,10 @@ export default {
     updateInstance (value) {
       this.updateActivity = value
     },
+    activityString (activity) {
+      return `${activity.exercise}${activity.meters}
+      ${activity.style}${activity.type}${activity.rhythm}`.toLowerCase()
+    },
     ...mapActions({
       getActivities: GET_ACTIVITIES,
       addActivity: ADD_ACTIVITY,
@@ -145,14 +151,17 @@ export default {
       user: state => state.user
     }),
     activitiesWarn () {
-      return this.activities.filter(activity => activity.type == "Warm up")
+      return this.searchTraining.filter(activity => activity.type == "Warm up")
     },
     activitiesTrain () {
-      return this.activities.filter(activity => activity.type == "Train")
+      return this.searchTraining.filter(activity => activity.type == "Train")
     },
     activitiesCalm () {
-      return this.activities.filter(activity => activity.type == "Calm")
-    }
+      return this.searchTraining.filter(activity => activity.type == "Calm")
+    },
+    searchTraining () {
+      return this.activities.filter(activity => this.activityString(activity).includes(this.searcherValue))
+    },
   },
   created () {
     let params = {
