@@ -8,8 +8,17 @@
           prepend-inner-icon="search"></v-text-field>
         </v-flex>
       </v-layout>
-      <h2>Warn Up</h2>
-      <div v-if="activitiesWarn.length > 0">
+      <v-flex class="wrapper wrapper__center progressCircular">
+        <v-progress-circular
+          v-if="wait"
+          :size="150"
+          :width="7"
+          color="black"
+          indeterminate
+        />
+      </v-flex>
+      <h2 v-if="!wait">Warn Up</h2>
+      <div v-if="activitiesWarn.length > 0 && !wait">
         <training-card v-for="activity in activitiesWarn"
             class="trainingCard"
             :key="activity.id"
@@ -23,11 +32,11 @@
             </template>
         </training-card>
       </div>
-      <div v-else>
+      <div v-if="activitiesWarn.length === 0 && !wait">
         <p>There are not Warn Up Activities</p>
       </div>
-      <h2>Training</h2>
-      <div v-if="activitiesTrain.length > 0">
+      <h2 v-if="!wait">Training</h2>
+      <div v-if="activitiesTrain.length > 0 && !wait">
         <training-card v-for="activity in activitiesTrain"
             class="trainingCard"
             :key="activity.id"
@@ -41,11 +50,11 @@
             </template>
         </training-card>
       </div>
-      <div v-else>
+      <div v-if="activitiesTrain.length === 0 && !wait">
         <p>There are not Training Activities</p>
       </div>
-      <h2>Come to Calm</h2>
-      <div v-if="activitiesCalm.length > 0">
+      <h2 v-if="!wait">Come to Calm</h2>
+      <div v-if="activitiesCalm.length > 0 && !wait">
         <training-card v-for="activity in activitiesCalm"
             class="trainingCard"
             :key="activity.id"
@@ -59,7 +68,7 @@
             </template>
         </training-card>
       </div>
-      <div v-else>
+      <div v-if="activitiesCalm.length === 0 && !wait">
         <p>There are not Calm Activities</p>
       </div>
     </div>
@@ -114,7 +123,8 @@ export default {
       idtraining: this.$route.params.idTraining,
       newActivity: {},
       updateActivity: {},
-      searcherValue: ""
+      searcherValue: "",
+      wait: false
     }
   },
   methods: {
@@ -163,12 +173,14 @@ export default {
       return this.activities.filter(activity => this.activityString(activity).includes(this.searcherValue))
     },
   },
-  created () {
+  async created () {
+    this.wait = true
     let params = {
       plantraining_id: this.idplan,
       training_id: this.idtraining
     }
-    this.getActivities(params)
+    await this.getActivities(params)
+    this.wait = false
   }
 }
 </script>
@@ -176,5 +188,18 @@ export default {
 <style>
 .trainingCard {
   cursor: pointer;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap
+}
+.wrapper__center{
+  align-items: center
+}
+
+.progressCircular {
+  margin: 15px 0;
 }
 </style>

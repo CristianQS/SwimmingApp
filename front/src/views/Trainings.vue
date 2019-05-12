@@ -11,9 +11,18 @@
         </v-flex>
       </v-layout>
       <h2>Plan de Entrenamiento</h2>
-      <div v-if="trainings.length === 0">
+      <div v-if="trainings.length === 0 && !wait">
         <p>Not Trainings Found</p>
       </div>
+      <v-flex class="wrapper wrapper__center progressCircular">
+        <v-progress-circular
+          v-if="wait"
+          :size="150"
+          :width="7"
+          color="black"
+          indeterminate
+        />
+      </v-flex>
       <training-card v-for="training in searchTraining"
           class="trainingCard"
           :key="training.id"
@@ -82,7 +91,8 @@ export default {
       train: {},
       updatetraining: {},
       error: false,
-      searcherValue: ""
+      searcherValue: "",
+      wait: false
     }
   },
   methods: {
@@ -125,14 +135,29 @@ export default {
       return this.trainings.filter(training => training.name.toLowerCase().includes(this.searcherValue))
     },
   },
-  created () {
-      this.getTrainings(this.$route.params.idPlan)
+  async created () {
+    this.wait = true
+    await this.getTrainings(this.$route.params.idPlan)
+    this.wait = false
   }
 }
 </script>
 
-<style>
+<style scoped>
 .trainingCard {
   cursor: pointer;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap
+}
+.wrapper__center{
+  align-items: center
+}
+
+.progressCircular {
+  margin: 15px 0;
 }
 </style>

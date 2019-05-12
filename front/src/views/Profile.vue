@@ -3,11 +3,20 @@
     <v-flex xs12 sm8 offset-sm2 md8>
       <card-profile @modifyUser="modifyUser"/>
     </v-flex>
-    <v-flex xs12 sm8 offset-sm2 md8>
-      <calendar :events="events"></calendar>
+    <v-flex class="wrapper wrapper__center progressCircular">
+      <v-progress-circular
+        v-if="wait"
+        :size="150"
+        :width="7"
+        color="black"
+        indeterminate
+      />
     </v-flex>
     <v-flex xs12 sm8 offset-sm2 md8>
-      <tabs></tabs>
+      <calendar v-if="!wait" :events="events"></calendar>
+    </v-flex>
+    <v-flex xs12 sm8 offset-sm2 md8>
+      <tabs v-if="!wait"></tabs>
     </v-flex>
     <floating-button v-if="user.userType === 2"
       @click.native="dialog = !dialog">
@@ -54,7 +63,8 @@ export default {
       dialog: false,
       plantraining: {},
       events: [],
-      usersClubs: []
+      usersClubs: [],
+      wait: ""
     }
   },
   methods: {
@@ -92,6 +102,7 @@ export default {
     })
   },
   async created () {
+    this.wait = true
     let user = await this.getUser()
     this.usersClubs = await this.getUsersByClub(user.club)
     let plantrainings = await this.getPlanTrainings(user)
@@ -103,6 +114,7 @@ export default {
         this.events.push(trainings[i])
       }
     })
+    this.wait = false
   }
 }
 </script>
@@ -113,5 +125,17 @@ export default {
 }
 .card__img {
   margin: 20px 0 0 10px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap
+}
+.wrapper__center{
+  align-items: center
+}
+
+.progressCircular {
+  margin: 15px 0;
 }
 </style>
