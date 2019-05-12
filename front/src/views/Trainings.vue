@@ -4,14 +4,17 @@
     <div>
       <v-layout align-center justify-center>
         <v-flex xs12 md6>
-          <v-text-field prepend-inner-icon="search"></v-text-field>
+          <v-text-field 
+          v-model="searcherValue"
+          prepend-inner-icon="search"
+          ></v-text-field>
         </v-flex>
       </v-layout>
       <h2>Plan de Entrenamiento</h2>
       <div v-if="trainings.length === 0">
         <p>Not Trainings Found</p>
       </div>
-      <training-card v-for="training in trainings"
+      <training-card v-for="training in searchTraining"
           class="trainingCard"
           :key="training.id"
           :url="url"
@@ -78,7 +81,8 @@ export default {
       idplan: this.$route.params.idPlan,
       train: {},
       updatetraining: {},
-      error: false
+      error: false,
+      searcherValue: ""
     }
   },
   methods: {
@@ -116,7 +120,10 @@ export default {
     ...mapState({
       trainings: state => state.trainings,
       user: state => state.user
-    })
+    }),
+    searchTraining () {
+      return this.trainings.filter(training => training.name.toLowerCase().includes(this.searcherValue))
+    },
   },
   created () {
       this.getTrainings(this.$route.params.idPlan)
