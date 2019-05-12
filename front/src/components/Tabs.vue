@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-tabs grow>
+    <!-- <v-tabs grow>
       <v-tab>
       Training Plan
       </v-tab>
-      <v-tab-item>
+      <v-tab-item> -->
         <!-- <draggable
           class="list-group"
           v-model="plantraings"
@@ -13,6 +13,9 @@
           @end="drag = false"
         > -->
           <!-- <transition-group type="transition" :name="!drag ? 'flip-list' : null"> -->
+            <div v-if="plantraings.length === 0">
+              <p>Not Trainings Found</p>
+            </div>
             <training-card v-for="plantraing in plantraings"
               class="trainingCard"
               :key="plantraing.id"
@@ -30,19 +33,19 @@
             </training-card>
           <!-- </transition-group> -->
         <!-- </draggable> -->
-      </v-tab-item>
+      <!-- </v-tab-item>
       <v-tab>
         Graphics
       </v-tab>
       <v-tab-item></v-tab-item>
-    </v-tabs>
+    </v-tabs> -->
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import { GET_PLANTRAININGS, DELETE_TRAINING_PLAN, 
-ADD_TRAINING_PLAN, MODIFY_TRAINING_PLAN, CLONE_TRAINING_PLAN } from '../store/types/TrainingPlanTypes'
+import { GET_PLANTRAININGS, DELETE_TRAINING_PLAN,
+  ADD_TRAINING_PLAN, MODIFY_TRAINING_PLAN, CLONE_TRAINING_PLAN } from '../store/types/TrainingPlanTypes'
 import TrainingCard from './TrainingCard.vue'
 import ModifyForm from './ModifyForm.vue'
 import draggable from 'vuedraggable'
@@ -69,24 +72,24 @@ export default {
   methods: {
     ...mapActions({
       getPlanTrainings: GET_PLANTRAININGS,
-      clonePlanTrainings:CLONE_TRAINING_PLAN,
+      clonePlanTrainings: CLONE_TRAINING_PLAN,
       deletePlanTrainings: DELETE_TRAINING_PLAN,
       modifyPlanTraining: MODIFY_TRAINING_PLAN
     }),
     updateInstance (value) {
-      this.params=value
+      this.params = value
     }
   },
   computed: {
     ...mapState({
       plantraings: state => state.plantrainings
     }),
-    dragOptions() {
+    dragOptions () {
       return {
         animation: 200,
-        group: "description",
+        group: 'description',
         disabled: false,
-        ghostClass: "ghost"
+        ghostClass: 'ghost'
       }
     }
   }

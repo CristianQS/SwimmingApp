@@ -7,9 +7,9 @@
     <v-btn flat icon>
       <v-icon color="blue">alarm</v-icon>
     </v-btn>
-    <v-btn @click="goTo('/search')" flat icon>
+    <!-- <v-btn @click="goTo('/search')" flat icon>
       <v-icon color="blue">search</v-icon>
-    </v-btn>
+    </v-btn> -->
     <v-btn @click="goTo('/profile')" flat icon>
       <v-icon color="blue">person</v-icon>
     </v-btn>

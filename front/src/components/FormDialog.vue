@@ -1,7 +1,9 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn color="yellow" v-on="on">Modificar</v-btn>
+      <v-btn color="yellow" v-on="on">
+        <v-icon >edit</v-icon>
+      </v-btn>
     </template>
     <v-card>
       <v-card-title>
@@ -32,11 +34,11 @@ export default {
   },
   props: {
     methods: { type: Object, required: true },
-    newUpdate: { type: Object, required: false },
+    newUpdate: { type: Object, required: false }
   },
   data () {
     return {
-      dialog: false,
+      dialog: false
     }
   },
   methods: {

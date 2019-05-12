@@ -37,7 +37,7 @@ export default {
   },
   watch: {
     isActivated: function () {
-      this.$emit('isActivated',this.isActivated)
+      this.$emit('isActivated', this.isActivated)
     },
     dialog: function () {
       this.isActivated = this.dialog

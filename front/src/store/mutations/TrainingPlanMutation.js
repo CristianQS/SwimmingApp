@@ -8,9 +8,9 @@ export default {
   [ADD_TRAINING_PLAN]: (state, plantraining) => {
     state.plantrainings.push(plantraining)
   },
-  [MODIFY_TRAINING_PLAN]: (state,plantraining) => {
+  [MODIFY_TRAINING_PLAN]: (state, plantraining) => {
     var index = state.plantrainings.findIndex(plan => plan.id === plantraining.id)
-    state.plantrainings.splice(index,1,plantraining)
+    state.plantrainings.splice(index, 1, plantraining)
   },
   [DELETE_TRAINING_PLAN]: (state, id) => {
     state.plantrainings = state.plantrainings.filter(plan => plan.id != id)

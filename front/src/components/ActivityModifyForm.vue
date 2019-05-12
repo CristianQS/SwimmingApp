@@ -2,14 +2,14 @@
   <v-container grid-list-md>
     <v-layout wrap>
       <v-flex xs12 sm2 md1>
-        <v-text-field v-model="updatedActivity.series" label="Series" type="Number" value="1" 
+        <v-text-field v-model="updatedActivity.series" label="Series" type="Number" value="1"
           @focus="passActivity()"  required/>
       </v-flex>
       <v-flex xs12 sm2 md1>
         <v-text-field value="X" disabled/>
       </v-flex>
       <v-flex xs12 sm2 md2>
-        <v-text-field v-model="updatedActivity.meters" label="Meters" type="Number" 
+        <v-text-field v-model="updatedActivity.meters" label="Meters" type="Number"
           @focus="passActivity()" required/>
       </v-flex>
       <v-flex xs12 sm2>
@@ -56,16 +56,16 @@
 export default {
   name: 'ActivityModifyForm',
   props: {
-    activity: { type: Object, required: true}
+    activity: { type: Object, required: true }
   },
   data () {
     return {
-      updatedActivity : Object.assign({},this.activity)
+      updatedActivity: Object.assign({}, this.activity)
     }
   },
   methods: {
-    passActivity() {
-      this.$emit('updatedActivity',this.updatedActivity)
+    passActivity () {
+      this.$emit('updatedActivity', this.updatedActivity)
     }
   }
 }

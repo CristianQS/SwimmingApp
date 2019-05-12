@@ -2,14 +2,14 @@
   <v-container grid-list-md>
     <v-layout wrap>
       <v-flex xs12 sm2 md1>
-        <v-text-field v-model="activity.series" label="Series" type="Number" value="1" 
+        <v-text-field v-model="activity.series" label="Series" type="Number" value="1"
           @focus="passActivity()"  required/>
       </v-flex>
       <v-flex xs12 sm2 md1>
         <v-text-field value="X" disabled/>
       </v-flex>
       <v-flex xs12 sm2 md2>
-        <v-text-field v-model="activity.meters" label="Meters" type="Number" 
+        <v-text-field v-model="activity.meters" label="Meters" type="Number"
           @focus="passActivity()" required/>
       </v-flex>
       <v-flex xs12 sm2>
@@ -57,7 +57,7 @@ export default {
   name: 'ActivityForm',
   data () {
     return {
-      activity : {
+      activity: {
         series: 1,
         meters: 100,
         exercise: '',
@@ -66,12 +66,12 @@ export default {
         rhythm: '',
         training_id: this.$route.params.idTraining,
         plantraining_id: this.$route.params.idPlan
-      }   
+      }
     }
   },
   methods: {
     passActivity () {
-      this.$emit('passActivity',this.activity)
+      this.$emit('passActivity', this.activity)
     }
   }
 }

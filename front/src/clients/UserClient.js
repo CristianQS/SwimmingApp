@@ -1,4 +1,4 @@
-import { LOGIN, USERS_BY_ID, AUTHENTICATE, SIGN_UP, 
+import { LOGIN, USERS_BY_ID, AUTHENTICATE, SIGN_UP,
   USERS_BY_IDCLUB } from '../constants/apiRoutesConstants'
 import { sha256 } from 'js-sha256'
 
@@ -16,7 +16,7 @@ export default function userClient (restClient) {
   }
   function modifyUser (user) {
     user.password = sha256(user.password)
-    return restClient.put(USERS_BY_ID(user.id),user)
+    return restClient.put(USERS_BY_ID(user.id), user)
   }
   function getUsersByClub (id) {
     return restClient.get(USERS_BY_IDCLUB(id))

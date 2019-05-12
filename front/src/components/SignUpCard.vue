@@ -60,7 +60,7 @@ export default {
   name: 'SignUpCard',
   data () {
     return {
-      newUser : {
+      newUser: {
         username: '',
         email: '',
         userType: '',
@@ -69,9 +69,9 @@ export default {
       },
       confirmPassword: '',
       password: '',
-      roles: [{value:1, text:'swimmer'}, {value:2, text:'trainer'}],
-      club: [{ value: 1, text:'CN Las Palmas'}, {value: 2, text:'CN Fainagua C. Telde'},
-      {value: 3, text: 'CN Salinas Sta.Lucia'},{value: 4, text: 'CN Metropole'}]
+      roles: [{ value: 1, text: 'swimmer' }, { value: 2, text: 'trainer' }],
+      club: [{ value: 1, text: 'CN Las Palmas' }, { value: 2, text: 'CN Fainagua C. Telde' },
+        { value: 3, text: 'CN Salinas Sta.Lucia' }, { value: 4, text: 'CN Metropole' }]
     }
   },
   methods: {
@@ -79,7 +79,7 @@ export default {
       this.$router.push(route)
     },
     ...mapActions({
-      signUp : USER_SIGNUP
+      signUp: USER_SIGNUP
     }),
     async createUser () {
       try {

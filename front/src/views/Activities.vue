@@ -4,27 +4,79 @@
     <div>
       <v-layout align-center justify-center>
         <v-flex xs12 md6>
-          <v-text-field prepend-inner-icon="search"></v-text-field>
+          <v-text-field v-model="searcherValue" 
+          prepend-inner-icon="search"></v-text-field>
         </v-flex>
       </v-layout>
-      <h2>Entreno</h2>
-      <training-card v-for="activity in activities"
-          class="trainingCard"
-          :key="activity.id"
-          :methods="methods"
-          :training="activity"
-          :newUpdate="updateActivity"
-          >
-          <template v-slot:modify>
-            <activity-modify-form :activity="activity" 
-            @updatedActivity="updateInstance"/>
-          </template>
-      </training-card>
+      <v-flex class="wrapper wrapper__center progressCircular">
+        <v-progress-circular
+          v-if="wait"
+          :size="150"
+          :width="7"
+          color="black"
+          indeterminate
+        />
+      </v-flex>
+      <h2 v-if="!wait">Warn Up</h2>
+      <div v-if="activitiesWarn.length > 0 && !wait">
+        <training-card v-for="activity in activitiesWarn"
+            class="trainingCard"
+            :key="activity.id"
+            :methods="methods"
+            :training="activity"
+            :newUpdate="updateActivity"
+            >
+            <template v-slot:modify>
+              <activity-modify-form :activity="activity"
+              @updatedActivity="updateInstance"/>
+            </template>
+        </training-card>
+      </div>
+      <div v-if="activitiesWarn.length === 0 && !wait">
+        <p>There are not Warn Up Activities</p>
+      </div>
+      <h2 v-if="!wait">Training</h2>
+      <div v-if="activitiesTrain.length > 0 && !wait">
+        <training-card v-for="activity in activitiesTrain"
+            class="trainingCard"
+            :key="activity.id"
+            :methods="methods"
+            :training="activity"
+            :newUpdate="updateActivity"
+            >
+            <template v-slot:modify>
+              <activity-modify-form :activity="activity"
+              @updatedActivity="updateInstance"/>
+            </template>
+        </training-card>
+      </div>
+      <div v-if="activitiesTrain.length === 0 && !wait">
+        <p>There are not Training Activities</p>
+      </div>
+      <h2 v-if="!wait">Come to Calm</h2>
+      <div v-if="activitiesCalm.length > 0 && !wait">
+        <training-card v-for="activity in activitiesCalm"
+            class="trainingCard"
+            :key="activity.id"
+            :methods="methods"
+            :training="activity"
+            :newUpdate="updateActivity"
+            >
+            <template v-slot:modify>
+              <activity-modify-form :activity="activity"
+              @updatedActivity="updateInstance"/>
+            </template>
+        </training-card>
+      </div>
+      <div v-if="activitiesCalm.length === 0 && !wait">
+        <p>There are not Calm Activities</p>
+      </div>
     </div>
-    <floating-button @click.native="dialog = !dialog">
+    <floating-button v-if="user.userType === 2"
+    @click.native="dialog = !dialog">
       add
     </floating-button>
-    <add-dialog 
+    <add-dialog
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>
@@ -39,7 +91,7 @@
 </template>
 
 <script>
-import { mapActions, mapState} from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { GET_ACTIVITIES, ADD_ACTIVITY, MODIFY_ACTIVITY,
   DELETE_ACTIVITY } from '../store/types/ActivityTypes'
 import TrainingCard from '../components/TrainingCard.vue'
@@ -71,6 +123,8 @@ export default {
       idtraining: this.$route.params.idTraining,
       newActivity: {},
       updateActivity: {},
+      searcherValue: "",
+      wait: false
     }
   },
   methods: {
@@ -90,6 +144,10 @@ export default {
     updateInstance (value) {
       this.updateActivity = value
     },
+    activityString (activity) {
+      return `${activity.exercise}${activity.meters}
+      ${activity.style}${activity.type}${activity.rhythm}`.toLowerCase()
+    },
     ...mapActions({
       getActivities: GET_ACTIVITIES,
       addActivity: ADD_ACTIVITY,
@@ -99,15 +157,30 @@ export default {
   },
   computed: {
     ...mapState({
-      activities: state => state.activities
-    })
+      activities: state => state.activities,
+      user: state => state.user
+    }),
+    activitiesWarn () {
+      return this.searchTraining.filter(activity => activity.type == "Warm up")
+    },
+    activitiesTrain () {
+      return this.searchTraining.filter(activity => activity.type == "Train")
+    },
+    activitiesCalm () {
+      return this.searchTraining.filter(activity => activity.type == "Calm")
+    },
+    searchTraining () {
+      return this.activities.filter(activity => this.activityString(activity).includes(this.searcherValue))
+    },
   },
-  created () {
+  async created () {
+    this.wait = true
     let params = {
       plantraining_id: this.idplan,
-      training_id: this.idtraining,
+      training_id: this.idtraining
     }
-    this.getActivities(params)
+    await this.getActivities(params)
+    this.wait = false
   }
 }
 </script>
@@ -115,5 +188,18 @@ export default {
 <style>
 .trainingCard {
   cursor: pointer;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap
+}
+.wrapper__center{
+  align-items: center
+}
+
+.progressCircular {
+  margin: 15px 0;
 }
 </style>

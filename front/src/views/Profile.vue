@@ -3,16 +3,26 @@
     <v-flex xs12 sm8 offset-sm2 md8>
       <card-profile @modifyUser="modifyUser"/>
     </v-flex>
-    <v-flex xs12 sm8 offset-sm2 md8>
-      <calendar :events="events"></calendar>
+    <v-flex class="wrapper wrapper__center progressCircular">
+      <v-progress-circular
+        v-if="wait"
+        :size="150"
+        :width="7"
+        color="black"
+        indeterminate
+      />
     </v-flex>
     <v-flex xs12 sm8 offset-sm2 md8>
-      <tabs></tabs>
+      <calendar v-if="!wait" :events="events"></calendar>
     </v-flex>
-    <floating-button @click.native="dialog = !dialog">
+    <v-flex xs12 sm8 offset-sm2 md8>
+      <tabs v-if="!wait"></tabs>
+    </v-flex>
+    <floating-button v-if="user.userType === 2"
+      @click.native="dialog = !dialog">
       add
     </floating-button>
-    <add-dialog 
+    <add-dialog
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>
@@ -27,7 +37,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { ADD_TRAINING_PLAN, GET_PLANTRAININGS } from '../store/types/TrainingPlanTypes'
 import { GET_TRAININGS } from '../store/types/TrainingTypes'
 import { MODIFY_USER, AUTHENTICATE, GET_USERS_BY_CLUB } from '../store/types/UserTypes'
@@ -51,9 +61,10 @@ export default {
   data () {
     return {
       dialog: false,
-      plantraining : {},
+      plantraining: {},
       events: [],
-      usersClubs: []
+      usersClubs: [],
+      wait: ""
     }
   },
   methods: {
@@ -61,7 +72,7 @@ export default {
       this.plantraining = value
     },
     changeTraining (value) {
-      this.val= value
+      this.val = value
     },
     closeDialog () {
       this.dialog = !this.dialog
@@ -85,10 +96,16 @@ export default {
       getUsersByClub: GET_USERS_BY_CLUB
     })
   },
+  computed: {
+    ...mapState({
+      user: state => state.user
+    })
+  },
   async created () {
+    this.wait = true
     let user = await this.getUser()
-    this.usersClubs = await this.getUsersByClub(user.club)    
-    let plantrainings = await this.getPlanTrainings(user)    
+    this.usersClubs = await this.getUsersByClub(user.club)
+    let plantrainings = await this.getPlanTrainings(user)
     plantrainings.forEach(async plantraining => {
       let trainings = await this.getTrainings(plantraining.id)
       for (let i = 0; i < trainings.length; i++) {
@@ -97,6 +114,7 @@ export default {
         this.events.push(trainings[i])
       }
     })
+    this.wait = false
   }
 }
 </script>
@@ -107,5 +125,17 @@ export default {
 }
 .card__img {
   margin: 20px 0 0 10px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap
+}
+.wrapper__center{
+  align-items: center
+}
+
+.progressCircular {
+  margin: 15px 0;
 }
 </style>

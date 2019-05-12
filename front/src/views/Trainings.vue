@@ -4,11 +4,26 @@
     <div>
       <v-layout align-center justify-center>
         <v-flex xs12 md6>
-          <v-text-field prepend-inner-icon="search"></v-text-field>
+          <v-text-field 
+          v-model="searcherValue"
+          prepend-inner-icon="search"
+          ></v-text-field>
         </v-flex>
       </v-layout>
       <h2>Plan de Entrenamiento</h2>
-      <training-card v-for="training in trainings"
+      <div v-if="trainings.length === 0 && !wait">
+        <p>Not Trainings Found</p>
+      </div>
+      <v-flex class="wrapper wrapper__center progressCircular">
+        <v-progress-circular
+          v-if="wait"
+          :size="150"
+          :width="7"
+          color="black"
+          indeterminate
+        />
+      </v-flex>
+      <training-card v-for="training in searchTraining"
           class="trainingCard"
           :key="training.id"
           :url="url"
@@ -25,8 +40,9 @@
       </template>
       </training-card>
     </div>
-    <floating-button @click.native="dialog = !dialog">add</floating-button>
-    <add-dialog 
+    <floating-button v-if="user.userType === 2" 
+      @click.native="dialog = !dialog">add</floating-button>
+    <add-dialog
       :dialog="dialog"
       @isActivated="isDialogActivated"
     >
@@ -73,7 +89,10 @@ export default {
       },
       idplan: this.$route.params.idPlan,
       train: {},
-      updatetraining: {}
+      updatetraining: {},
+      error: false,
+      searcherValue: "",
+      wait: false
     }
   },
   methods: {
@@ -81,7 +100,7 @@ export default {
       this.train = value
     },
     updateInstance (value) {
-      this.updatetraining=value
+      this.updatetraining = value
     },
     closeDialog () {
       this.dialog = !this.dialog
@@ -91,7 +110,7 @@ export default {
         plantraining_id: this.idplan,
         name: this.train.name,
         description: this.train.description,
-        timetraining: this.train.timetraining,
+        timetraining: this.train.timetraining
       }
       this.addTraining(request)
       this.dialog = !this.dialog
@@ -109,17 +128,36 @@ export default {
   },
   computed: {
     ...mapState({
-      trainings: state => state.trainings
+      trainings: state => state.trainings,
+      user: state => state.user
     }),
+    searchTraining () {
+      return this.trainings.filter(training => training.name.toLowerCase().includes(this.searcherValue))
+    },
   },
-  created () {
-    this.getTrainings(this.$route.params.idPlan)
+  async created () {
+    this.wait = true
+    await this.getTrainings(this.$route.params.idPlan)
+    this.wait = false
   }
 }
 </script>
 
-<style>
+<style scoped>
 .trainingCard {
   cursor: pointer;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap
+}
+.wrapper__center{
+  align-items: center
+}
+
+.progressCircular {
+  margin: 15px 0;
 }
 </style>

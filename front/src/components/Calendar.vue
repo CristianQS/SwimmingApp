@@ -65,7 +65,7 @@ export default {
   methods: {
     backMonth () {
       this.month--
-      if(this.month === -1){ 
+      if (this.month === -1) {
         this.month = 11
         this.year--
       }
@@ -73,19 +73,18 @@ export default {
     },
     nextMonth () {
       this.month++
-      if(this.month === 12){
+      if (this.month === 12) {
         this.month = 0
         this.year++
-      } 
+      }
       this.$refs.calendar.next()
     },
     goTo (event) {
-      this.$router.push({name: 'ACTIVITIES', 
-      params: {idPlan: event.plantraining_id, idTraining: event.id}})
-      
+      this.$router.push({ name: 'ACTIVITIES',
+        params: { idPlan: event.plantraining_id, idTraining: event.id } })
     },
     ...mapActions({
-      getTrainings: GET_TRAININGS,
+      getTrainings: GET_TRAININGS
     })
   },
   computed: {
@@ -98,8 +97,8 @@ export default {
       return map
     },
     mappingMonth () {
-      var months = ["January", "February", "March", "April", "May", 
-      "June", "July", "August", "September", "October", "November", "December"]
+      var months = ['January', 'February', 'March', 'April', 'May',
+        'June', 'July', 'August', 'September', 'October', 'November', 'December']
       return months[this.month]
     }
   }
