@@ -2,26 +2,24 @@
   <v-card class="card">
     <v-layout>
       <v-card-text>
-        <v-layout align-center wrap>
-          <v-flex xs2 sm4 md1>
+        <v-layout>
+          <v-flex xs4 sm2 md2>
             <v-img :src="require('@/assets/user.png')"
             width="100"
             height="100"
             class="card__img"
             />
           </v-flex>
-          <v-flex xs2 offset-xs3 sm4 offset-sm2 md1>
+          <v-flex xs6 offset-xs1 sm2 md1 offset-md1 lg1 offset-lg0 class="wrapper wrapper__center">
               <p class="headline font-weight-bold">{{userState.username}}</p>
               <p class="font-weight-light">{{userState.email}}</p>
-          </v-flex>
-          <v-flex xs2 offset-xs3 sm4 offset-sm2 md1>
-            <v-layout align-center>
               <user-edit-dialog @modifyUser="modifyUser"/>
+          </v-flex>
+          <v-flex xs1 sm1 offset-sm5 md1 offset-md7>
               <user-settings/>
-            </v-layout>
           </v-flex>
         </v-layout>
-        <v-flex xs12 sm12 md12>
+        <v-flex xs12 sm12 md12 class="wrapper"> 
           <h3>Description</h3>
           {{userState.description}}
         </v-flex>
@@ -67,5 +65,13 @@ export default {
 }
 .card__img {
   margin: 10px 0;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap
+}
+.wrapper__center{
+  align-items: center
 }
 </style>

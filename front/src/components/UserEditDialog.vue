@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn depressed color="grey" v-on="on">Edit Profile</v-btn>
+      <v-btn small depressed color="grey" v-on="on">Edit Profile</v-btn>
     </template>
     <v-card>
       <v-card-title>
