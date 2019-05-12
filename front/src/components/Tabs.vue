@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-tabs grow>
+    <!-- <v-tabs grow>
       <v-tab>
       Training Plan
       </v-tab>
-      <v-tab-item>
+      <v-tab-item> -->
         <!-- <draggable
           class="list-group"
           v-model="plantraings"
@@ -30,12 +30,12 @@
             </training-card>
           <!-- </transition-group> -->
         <!-- </draggable> -->
-      </v-tab-item>
+      <!-- </v-tab-item>
       <v-tab>
         Graphics
       </v-tab>
       <v-tab-item></v-tab-item>
-    </v-tabs>
+    </v-tabs> -->
   </div>
 </template>
 
