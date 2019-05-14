@@ -18,6 +18,7 @@
         </v-btn>
         <form-dialog
           v-if="user.userType === 2"
+          :message="message"
           :methods="methods"
           :newUpdate="newUpdate"
         >
@@ -42,7 +43,8 @@ export default {
     url: { type: String, required: false },
     params: { type: Object, required: false },
     methods: { type: Object, required: true },
-    newUpdate: { type: Object, required: false }
+    newUpdate: { type: Object, required: false },
+    message: { type: String, required: true }
   },
   components: {
     FormDialog

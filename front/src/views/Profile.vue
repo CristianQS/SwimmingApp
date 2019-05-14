@@ -23,6 +23,7 @@
       add
     </floating-button>
     <add-dialog
+      :message="'Add Plan Training'"
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>

@@ -2,7 +2,7 @@
   <v-dialog v-model="isActivated" max-width="600px">
     <v-card>
       <v-card-title>
-        <span class="headline">Modify Activity</span>
+        <span class="headline">{{message}}</span>
       </v-card-title>
       <v-card-text>
         <slot name="text"
@@ -22,7 +22,8 @@
 export default {
   name: 'AddDialog',
   props: {
-    dialog: { type: Boolean, required: true }
+    dialog: { type: Boolean, required: true },
+    message: { type: String, required: true }
   },
   data () {
     return {

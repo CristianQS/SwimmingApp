@@ -60,10 +60,10 @@ export default {
       activity: {
         series: 1,
         meters: 100,
-        exercise: '',
-        style: '',
-        type: '',
-        rhythm: '',
+        exercise: 'Normal',
+        style: 'Crawl',
+        type: 'Train',
+        rhythm: 'Normal',
         training_id: this.$route.params.idTraining,
         plantraining_id: this.$route.params.idPlan
       }

@@ -31,6 +31,7 @@
           :methods="methods"
           :training="training"
           :newUpdate="updatetraining"
+          :message="'Modify Training'"
       >
       <template v-slot:modify>
         <training-modify-form
@@ -43,6 +44,7 @@
     <floating-button v-if="user.userType === 2" 
       @click.native="dialog = !dialog">add</floating-button>
     <add-dialog
+      :message="'Add Training'"
       :dialog="dialog"
       @isActivated="isDialogActivated"
     >

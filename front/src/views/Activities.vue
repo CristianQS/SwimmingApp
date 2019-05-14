@@ -25,6 +25,7 @@
             :methods="methods"
             :training="activity"
             :newUpdate="updateActivity"
+            :message="'Modify Activity'"
             >
             <template v-slot:modify>
               <activity-modify-form :activity="activity"
@@ -43,6 +44,7 @@
             :methods="methods"
             :training="activity"
             :newUpdate="updateActivity"
+            :message="'Modify Activity'"
             >
             <template v-slot:modify>
               <activity-modify-form :activity="activity"
@@ -61,6 +63,7 @@
             :methods="methods"
             :training="activity"
             :newUpdate="updateActivity"
+            :message="'Modify Activity'"
             >
             <template v-slot:modify>
               <activity-modify-form :activity="activity"
@@ -74,9 +77,10 @@
     </div>
     <floating-button v-if="user.userType === 2"
     @click.native="dialog = !dialog">
-      add
+      Add
     </floating-button>
     <add-dialog
+      :message="'Add Activity'"
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>

@@ -7,7 +7,7 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Modify Training</span>
+        <span class="headline">{{message}}</span>
       </v-card-title>
       <v-card-text>
         <slot></slot>
@@ -34,7 +34,8 @@ export default {
   },
   props: {
     methods: { type: Object, required: true },
-    newUpdate: { type: Object, required: false }
+    newUpdate: { type: Object, required: false },
+    message: { type: String, required: true }
   },
   data () {
     return {

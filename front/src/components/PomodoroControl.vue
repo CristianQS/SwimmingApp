@@ -6,10 +6,13 @@
       </v-btn>
       <v-btn @click="toggleTimer" depressed large outline fab color="white">
         <v-icon v-if="!isTimerActive" class="flex-center">play_arrow</v-icon>
-        <v-icon v-else class="flex-center">pause</v-icon>
+        <v-icon v-else class="flex-center">stop</v-icon>
       </v-btn>
       <v-btn @click="reset" depressed outline fab color="white">
         <v-icon class="flex-center">cloud_upload</v-icon>
+      </v-btn>
+      <v-btn @click="reset" depressed outline fab color="white">
+        <v-icon class="flex-center">flag</v-icon>
       </v-btn>
     </div>
   </div>

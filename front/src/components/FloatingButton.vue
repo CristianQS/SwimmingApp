@@ -7,9 +7,7 @@
     right
     :color="color"
   >
-    <v-icon>
-      <slot></slot>
-    </v-icon>
+    <slot></slot>
   </v-btn>
 </template>
 

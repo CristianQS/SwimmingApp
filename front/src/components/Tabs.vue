@@ -24,6 +24,7 @@
               :methods="methods"
               :training="plantraing"
               :newUpdate="params"
+              :message="'Modify Plan Training'"
               >
               <template v-slot:modify>
                 <modify-form
