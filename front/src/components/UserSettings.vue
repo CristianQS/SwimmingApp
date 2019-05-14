@@ -4,7 +4,7 @@
             color="grey lighten-1"
             slot="activator"
             >
-            settings
+            exit_to_app
         </v-icon>
         <v-list>
           <v-list-tile v-for="option in options" :key="option.name" @click="option.action">

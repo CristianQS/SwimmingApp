@@ -27,7 +27,11 @@
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>
-          <plan-training-form :usersClub="usersClubs" @plantraining="newPlanTraining"/>
+          <plan-training-form 
+            :usersClub="usersClubs" 
+            @plantraining="newPlanTraining"
+            :userPlan="user"
+            />
         </template>
         <template v-slot:buttons>
           <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>
@@ -103,19 +107,24 @@ export default {
     })
   },
   async created () {
-    this.wait = true
-    let user = await this.getUser()
-    this.usersClubs = await this.getUsersByClub(user.club)
-    let plantrainings = await this.getPlanTrainings(user)
-    plantrainings.forEach(async plantraining => {
-      let trainings = await this.getTrainings(plantraining.id)
-      for (let i = 0; i < trainings.length; i++) {
-        var date = new Date(trainings[i].timetraining)
-        trainings[i].timetraining = date.toISOString().substr(0, 10)
-        this.events.push(trainings[i])
-      }
-    })
-    this.wait = false
+    try {
+      this.wait = true
+      let user = await this.getUser()
+      this.usersClubs = await this.getUsersByClub(user.club)
+      let plantrainings = await this.getPlanTrainings(user)
+      plantrainings.forEach(async plantraining => {
+        let trainings = await this.getTrainings(plantraining.id)
+        for (let i = 0; i < trainings.length; i++) {
+          var date = new Date(trainings[i].timetraining)
+          trainings[i].timetraining = date.toISOString().substr(0, 10)
+          this.events.push(trainings[i])
+        }
+      })
+    } catch (error) {
+      return error
+    } finally {
+      this.wait = false
+    }
   }
 }
 </script>

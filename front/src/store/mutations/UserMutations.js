@@ -21,6 +21,11 @@ export default {
     state.user = user
   },
   [USER_LOGOUT]: (state) => {
+    state.plantrainings = [],
+    state.trainings = [],
+    state.activities = [],
+    state.user = {},
+    state.usersClub = []
     sessionStorage.removeItem('token')
   },
   [GET_USERS_BY_CLUB]: (state, users) => {

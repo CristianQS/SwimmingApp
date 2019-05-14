@@ -13,6 +13,8 @@
         <v-select
           v-model="plantraining.user"
           :items="usersClub"
+          item-value="value"
+          :value="1"
           label="Select Users"
           multiple
           chips
@@ -37,12 +39,15 @@ import { GET_USERS_BY_CLUB } from '../store/types/UserTypes'
 
 export default {
   name: 'PlanTrainingForm',
+  props: {
+    userPlan: { type: Object, required: false }
+  },
   data () {
     return {
       plantraining: {
-        user: [],
-        name: '',
-        description: ''
+        user: this.userPlan.id,
+        name: 'Plan Training',
+        description: 'In this plan training will we train ...'
       },
       value: []
     }
@@ -57,7 +62,7 @@ export default {
   },
   computed: {
     ...mapState({
-      usersClub: state => state.usersClub
+      usersClub: state => state.usersClub,
     })
   }
 }
