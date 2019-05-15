@@ -2,13 +2,13 @@
   <div class="wrapper">
     <v-layout wrap>
       <v-flex xs12 sm4 offset-sm4 md4 offset-md4 lg4 offset-lg4 >
-        <div class="container">
+        <div class="container text__center">
           <div class="timer">
             <span class="timer__countdown js-countdown">{{chronoString}}</span>
           </div>
         </div>
       </v-flex>
-      <v-flex xs12 sm1 offset-sm1 md1 offset-md1 lg1 offset-lg0>
+      <v-flex class="site__content" xs12 sm1 offset-sm1 md1 offset-md1 lg1 offset-lg0>
           <v-btn class="button__cloud" depressed fab dark>
               <v-icon>cloud_upload</v-icon>
           </v-btn>
@@ -18,7 +18,17 @@
       @start="startChrono"
       @reset="resetChrono"
       @stop="stopChrono"
+      @flag="flag"
     />
+    <div class="wrapper wrapper__center">
+      <h3>Phases</h3>
+      <v-card :width="300" v-for="(phase,index) in phases" :key="index">
+        {{index}}.  {{phase}}
+        <v-btn @click="deletePhase(index)" fab small color="red">
+          <v-icon>delete</v-icon>
+        </v-btn>
+      </v-card >
+    </div>
   </div>
 </template>
 
@@ -36,7 +46,8 @@ export default {
       seconds: 0,
       hundredths: 0,
       isBreakTime: false,
-      timer: null
+      timer: null,
+      phases: []
     }
   },
   methods: {
@@ -54,6 +65,7 @@ export default {
       this.hundredths = 0
       this.seconds = 0
       this.minutes = 0
+      this.phases = []
       this.stopChrono()
     },
     stopChrono () {
@@ -64,6 +76,13 @@ export default {
         this.seconds = 0
         this.minutes += 1
       }
+    },
+    flag () {
+      let phase = `${this.minutes}:${this.seconds}.${this.hundredths}`
+      this.phases.push(phase)
+    },
+    deletePhase (indexPhase) {
+      this.phases = this.phases.filter((phase,index) => index === indexPhase)
     }
   },
   computed: {
@@ -94,6 +113,9 @@ export default {
   margin: 0 auto;
   width: 100%;
   max-width: 1200px;
+}
+
+.text__center {
   text-align: center
 }
 
@@ -143,5 +165,8 @@ export default {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+.wrapper__center{
+  align-items: center;
 }
 </style>

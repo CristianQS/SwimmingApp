@@ -38,7 +38,7 @@ export default {
       this.$emit('reset')
     },
     flag () {
-      
+      this.$emit('flag')
     }
   }
 }
