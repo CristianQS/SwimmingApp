@@ -1,17 +1,14 @@
 <template>
   <div class="container">
     <div class="controls">
-      <v-btn @click="reset" depressed outline fab color="white">
+      <v-btn @click="reset" depressed fab dark>
         <v-icon class="flex-center">replay</v-icon>
       </v-btn>
-      <v-btn @click="toggleTimer" depressed large outline fab color="white">
+      <v-btn @click="toggleTimer" depressed large fab dark>
         <v-icon v-if="!isTimerActive" class="flex-center">play_arrow</v-icon>
         <v-icon v-else class="flex-center">stop</v-icon>
       </v-btn>
-      <v-btn @click="reset" depressed outline fab color="white">
-        <v-icon class="flex-center">cloud_upload</v-icon>
-      </v-btn>
-      <v-btn @click="reset" depressed outline fab color="white">
+      <v-btn @click="flag" depressed fab dark>
         <v-icon class="flex-center">flag</v-icon>
       </v-btn>
     </div>
@@ -36,12 +33,12 @@ export default {
         this.$emit('stop')
       }
     },
-    toggleModal () {
-
-    },
     reset () {
       this.isTimerActive = false
       this.$emit('reset')
+    },
+    flag () {
+      
     }
   }
 }
@@ -68,7 +65,7 @@ button:not(:disabled) {
   width: calc(3rem + 4px);
   height: calc(3rem + 4px);
   line-height: 3rem;
-  border: 2px solid rgba(255, 255, 255, .25);
+  border: 2px solid rgb(0, 0, 0);
   border-radius: 50%;
 }
 
@@ -81,13 +78,13 @@ button:not(:disabled) {
   width: calc(4rem + 4px);
   height: calc(4rem + 4px);
   line-height: 3rem;
-  border: 2px solid rgba(255, 255, 255, .25);
+  border: 2px solid rgb(0, 0, 0);
   border-radius: 50%;
 }
 
 .btn-sm:hover,
 .btn-md:hover {
-  border-color: #fff;
+  border-color: #000;
 }
 
 .flex-center {

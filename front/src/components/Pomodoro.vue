@@ -1,12 +1,19 @@
 <template>
-  <div>
-    <main class="site__content timer__content">
-      <div class="container">
-        <div class="timer">
-          <span class="timer__countdown js-countdown">{{chronoString}}</span>
+  <div class="wrapper">
+    <v-layout wrap>
+      <v-flex xs12 sm4 offset-sm4 md4 offset-md4 lg4 offset-lg4 >
+        <div class="container">
+          <div class="timer">
+            <span class="timer__countdown js-countdown">{{chronoString}}</span>
+          </div>
         </div>
-      </div>
-    </main>
+      </v-flex>
+      <v-flex xs12 sm1 offset-sm1 md1 offset-md1 lg1 offset-lg0>
+          <v-btn class="button__cloud" depressed fab dark>
+              <v-icon>cloud_upload</v-icon>
+          </v-btn>
+      </v-flex>
+    </v-layout>
     <pomodoro-control
       @start="startChrono"
       @reset="resetChrono"
@@ -74,27 +81,20 @@ export default {
 </script>
 
 <style>
-.timer__content {
-  margin: 0;
-  font-family: 'Avenir Next', -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #fff;
-  text-align: center;
-  -webkit-font-smoothing: antialiased
-}
+
 .site__content {
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center
+  justify-content: center;
 }
 
 .container {
   padding: 0 1rem;
   margin: 0 auto;
   width: 100%;
-  max-width: 1200px
+  max-width: 1200px;
+  text-align: center
 }
 
 .timer {
@@ -105,7 +105,7 @@ export default {
   flex-flow: column wrap;
   max-width: 224px;
   height: 224px;
-  border: 4px solid #fff;
+  border: 4px solid #000;
   border-radius: 50%
 }
 
@@ -116,7 +116,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  border: 1px solid rgba(255, 255, 255, .25);
+  border: 1px solid rgb(0, 0, 0);
   border-radius: 50%;
   transform: translate(-50%, -50%)
 }
@@ -139,4 +139,9 @@ export default {
   font-size: 2.5rem
 }
 
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 </style>
