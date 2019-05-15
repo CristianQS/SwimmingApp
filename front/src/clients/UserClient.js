@@ -15,7 +15,7 @@ export default function userClient (restClient) {
     return restClient.get(AUTHENTICATE())
   }
   function modifyUser (user) {
-    user.password = sha256(user.password)
+    if (user.password) user.password = sha256(user.password)
     return restClient.put(USERS_BY_ID(user.id), user)
   }
   function getUsersByClub (id) {

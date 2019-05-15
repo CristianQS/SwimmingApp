@@ -48,6 +48,9 @@
           required
         />
       </v-flex>
+      <v-flex xs12 sm12 md12>
+        <v-checkbox>a</v-checkbox>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>

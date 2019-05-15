@@ -44,15 +44,16 @@ export default {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      if (this.password === this.confirmPassword) {
-        if (this.password.length > 0) {
+      if (this.password.length > 0) {
+        if (this.password === this.confirmPassword) {
           this.editUser.password = this.password
+        } else {
+          alert(`password don't match`)
         }
-        this.$emit('modifyUser', this.editUser)
-        this.dialog = !this.dialog
-      } else {
-
       }
+      this.$emit('modifyUser', this.editUser)
+      this.dialog = !this.dialog
+      
     },
     ...mapActions({
       getUser: AUTHENTICATE
@@ -66,7 +67,7 @@ export default {
   async created () {
     let user = await this.getUser()
     this.editUser = Object.assign({}, user)
-    this.editUser.password = ''
+    delete this.editUser.password
   }
 }
 </script>
