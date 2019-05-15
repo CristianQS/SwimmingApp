@@ -8,12 +8,12 @@
         class="headline font-weight-bold">{{ `${training.series}x${training.meters}
        ${training.style} (${training.exercise})` }}</p>
       </v-card-text>
-      <div>
-        <v-btn color="black" v-if="training.training_id && user.userType === 2" 
+      <v-flex xs5 sm5 lg4>
+        <v-btn small color="black" v-if="training.training_id && user.userType === 2" 
           dark @click="goTo('CHRONOMETER',{})">
           <v-icon >alarm</v-icon>
         </v-btn>
-        <v-btn v-if="user.userType === 2" color="blue" dark @click="clonePlan()">
+        <v-btn small v-if="user.userType === 2" color="blue" dark @click="clonePlan()">
           <v-icon >file_copy</v-icon>
         </v-btn>
         <form-dialog
@@ -24,10 +24,10 @@
         >
           <slot name="modify"></slot>
         </form-dialog>
-        <v-btn v-if="user.userType === 2" color="red" dark @click="deletePlan()">
+        <v-btn small v-if="user.userType === 2" color="red" dark @click="deletePlan()">
           <v-icon >delete</v-icon>
         </v-btn>
-      </div>
+      </v-flex>
     </v-layout>
   </v-card>
 </template>
@@ -56,7 +56,16 @@ export default {
       }
     },
     async deletePlan () {
-      return await this.methods.delete(this.training)
+      if (!this.training.training_id) {
+        var result = confirm(`You are going to delete ${this.training.name}.
+        Are you sure about that?`)
+      } else {
+        var result = confirm(`You are going to delete ${this.training.series}x${this.training.meters}${this.training.style} (${this.training.exercise}). 
+        Are you sure about that?`)
+      }
+      if (result) {
+        return await this.methods.delete(this.training)
+      }
     },
     async clonePlan () {
       return await this.methods.clone(this.training)

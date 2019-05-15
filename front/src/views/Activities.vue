@@ -84,7 +84,9 @@
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>
-          <activity-form @passActivity="changeActivity"/>
+          <activity-form
+          v-if="dialog"
+          @passActivity="changeActivity"/>
         </template>
         <template v-slot:buttons>
           <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>

@@ -27,8 +27,9 @@
       :dialog="dialog"
       @isActivated="isDialogActivated">
         <template v-slot:text>
-          <plan-training-form 
-            :usersClub="usersClubs" 
+          <plan-training-form
+            v-if="dialog"
+            :usersClub="usersClubs"
             @plantraining="newPlanTraining"
             :userPlan="user"
             />

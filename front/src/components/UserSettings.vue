@@ -1,8 +1,9 @@
 <template>
     <v-menu offset-y>
         <v-icon
-            color="grey lighten-1"
+            color="black"
             slot="activator"
+            large
             >
             exit_to_app
         </v-icon>

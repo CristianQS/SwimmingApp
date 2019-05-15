@@ -3,7 +3,7 @@
         <v-btn icon @click="closeDialog" >
           <v-icon>arrow_back</v-icon>
         </v-btn>
-        <strong> 
+        <strong class="asa"> 
           <a v-if="idplan" @click="goTo('PROFILE',{})">TrainingsPlan/</a><span>{{idplan}}</span>
           <a v-if="idplan" @click="goTo('TRAININGS',{idPlan:idplan})">/Trainings/</a>
           <span v-if="idtraining">{{idtraining}}/Activities</span>
@@ -32,3 +32,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.asa {
+  font-size: 18px;
+}
+</style>
+

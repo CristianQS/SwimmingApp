@@ -2,7 +2,7 @@
   <v-container grid-list-md>
     <v-layout wrap>
       <v-flex xs12 sm2 md1>
-        <v-text-field v-model="activity.series" label="Series" type="Number" value="1"
+        <v-text-field autofocus v-model="activity.series" label="Series" type="Number" value="1"
           @focus="passActivity()"  required/>
       </v-flex>
       <v-flex xs12 sm2 md1>

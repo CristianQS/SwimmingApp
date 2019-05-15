@@ -20,6 +20,7 @@
         <h3>Name</h3>
         <v-text-field
         @focus="newTraining()"
+        autofocus
         v-model="training.name" label="Name" required/>
       </v-flex>
       <date-time-picker
@@ -48,8 +49,8 @@ export default {
   data () {
     return {
       training: {
-        name: '',
-        description: '',
+        name: 'Training',
+        description: 'In this training will work the speed',
         timetraining: 0
       }
     }

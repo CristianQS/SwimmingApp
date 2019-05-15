@@ -49,7 +49,7 @@
       @isActivated="isDialogActivated"
     >
       <template v-slot:text>
-        <training-form @training="changeTraining" />
+        <training-form v-if="dialog" @training="changeTraining" />
       </template>
       <template v-slot:buttons>
         <v-btn color="blue darken-1" flat @click="closeDialog()">Close</v-btn>

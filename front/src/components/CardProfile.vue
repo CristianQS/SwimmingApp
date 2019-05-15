@@ -15,7 +15,7 @@
               <p class="font-weight-light">{{userState.email}}</p>
               <user-edit-dialog @modifyUser="modifyUser"/>
           </v-flex>
-          <v-flex xs1 sm1 offset-sm5 md1 offset-md7>
+          <v-flex xs1 sm1 offset-sm5 md1 offset-md7 lg1 offset-lg9>
               <user-settings/>
           </v-flex>
         </v-layout>
