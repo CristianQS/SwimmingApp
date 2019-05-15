@@ -1,6 +1,7 @@
 <template>
   <v-card class="card">
     <v-layout align-center>
+      <v-flex xs7 sm7 lg7>
       <v-card-text @click="goTo(url,params)">
         <p class="headline font-weight-bold">{{training.name}}</p>
         <p class="font-weight-light">{{training.description}}</p>
@@ -8,7 +9,8 @@
         class="headline font-weight-bold">{{ `${training.series}x${training.meters}
        ${training.style} (${training.exercise})` }}</p>
       </v-card-text>
-      <v-flex xs5 sm5 lg4>
+      </v-flex>
+      <v-flex xs4 offset-xs1 sm4 offset-sm1 lg4 offset-lg1>
         <v-btn small color="black" v-if="training.training_id && user.userType === 2" 
           dark @click="goTo('CHRONOMETER',{})">
           <v-icon >alarm</v-icon>
