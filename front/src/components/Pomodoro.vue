@@ -26,12 +26,14 @@
     />
     <div class="wrapper wrapper__center">
       <h3>Phases</h3>
-      <v-card class="wrapper wrapper__center" :width="300" 
+      <v-card :width="300" class="card__phase"
         v-for="(phase,index) in phases" :key="index">
-        <span class="Number">{{index*100 + 100}}:</span><span>{{phase}}</span>
-        <v-btn @click="deletePhase(index)" fab small color="red">
-          <v-icon>delete</v-icon>
-        </v-btn>
+        <div class="wrapper wrapper__between wrapper__center">
+          <strong class="meters">{{index*100 + 100}}:</strong><strong>{{phase}}</strong>
+          <v-btn @click="deletePhase(index)" fab small color="red">
+            <v-icon>delete</v-icon>
+          </v-btn>
+        </div>
       </v-card >
     </div>
   </div>
@@ -229,5 +231,16 @@ export default {
 }
 .wrapper__center{
   align-items: center;
+}
+.wrapper__between{
+  flex-direction: row;
+  justify-content:space-between ;
+}
+.meters {
+  padding: 0 0 0 15px;
+}
+
+.card__phase {
+  margin: 4px 0;
 }
 </style>
