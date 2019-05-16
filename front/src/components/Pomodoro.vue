@@ -9,11 +9,15 @@
         </div>
       </v-flex>
       <v-flex class="site__content" xs12 sm1 offset-sm1 md1 offset-md1 lg1 offset-lg0>
-          <v-btn class="button__cloud" depressed fab dark>
+          <v-btn :loading="loading" @click="uploadChrono()" class="button__cloud" depressed fab dark>
               <v-icon>cloud_upload</v-icon>
           </v-btn>
       </v-flex>
     </v-layout>
+    <div v-if="chrono">
+      <h3 class="timer__countdown site__content">Your Time</h3>
+      <p class="timer__countdown site__content">{{chrono.time}}</p>
+    </div>
     <pomodoro-control
       @start="startChrono"
       @reset="resetChrono"
@@ -35,7 +39,8 @@
 
 <script>
 import PomodoroControl from './PomodoroControl.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
+import { ADD_CHRONO, DELETE_CHRONO, GET_CHRONO_BY_IDACTIVITY } from '../store/types/ChronoTypes'
 
 export default {
   name: 'Pomodoro',
@@ -47,9 +52,9 @@ export default {
       minutes: 0,
       seconds: 0,
       hundredths: 0,
-      isBreakTime: false,
+      loading: false,
       timer: null,
-      phases: []
+      phases: [],
     }
   },
   methods: {
@@ -86,8 +91,37 @@ export default {
     deletePhase (indexPhase) {
       this.phases = this.phases.filter((phase,index) => index !== indexPhase)
     },
+    async uploadChrono () {
+      try {
+        this.loading = true
+        let params = {
+          user: this.user.id,
+          time: this.chronoString,
+          activity: this.$route.params.idActivity,
+          timechrono: Date.now()
+        }
+        let advice
+        if (Object.entries(this.chrono).length !== 0 && this.chrono.constructor === Object) {
+          advice = confirm('You have a time for this activity.\nIf you continue you will delete it\n'+
+          'Are you sure?')
+          if (advice) {
+            await this.deleteChrono(this.chrono.id)
+          } else {
+            this.loading = false
+            return 
+          }
+        }
+        await this.addChrono(params)
+        this.loading = false
+      } catch (error) {
+        this.loading = false
+        return error
+      } 
+    },
     ...mapActions({
-      
+      addChrono: ADD_CHRONO,
+      deleteChrono: DELETE_CHRONO,
+      getChronoByActivity: GET_CHRONO_BY_IDACTIVITY
     })
   },
   computed: {
@@ -99,7 +133,17 @@ export default {
       if (this.seconds < 10) seconds = `0${this.seconds}`
       if (this.minutes < 10) minutes = `0${this.minutes}`
       return `${minutes}:${seconds}.${hundredths}`
-    }
+    },
+    chrono () {
+      return this.chronos[0]
+    },
+    ...mapState({
+      user: state => state.user,
+      chronos: state => state.chronos
+    })
+  },
+  async created () {
+    await this.getChronoByActivity({activityid:this.$route.params.idActivity})
   }
 }
 </script>

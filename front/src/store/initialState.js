@@ -3,5 +3,7 @@ export default {
   trainings: [],
   activities: [],
   user: {},
-  usersClub: []
+  usersClub: [],
+  chronos: [],
+  phases: []
 }

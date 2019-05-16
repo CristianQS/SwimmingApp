@@ -10,16 +10,14 @@ from .serializers import ChronoSerializer
 class ChronoView (APIView):
     def get(self, request, *args, **kwargs):
         try:
-            user = request.query_params['userid']
-            queryset = Chrono.objects.filter(user=user)
-            serializer = ChronoSerializer(queryset, many=True, read_only=True)
-            chornos = queryset.filter(user=user).values()
+            activity = request.query_params['activityid']
+            chornos = Chrono.objects.filter(activity=activity).values()
             if len(chornos) == 0:
-                return Response([{'msg': 'No plantraining found'}], status=status.HTTP_404_NOT_FOUND)
+                return Response([{'msg': 'No Chrono found'}], status=status.HTTP_404_NOT_FOUND)
             else:
-                return Response(serializer.data, status=status.HTTP_200_OK)
+                return Response(chornos, status=status.HTTP_200_OK)
         except Chrono.DoesNotExist:
-            return Response([{'msg': 'No plantraining found'}], status=status.HTTP_404_NOT_FOUND)
+            return Response([{'msg': 'No Chrono found'}], status=status.HTTP_404_NOT_FOUND)
         except:
             return Response([{'msg': 'Missing params'}], status=status.HTTP_400_BAD_REQUEST)
 
@@ -30,3 +28,26 @@ class ChronoView (APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class ChronoViewById(APIView):
+    def get(self, request, *args, **kwargs):
+        try:
+            chronoid = kwargs['id']
+            queryset = Chrono.objects.filter(id=chronoid).values()
+            if len(queryset) == 0:
+                return Response([{'msg': 'No Chrono found'}], status=status.HTTP_404_NOT_FOUND)
+            else:
+                return Response(queryset, status=status.HTTP_200_OK)
+        except Chrono.DoesNotExist:
+            return Response([{'msg': 'No Chrono found'}], status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response([{'msg': 'Missing params'}], status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            chrono = Chrono.objects.get(id=kwargs['id'])
+            chrono.delete()
+            return Response({"message": "Activity with id `{}` "
+                            "has been deleted.".format(kwargs['id'])}, status=status.HTTP_204_NO_CONTENT)
+        except Chrono.DoesNotExist:
+            return Response({"message": "Activity Not Found"}, status=status.HTTP_404_NOT_FOUND)

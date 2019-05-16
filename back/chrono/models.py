@@ -6,6 +6,7 @@ from activities.models import Activity
 
 class Chrono(models.Model):
     time = models.TextField(max_length=10)
+    timechrono = models.BigIntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     activity = models.OneToOneField(Activity, on_delete=models.CASCADE)
 
