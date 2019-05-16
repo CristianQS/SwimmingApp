@@ -27,7 +27,7 @@ export default {
     try {
       let response = await chronometerClient.uploadChrono(params)
       commit(ADD_CHRONO, response.data)
-      return response.data[0]
+      return response.data
     } catch (error) {
       return error
     }

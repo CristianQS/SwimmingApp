@@ -41,6 +41,7 @@
 import PomodoroControl from './PomodoroControl.vue'
 import { mapActions, mapState } from 'vuex'
 import { ADD_CHRONO, DELETE_CHRONO, GET_CHRONO_BY_IDACTIVITY } from '../store/types/ChronoTypes'
+import { ADD_PHASE } from '../store/types/PhaseTypes'
 
 export default {
   name: 'Pomodoro',
@@ -101,7 +102,7 @@ export default {
           timechrono: Date.now()
         }
         let advice
-        if (Object.entries(this.chrono).length !== 0 && this.chrono.constructor === Object) {
+        if (this.chrono !== undefined) {
           advice = confirm('You have a time for this activity.\nIf you continue you will delete it\n'+
           'Are you sure?')
           if (advice) {
@@ -111,7 +112,17 @@ export default {
             return 
           }
         }
-        await this.addChrono(params)
+        let response = await this.addChrono(params)
+        if(this.phases.length > 0) {
+          this.phases.forEach( (phase,index) => {
+            let request = {
+              timePhase: phase,
+              chrono: response.id,
+              meters: index*100 + 100
+            }
+            this.addPhase(request)
+          });
+        }
         this.loading = false
       } catch (error) {
         this.loading = false
@@ -121,7 +132,8 @@ export default {
     ...mapActions({
       addChrono: ADD_CHRONO,
       deleteChrono: DELETE_CHRONO,
-      getChronoByActivity: GET_CHRONO_BY_IDACTIVITY
+      getChronoByActivity: GET_CHRONO_BY_IDACTIVITY,
+      addPhase: ADD_PHASE
     })
   },
   computed: {

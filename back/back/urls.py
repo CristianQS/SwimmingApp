@@ -24,4 +24,5 @@ urlpatterns = [
     re_path('', include('trainings.urls')),
     re_path('', include('activities.urls')),
     re_path('', include('chrono.urls')),
+    re_path('', include('phases.urls')),
 ]

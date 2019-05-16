@@ -44,7 +44,18 @@ export default {
 
 <style scoped>
 .navbar__font {
-  font-size: 18px;
+  font-size: 1.2rem;
+}
+@media(max-width: 400px) {
+  .navbar__font {
+    font-size: 0.68rem;
+  }
+}
+
+@media(max-width: 500px) {
+  .navbar__font {
+    font-size: 0.9rem;
+  }
 }
 </style>
 

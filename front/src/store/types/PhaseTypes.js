@@ -1,0 +1,2 @@
+export const ADD_PHASE = 'ADD_PHASE'
+export const GET_PHASES_BY_CHRONO = 'GET_PHASES_BY_CHRONO'

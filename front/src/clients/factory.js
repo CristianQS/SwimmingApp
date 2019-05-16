@@ -4,9 +4,11 @@ import PlanTrainingClient from './PlanTrainingClient'
 import TrainingClient from './TrainingClient'
 import ActivityClient from './ActivityClient'
 import ChronometerClient from './ChronometerClient'
+import PhaseClient from './PhaseClient'
 
 export const userClient = UserClient(restClient)
 export const planTrainingClient = PlanTrainingClient(restClient)
 export const trainingClient = TrainingClient(restClient)
 export const activityClient = ActivityClient(restClient)
 export const chronometerClient = ChronometerClient(restClient)
+export const phaseClient = PhaseClient(restClient)
