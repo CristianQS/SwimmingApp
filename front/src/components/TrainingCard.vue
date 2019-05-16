@@ -12,7 +12,7 @@
       </v-flex>
       <v-flex xs4 offset-xs1 sm4 offset-sm1 lg4 offset-lg1>
         <v-btn small color="black" v-if="training.training_id && user.userType === 2" 
-          dark @click="goTo('CHRONOMETER',{})">
+          dark @click="goTo('CHRONOMETER', params)">
           <v-icon >alarm</v-icon>
         </v-btn>
         <v-btn small v-if="user.userType === 2" color="blue" dark @click="clonePlan()">

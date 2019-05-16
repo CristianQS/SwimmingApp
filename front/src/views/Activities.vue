@@ -24,6 +24,7 @@
             :key="activity.id"
             :methods="methods"
             :training="activity"
+            :params="{idPlan: idplan, idTraining: idtraining, idActivity: activity.id}"
             :newUpdate="updateActivity"
             :message="'Modify Activity'"
             >
@@ -43,6 +44,7 @@
             :key="activity.id"
             :methods="methods"
             :training="activity"
+            :params="{idPlan: idplan, idTraining: idtraining, idActivity: activity.id}"
             :newUpdate="updateActivity"
             :message="'Modify Activity'"
             >
@@ -62,6 +64,7 @@
             :key="activity.id"
             :methods="methods"
             :training="activity"
+            :params="{idPlan: idplan, idTraining: idtraining, idActivity: activity.id}"
             :newUpdate="updateActivity"
             :message="'Modify Activity'"
             >

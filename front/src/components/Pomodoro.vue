@@ -22,8 +22,9 @@
     />
     <div class="wrapper wrapper__center">
       <h3>Phases</h3>
-      <v-card :width="300" v-for="(phase,index) in phases" :key="index">
-        {{index}}.  {{phase}}
+      <v-card class="wrapper wrapper__center" :width="300" 
+        v-for="(phase,index) in phases" :key="index">
+        <span class="Number">{{index*100 + 100}}:</span><span>{{phase}}</span>
         <v-btn @click="deletePhase(index)" fab small color="red">
           <v-icon>delete</v-icon>
         </v-btn>
@@ -34,6 +35,7 @@
 
 <script>
 import PomodoroControl from './PomodoroControl.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Pomodoro',
@@ -82,8 +84,11 @@ export default {
       this.phases.push(phase)
     },
     deletePhase (indexPhase) {
-      this.phases = this.phases.filter((phase,index) => index === indexPhase)
-    }
+      this.phases = this.phases.filter((phase,index) => index !== indexPhase)
+    },
+    ...mapActions({
+      
+    })
   },
   computed: {
     chronoString () {
