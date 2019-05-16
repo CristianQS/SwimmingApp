@@ -13,3 +13,5 @@ export const TRAINING = (plantraining) => `${BASE_URL}/plantrainings/${plantrain
 export const TRAINING_BY_ID = (plantraining, id) => `${BASE_URL}/plantrainings/${plantraining}/trainings/${id}`
 export const ACTIVITIES = (plantraining, training) => `${BASE_URL}/plantrainings/${plantraining}/trainings/${training}/activities`
 export const ACTIVITIES_BY_ID = (plantraining, training, id) => `${BASE_URL}/plantrainings/${plantraining}/trainings/${training}/activities/${id}`
+export const CHRONOS = () => `${BASE_URL}/chronos/`
+export const PHASES_BY_CHRONO_ID = (id) => `${BASE_URL}/chronos/${id}/phases/`
