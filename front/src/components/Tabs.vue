@@ -1,10 +1,10 @@
 <template>
   <div>
-    <!-- <v-tabs grow>
+    <v-tabs grow>
       <v-tab>
       Training Plan
       </v-tab>
-      <v-tab-item> -->
+      <v-tab-item>
         <!-- <draggable
           class="list-group"
           v-model="plantraings"
@@ -34,12 +34,14 @@
             </training-card>
           <!-- </transition-group> -->
         <!-- </draggable> -->
-      <!-- </v-tab-item>
+      </v-tab-item>
       <v-tab>
         Graphics
       </v-tab>
-      <v-tab-item></v-tab-item>
-    </v-tabs> -->
+      <v-tab-item>
+        <chart v-if="activities.length > 0" :activities="activities"></chart>
+      </v-tab-item>
+    </v-tabs>
   </div>
 </template>
 
@@ -47,20 +49,25 @@
 import { mapActions, mapState } from 'vuex'
 import { GET_PLANTRAININGS, DELETE_TRAINING_PLAN,
   ADD_TRAINING_PLAN, MODIFY_TRAINING_PLAN, CLONE_TRAINING_PLAN } from '../store/types/TrainingPlanTypes'
+import { GET_CHRONO_BY_IDUSER,GET_CHRONO_BY_IDACTIVITY } from '../store/types/ChronoTypes'
+import { GET_PHASES_BY_CHRONO } from '../store/types/PhaseTypes'
 import TrainingCard from './TrainingCard.vue'
 import ModifyForm from './ModifyForm.vue'
 import draggable from 'vuedraggable'
+import Chart from './Chart.vue'
 
 export default {
   name: 'Tabs',
   components: {
     TrainingCard,
     ModifyForm,
-    draggable
+    draggable,
+    Chart
   },
   data () {
     return {
       url: 'TRAININGS',
+      loading: false,
       drag: false,
       params: {},
       methods: {
@@ -68,7 +75,7 @@ export default {
         update: (params) => this.modifyPlanTraining(params),
         delete: (id) => this.deletePlanTrainings(id)
       }
-    }
+  }
   },
   methods: {
     ...mapActions({
@@ -83,7 +90,8 @@ export default {
   },
   computed: {
     ...mapState({
-      plantraings: state => state.plantrainings
+      plantraings: state => state.plantrainings,
+      activities: state => state.activities
     }),
     dragOptions () {
       return {

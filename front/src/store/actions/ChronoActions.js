@@ -8,7 +8,7 @@ export default {
       commit(GET_CHRONO_BY_IDUSER, [])
       let response = await chronometerClient.getChornoByIdActivity(params)
       commit(GET_CHRONO_BY_IDACTIVITY, response.data)
-      return response.data[0]
+      return response.data
     } catch (error) {
       return error
     }

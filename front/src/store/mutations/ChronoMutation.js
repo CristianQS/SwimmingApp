@@ -6,7 +6,7 @@ export default {
     state.chronos = data
   },
   [GET_CHRONO_BY_IDACTIVITY]: async (state, data) => {
-    state.chronos = data
+    state.chronos.push(data[0])
   },
   [ADD_CHRONO]: (state, data) => {
     state.chronos.push(data)

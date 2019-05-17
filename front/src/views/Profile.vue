@@ -15,6 +15,7 @@
     <v-flex xs12 sm8 offset-sm2 md8>
       <calendar v-if="!wait" :events="events"></calendar>
     </v-flex>
+    <p></p>
     <v-flex xs12 sm8 offset-sm2 md8>
       <tabs v-if="!wait"></tabs>
     </v-flex>
@@ -46,6 +47,7 @@
 import { mapActions, mapState } from 'vuex'
 import { ADD_TRAINING_PLAN, GET_PLANTRAININGS } from '../store/types/TrainingPlanTypes'
 import { GET_TRAININGS } from '../store/types/TrainingTypes'
+import { GET_ACTIVITIES } from '../store/types/ActivityTypes'
 import { MODIFY_USER, AUTHENTICATE, GET_USERS_BY_CLUB } from '../store/types/UserTypes'
 import Tabs from '../components/Tabs.vue'
 import CardProfile from '../components/CardProfile.vue'
@@ -99,7 +101,8 @@ export default {
       getTrainings: GET_TRAININGS,
       updateUser: MODIFY_USER,
       getUser: AUTHENTICATE,
-      getUsersByClub: GET_USERS_BY_CLUB
+      getUsersByClub: GET_USERS_BY_CLUB,
+      getActivities: GET_ACTIVITIES
     })
   },
   computed: {
@@ -119,6 +122,7 @@ export default {
           var date = new Date(trainings[i].timetraining)
           trainings[i].timetraining = date.toISOString().substr(0, 10)
           this.events.push(trainings[i])
+          await this.getActivities({plantraining_id:plantraining.id, training_id:trainings[i].id})
         }
       })
     } catch (error) {

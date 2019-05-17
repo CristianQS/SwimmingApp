@@ -7,7 +7,7 @@ export default {
       commit(GET_PHASES_BY_CHRONO, [])
       let response = await phaseClient.getPhasesByChrono(params)
       commit(GET_PHASES_BY_CHRONO, response.data)
-      return response.data[0]
+      return response.data
     } catch (error) {
       return error
     }

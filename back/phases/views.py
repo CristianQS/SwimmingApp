@@ -10,7 +10,7 @@ class PhaseView(APIView):
     def get(self, request, *args, **kwargs):
         try:
             chrono = kwargs['idchrono']
-            queryset = Phases.objects.filter(chrono=chrono)
+            queryset = Phases.objects.filter(chrono=chrono).values()
             if len(queryset) == 0:
                 return Response([{'msg': 'No activity found'}], status=status.HTTP_404_NOT_FOUND)
             else:
