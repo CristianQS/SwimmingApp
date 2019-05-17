@@ -72,7 +72,8 @@ export default {
       plantraining: {},
       events: [],
       usersClubs: [],
-      wait: ""
+      wait: "",
+      activities: []
     }
   },
   methods: {

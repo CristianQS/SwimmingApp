@@ -1,7 +1,7 @@
 <template>
   <v-card class="card">
     <v-layout align-center>
-      <v-flex xs7 sm7 lg7>
+      <v-flex xs6 sm7 md8 lg9>
       <v-card-text @click="goTo(url,params)">
         <p class="headline font-weight-bold">{{training.name}}</p>
         <p class="font-weight-light">{{training.description}}</p>
@@ -10,14 +10,7 @@
        ${training.style} (${training.exercise})` }}</p>
       </v-card-text>
       </v-flex>
-      <v-flex xs4 offset-xs1 sm4 offset-sm1 lg4 offset-lg1>
-        <v-btn small color="black" v-if="training.training_id && user.userType === 2" 
-          dark @click="goTo('CHRONOMETER', params)">
-          <v-icon >alarm</v-icon>
-        </v-btn>
-        <v-btn small v-if="user.userType === 2" color="blue" dark @click="clonePlan()">
-          <v-icon >file_copy</v-icon>
-        </v-btn>
+      <v-flex xs6 sm5 md4 lg3 class="wrapper wrapper--row">
         <form-dialog
           v-if="user.userType === 2"
           :message="message"
@@ -26,9 +19,24 @@
         >
           <slot name="modify"></slot>
         </form-dialog>
-        <v-btn small v-if="user.userType === 2" color="red" dark @click="deletePlan()">
-          <v-icon >delete</v-icon>
-        </v-btn>
+        <div class="wrapper wrapper--row">
+          <div class="grid wrapper wrapper__center">
+            <v-btn class="v-btn item-a" color="black" v-if="training.training_id" 
+              dark @click="goTo('CHRONOMETER', params)">
+              <v-icon >alarm</v-icon>
+            </v-btn>
+            <v-btn class="v-btn item-b" v-if="user.userType === 2" color="blue" dark @click="clonePlan()">
+              <v-icon >file_copy</v-icon>
+            </v-btn>
+            <v-btn class="v-btn item-c" v-if="user.userType === 2" color="red" dark @click="deletePlan()">
+              <v-icon >delete</v-icon>
+            </v-btn>
+            <v-btn class="v-btn item-d" v-if="training.training_id" 
+              color="blue darken-4" dark @click="true">
+              <v-icon>visibility</v-icon>
+            </v-btn>
+          </div>
+        </div>
       </v-flex>
     </v-layout>
   </v-card>
@@ -88,11 +96,32 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .card {
   margin: 10px 0;
 }
 .card__img {
   margin: 20px 0 0 10px;
+}
+.v-btn {
+  min-width: 15px;
+  width:60px;
+} 
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.wrapper--row {
+  flex-direction: row;
+}
+.wrapper__center {
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,80px));
+  grid-template-rows: auto;
 }
 </style>

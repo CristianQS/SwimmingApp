@@ -1,6 +1,37 @@
 <template>
   <v-container grid-list-md>
-    <v-layout wrap>
+    <v-layout wrap class="rowForm">
+      <h2>Frencuently Used</h2>
+      <v-flex xs12 sm12 md12 class="wrapper wrapper__center">
+        <h3>Warn Up</h3>
+        <div class="wrapper">
+          <v-btn class="btn" @click="mapActivity(1, 400,'Normal', 'Crawl', 'Warm up','Normal')" 
+            dark small>400 Normal Crawl</v-btn>
+          <v-btn class="btn" @click="mapActivity(1, 200,'Normal', 'Medley', 'Warm up','Normal')"
+            dark small>200 Normal Medley</v-btn>
+        </div>
+      </v-flex>
+      <v-flex xs12 sm12 md12 class="wrapper wrapper__center">
+        <h3>Train</h3>
+        <div class="wrapper">
+          <v-btn class="btn" @click="mapActivity(12, 50,'Normal', 'Crawl', 'Train','Max')"
+            dark small>12x50 Normal Crawl Max</v-btn>
+          <v-btn class="btn" @click="mapActivity(10, 100,'Fins', 'Crawl', 'Train','Normal')"
+            dark small>10x100 Fins Crawl Normal</v-btn>
+        </div>
+      </v-flex>
+      <v-flex xs12 sm12 md12 class="wrapper wrapper__center">
+        <h3>Calm</h3>
+        <div class="wrapper">
+          <v-btn class="btn" @click="mapActivity(1, 300,'Pullbuoy', 'Crawl', 'Calm','Soft')"
+            dark small>300 Soft Pullbuoy Crawl</v-btn>
+          <v-btn class="btn" @click="mapActivity(1, 100,'Normal', 'Crawl', 'Calm','Soft')"
+            dark small>100 Soft Normal Crawl</v-btn>
+        </div>
+      </v-flex>
+    </v-layout>
+    <h2>Input Data</h2>
+    <v-layout wrap >
       <v-flex xs12 sm2 md1>
         <v-text-field autofocus v-model="activity.series" label="Series" type="Number" value="1"
           @focus="passActivity()"  required/>
@@ -49,29 +80,6 @@
         />
       </v-flex>
     </v-layout>
-    <v-layout wrap>
-      <v-flex xs12 sm6 md6 class="wrapper wrapper__center">
-        <h3>Warn Up</h3>
-        <v-btn @click="mapActivity(1, 400,'Normal', 'Crawl', 'Warm up','Normal')" 
-          dark small>400 Normal Crawl</v-btn>
-        <v-btn @click="mapActivity(1, 200,'Normal', 'Medley', 'Warm up','Normal')"
-          dark small>200 Normal Medley</v-btn>
-      </v-flex>   
-      <v-flex xs12 sm6 md6 class="wrapper wrapper__center">
-        <h3>Train</h3>
-        <v-btn @click="mapActivity(12, 50,'Normal', 'Crawl', 'Train','Max')"
-          dark small>12x50 Normal Crawl Max</v-btn>
-        <v-btn @click="mapActivity(10, 100,'Fins', 'Crawl', 'Train','Normal')"
-          dark small>10x100 Fins Crawl Normal</v-btn>
-      </v-flex>
-      <v-flex xs12 sm12 md12 class="wrapper wrapper__center">
-        <h3>Calm</h3>
-        <v-btn @click="mapActivity(1, 300,'Pullbuoy', 'Crawl', 'Calm','Soft')"
-          dark small>300 Soft Pullbuoy Crawl</v-btn>
-        <v-btn @click="mapActivity(1, 100,'Normal', 'Crawl', 'Calm','Soft')"
-          dark small>100 Soft Normal Crawl</v-btn>
-      </v-flex>
-    </v-layout>
   </v-container>
 </template>
 
@@ -111,10 +119,17 @@ export default {
 <style scoped>
 .wrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap
 }
 .wrapper__center{
-  align-items: center
+  align-items: center;
+  justify-content: space-between
+}
+.btn {
+  width: 200px;
+}
+.rowForm {
+  padding: 0 0 36px 0;
 }
 </style>

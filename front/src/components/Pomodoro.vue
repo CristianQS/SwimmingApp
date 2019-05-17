@@ -9,15 +9,17 @@
         </div>
       </v-flex>
       <v-flex class="site__content" xs12 sm1 offset-sm1 md1 offset-md1 lg1 offset-lg0>
+                  <div class="wrapper wrapper__center" v-if="chrono">
           <v-btn :loading="loading" @click="uploadChrono()" class="button__cloud" depressed fab dark>
               <v-icon>cloud_upload</v-icon>
           </v-btn>
+
+            <h3 >Last Time</h3>
+            <p>{{chrono.time}}</p>
+          </div>
       </v-flex>
     </v-layout>
-    <div v-if="chrono">
-      <h3 class="timer__countdown site__content">Your Time</h3>
-      <p class="timer__countdown site__content">{{chrono.time}}</p>
-    </div>
+
     <pomodoro-control
       @start="startChrono"
       @reset="resetChrono"
@@ -239,7 +241,6 @@ export default {
 .meters {
   padding: 0 0 0 15px;
 }
-
 .card__phase {
   margin: 4px 0;
 }
