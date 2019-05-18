@@ -13,6 +13,7 @@
       <v-flex xs12 sm2 md12>
         <v-select
           v-model="newPlantraining.user"
+          @focus="newPlanTraining()"
           :items="usersClub"
           label="Select Users"
           multiple
