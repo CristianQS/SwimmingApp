@@ -9,7 +9,7 @@
         </div>
       </v-flex>
       <v-flex class="site__content" xs12 sm1 offset-sm1 md1 offset-md1 lg1 offset-lg0>
-                  <div class="wrapper wrapper__center" v-if="chrono">
+        <div class="wrapper wrapper__center" v-if="chrono">
           <v-btn :loading="loading" @click="uploadChrono()" class="button__cloud" depressed fab dark>
               <v-icon>cloud_upload</v-icon>
           </v-btn>

@@ -16,6 +16,12 @@
           <a @click="goTo('ACTIVITIES',{idPlan:idplan,idTraining:idtraining})">Activities/</a>
           <span>{{idActivity}}/Chronometer</span>
         </strong>
+        <strong v-if="$route.name === 'CHRONOSEETIMES'" class="navbar__font"> 
+          <a @click="goTo('PROFILE',{})">TrainingsPlan/</a><span>{{idplan}}/</span>
+          <a @click="goTo('TRAININGS',{idPlan:idplan})">Trainings/</a><span>{{idtraining}}/</span>
+          <a @click="goTo('ACTIVITIES',{idPlan:idplan,idTraining:idtraining})">Activities/</a>
+          <span>{{idActivity}}/Chronoseetimes</span>
+        </strong>
     </v-toolbar>
 </template>
 

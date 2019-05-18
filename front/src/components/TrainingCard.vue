@@ -1,7 +1,7 @@
 <template>
   <v-card class="card">
     <v-layout align-center>
-      <v-flex xs6 sm7 md8 lg9>
+      <v-flex xs6 sm6 md8 lg9>
       <v-card-text @click="goTo(url,params)">
         <p class="headline font-weight-bold">{{training.name}}</p>
         <p class="font-weight-light">{{training.description}}</p>
@@ -10,7 +10,7 @@
        ${training.style} (${training.exercise})` }}</p>
       </v-card-text>
       </v-flex>
-      <v-flex xs6 sm5 md4 lg3 class="wrapper wrapper--row">
+      <v-flex xs6 sm6 md4 lg3 class="wrapper wrapper--row">
         <form-dialog
           v-if="user.userType === 2"
           :message="message"
@@ -21,19 +21,19 @@
         </form-dialog>
         <div class="wrapper wrapper--row">
           <div class="grid wrapper wrapper__center">
-            <v-btn class="v-btn item-a" color="black" v-if="training.training_id" 
+            <v-btn class="v-btn" color="black" v-if="training.training_id" 
               dark @click="goTo('CHRONOMETER', params)">
               <v-icon >alarm</v-icon>
             </v-btn>
-            <v-btn class="v-btn item-b" v-if="user.userType === 2" color="blue" dark @click="clonePlan()">
+            <v-btn class="v-btn" v-if="user.userType === 2" color="blue" dark @click="clonePlan()">
               <v-icon >file_copy</v-icon>
             </v-btn>
-            <v-btn class="v-btn item-c" v-if="user.userType === 2" color="red" dark @click="deletePlan()">
-              <v-icon >delete</v-icon>
-            </v-btn>
-            <v-btn class="v-btn item-d" v-if="training.training_id" 
-              color="blue darken-4" dark @click="true">
+            <v-btn class="v-btn" v-if="training.training_id" 
+              color="blue darken-4" dark  @click="goTo('CHRONOSEETIMES', params)">
               <v-icon>visibility</v-icon>
+            </v-btn>
+            <v-btn class="v-btn" v-if="user.userType === 2" color="red" dark @click="deletePlan()">
+              <v-icon >delete</v-icon>
             </v-btn>
           </div>
         </div>
