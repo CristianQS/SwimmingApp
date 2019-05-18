@@ -14,11 +14,28 @@
         <v-select
           v-model="newPlantraining.user"
           @focus="newPlanTraining()"
-          :items="usersClub"
+          :items="usersWithoutTrainer"
+          item-value="value"
+          :value="1"
           label="Select Users"
           multiple
           chips
-        />
+        >
+          <v-list-tile
+            slot="prepend-item"
+            ripple
+            @click="toggle"
+          >
+            <v-list-tile-action>
+              <v-icon :color="plantraining.user.length > 0 ? 'indigo darken-4' : ''">{{icon}}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>Select All</v-list-tile-title>
+          </v-list-tile>
+          <v-divider
+            slot="prepend-item"
+            class="mt-2"
+          />
+        </v-select>
       </v-flex>
       <v-flex xs12 sm2 md12>
         <h3>Description</h3>
@@ -53,12 +70,36 @@ export default {
         plantraining: this.newPlantraining
       }
       this.$emit('updateInstance', response)
-    }
+    },
+    toggle () {
+      this.$nextTick(() => {
+        if (this.allUsers) {
+          this.plantraining.user = []
+        } else {
+          this.plantraining.user = this.usersWithoutTrainer.slice()
+        }
+      })
+    },
   },
   computed: {
     ...mapState({
-      usersClub: state => state.usersClub
-    })
+      usersClub: state => state.usersClub,
+      trainer: state => state.user
+    }),
+    usersWithoutTrainer () {
+      return this.usersClub.filter(user => user.value !== this.trainer.id)
+    },
+    allUsers () {
+      return this.plantraining.user.length === this.usersWithoutTrainer.length
+    },
+    someUsers () {
+      return this.plantraining.user.length > 0 && !this.allUsers
+    },
+    icon () {
+      if (this.allUsers) return 'check_box'
+      if (this.someUsers) return 'indeterminate_check_box'
+      return 'check_box_outline_blank'
+    }
   }
 }
 </script>

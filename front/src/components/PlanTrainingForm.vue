@@ -13,6 +13,7 @@
       <v-flex xs12 sm2 md12>
         <v-select
           v-model="plantraining.user"
+          @focus="newPlanTraining()"
           :items="usersWithoutTrainer"
           item-value="value"
           :value="1"
@@ -101,9 +102,8 @@ export default {
     },
     icon () {
       if (this.allUsers) return 'check_box'
-      if (this.someUsers) return 'check_box_outline_blank'
-      return 'indeterminate_check_box'
-      
+      if (this.someUsers) return 'indeterminate_check_box'
+      return 'check_box_outline_blank'
     }
   }
 }
