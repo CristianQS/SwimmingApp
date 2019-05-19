@@ -10,7 +10,7 @@ export default {
       commit(GET_CHRONO_BY_IDACTIVITY, response.data)
       return response.data
     } catch (error) {
-      return []
+      return error
     }
   },
   [GET_CHRONO_BY_IDUSER]: async ({ commit }, params) => {

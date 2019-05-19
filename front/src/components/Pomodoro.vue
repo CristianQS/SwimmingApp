@@ -1,6 +1,12 @@
 <template>
   <div class="wrapper">
-    <v-layout wrap>
+    <div class="wrapper wrapper__center">
+      <v-progress-circular
+        v-if="loadPage" :size="150" :width="7"
+        color="black" indeterminate
+      />
+    </div>
+    <v-layout v-if="!loadPage" wrap>
       <v-flex xs12 sm4 offset-sm4 md4 offset-md4 lg4 offset-lg4 >
         <div class="container text__center">
           <div class="timer">
@@ -9,13 +15,14 @@
         </div>
       </v-flex>
       <v-flex class="site__content" xs12 sm1 offset-sm1 md1 offset-md1 lg1 offset-lg0>
-        <div class="wrapper wrapper__center" v-if="chrono">
+        <div class="wrapper wrapper__center">
           <v-btn :loading="loading" @click="uploadChrono()" class="button__cloud" depressed fab dark>
               <v-icon>cloud_upload</v-icon>
           </v-btn>
-
+          <div class="wrapper wrapper__center">
             <h3 >Last Time</h3>
             <p>{{chrono.time}}</p>
+          </div>
           </div>
       </v-flex>
     </v-layout>
@@ -25,8 +32,9 @@
       @reset="resetChrono"
       @stop="stopChrono"
       @flag="flag"
+      v-if="!loadPage"
     />
-    <div class="wrapper wrapper__center">
+    <div v-if="!loadPage" class="wrapper wrapper__center">
       <h3>Phases</h3>
       <v-card :width="300" class="card__phase"
         v-for="(phase,index) in phases" :key="index">
@@ -58,6 +66,7 @@ export default {
       seconds: 0,
       hundredths: 0,
       loading: false,
+      loadPage: false,
       timer: null,
       phases: [],
     }
@@ -106,7 +115,7 @@ export default {
           timechrono: Date.now()
         }
         let advice
-        if (this.chrono !== undefined) {
+        if (this.chronos.length > 0) {
           advice = confirm('You have a time for this activity.\nIf you continue you will delete it\n'+
           'Are you sure?')
           if (advice) {
@@ -151,15 +160,23 @@ export default {
       return `${minutes}:${seconds}.${hundredths}`
     },
     chrono () {
-      return this.chronos[0]
+      var result = this.chronos
+      return result.length > 0 ? result[0] : result
     },
     ...mapState({
       user: state => state.user,
-      chronos: state => state.chronos.filter(chrono => chrono.user_id == state.user.id)
+      chronos: state => state.chronos
     })
   },
   async created () {
-    await this.getChronoByActivity({activityid:this.$route.params.idActivity})
+    try {
+      this.loadPage = true
+      await this.getChronoByActivity({activityid:this.$route.params.idActivity})
+    } catch {
+      return error
+    } finally {
+      this.loadPage = false
+    }
   }
 }
 </script>

@@ -10,8 +10,15 @@ from .serializers import ChronoSerializer
 class ChronoView (APIView):
     def get(self, request, *args, **kwargs):
         try:
-            activity = request.query_params['activityid']
-            chornos = Chrono.objects.filter(activity=activity).values()
+            if request.query_params.get('activityid'):
+                activity = request.query_params['activityid']
+                chornos = Chrono.objects.filter(activity=activity).values()
+            if request.query_params.get('userid'):
+                user = request.query_params['userid']
+                chornos = Chrono.objects.\
+                    filter(user=user).values('time','timechrono','user','activity__series',
+                                             'activity__meters','activity__exercise','activity__style',
+                                             'activity__id')
             if len(chornos) == 0:
                 return Response([{'msg': 'No Chrono found'}], status=status.HTTP_404_NOT_FOUND)
             else:

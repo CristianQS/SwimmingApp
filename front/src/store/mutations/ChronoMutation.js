@@ -7,9 +7,18 @@ export default {
   },
   [GET_CHRONO_BY_IDACTIVITY]: async (state, data) => {
     state.chronos.push(data[0])
+    state.chronos = state.chronos.filter(chrono => chrono.user_id == state.user.id)
+
   },
   [ADD_CHRONO]: (state, data) => {
-    state.chronos.push(data)
+    let request = {
+      activity_id: data.activity,
+      id: data.id,
+      time: data.time,
+      timechrono: data.timechrono,
+      user_id: data.user
+    }
+    state.chronos.push(request)
   },
   [DELETE_CHRONO]: (state, id) => {
     state.chronos = []

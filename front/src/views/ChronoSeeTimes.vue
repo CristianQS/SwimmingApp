@@ -13,7 +13,7 @@
         <h3 class="display-2" >Last Time</h3>
         <p class="timer__countdown font-weight-light">{{chrono[0].time}}</p>
       </div>
-      <div v-if="chrono.length === 0 && wait == false">
+      <div v-if="error && wait == false">
          <p class="font-weight-light display-2">No Chrono Time Found</p>
       </div>
       <div class="phases" v-if="phases.length > 0">
@@ -44,7 +44,8 @@ export default {
     return {
       chrono: [],
       phases: [],
-      wait: false
+      wait: false,
+      error: false
     }
   },
   methods: {
@@ -66,6 +67,7 @@ export default {
       this.phases = await this.getPhasesByChrono(this.chrono[0].id)
       this.phases = this.phases.reverse()
     } catch (error) {
+      this.error = true
       return error
     } finally {
       this.wait = false

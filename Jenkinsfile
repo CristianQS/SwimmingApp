@@ -41,6 +41,8 @@ pipeline{
       stage ('Deploy backend') {
         steps {
           dir ("back/") {
+              sh 'export DOCKER_CLIENT_TIMEOUT=120'
+              sh 'export COMPOSE_HTTP_TIMEOUT=120'
               sh 'docker-compose up -d'     
           }
         }
