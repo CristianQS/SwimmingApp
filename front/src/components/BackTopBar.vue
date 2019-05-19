@@ -22,12 +22,19 @@
           <a @click="goTo('ACTIVITIES',{idPlan:idplan,idTraining:idtraining})">Activities/</a>
           <span>{{idActivity}}/Chronoseetimes</span>
         </strong>
+        <v-spacer/>
+        <user-settings/>
     </v-toolbar>
 </template>
 
 <script>
+import UserSettings from './UserSettings.vue'
+
 export default {
   name: 'BackTopBar',
+  components: {
+    UserSettings
+  },
   data () {
     return {
       idplan: this.$route.params.idPlan,

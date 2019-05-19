@@ -30,7 +30,6 @@
         <template v-slot:text>
           <plan-training-form
             v-if="dialog"
-            :usersClub="usersClubs"
             @plantraining="newPlanTraining"
             :userPlan="user"
             />
@@ -125,7 +124,8 @@ export default {
           this.events.push(trainings[i])
           await this.getActivities({plantraining_id:plantraining.id, training_id:trainings[i].id})
         }
-      })
+      })     
+      
     } catch (error) {
       return error
     } finally {

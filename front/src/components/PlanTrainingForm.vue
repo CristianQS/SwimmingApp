@@ -52,13 +52,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { GET_USERS_BY_CLUB, AUTHENTICATE } from '../store/types/UserTypes'
 
 export default {
   name: 'PlanTrainingForm',
-  props: {
-    userPlan: { type: Object, required: false }
-  },
   data () {
     return {
       plantraining: {
@@ -81,10 +77,7 @@ export default {
           this.plantraining.user = this.usersWithoutTrainer.slice()
         }
       })
-    },
-    ...mapActions({
-      getUsersByClub: GET_USERS_BY_CLUB
-    })
+    }
   },
   computed: {
     ...mapState({

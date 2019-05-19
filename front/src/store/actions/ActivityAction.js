@@ -8,6 +8,7 @@ export default {
       commit(GET_ACTIVITIES, [])
       let response = await activityClient.getActivities(params.plantraining_id, params.training_id)
       commit(GET_ACTIVITIES, response.data)
+      return response.data
     } catch (error) {
       return error
     }

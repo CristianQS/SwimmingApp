@@ -34,5 +34,6 @@ export default {
   [GET_USERS_BY_CLUB]: async ({ commit }, id) => {
     let response = await userClient.getUsersByClub(id)
     commit(GET_USERS_BY_CLUB, response.data)
+    return response.data
   }
 }

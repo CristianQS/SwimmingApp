@@ -4,21 +4,17 @@
       <span class="cursor">SwimPlan</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <!-- <v-btn @click="goTo('/search')" flat icon>
-      <v-icon color="blue">search</v-icon>
-    </v-btn> -->
-    <v-btn @click="goTo('/profile')" flat icon>
-      <v-icon color="blue">person</v-icon>
-    </v-btn>
+    <user-settings/>
     </v-toolbar>
 </template>
 
 <script>
+import UserSettings from './UserSettings.vue'
 
 export default {
   name: 'NavBar',
   components: {
-
+    UserSettings
   },
   data () {
     return {

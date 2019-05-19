@@ -3,7 +3,6 @@
         <v-icon
             color="black"
             slot="activator"
-            large
             >
             exit_to_app
         </v-icon>
