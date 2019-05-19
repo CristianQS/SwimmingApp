@@ -155,7 +155,7 @@ export default {
     },
     ...mapState({
       user: state => state.user,
-      chronos: state => state.chronos
+      chronos: state => state.chronos.filter(chrono => chrono.user_id == state.user.id)
     })
   },
   async created () {
