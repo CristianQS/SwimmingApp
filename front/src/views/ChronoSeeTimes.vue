@@ -9,11 +9,11 @@
         color="black"
         indeterminate
       />
-      <div v-if="chrono.time && wait == false">
+      <div v-if="chrono.length > 0 && wait == false">
         <h3 class="display-2" >Last Time</h3>
-        <p class="timer__countdown font-weight-light">{{chrono.time}}</p>
+        <p class="timer__countdown font-weight-light">{{chrono[0].time}}</p>
       </div>
-      <div v-if="chrono.time == undefined && wait == false">
+      <div v-if="chrono.length === 0 && wait == false">
          <p class="font-weight-light display-2">No Chrono Time Found</p>
       </div>
       <div class="phases" v-if="phases.length > 0">
@@ -62,8 +62,8 @@ export default {
     try {
       this.wait = true
       this.chrono = await this.getChronoByActivity({activityid:this.$route.params.idActivity})
-      this.chrono = this.chrono.filter(chrono => chrono.user_id == this.user.id)[0]
-      this.phases = await this.getPhasesByChrono(this.chrono.id)
+      this.chrono = this.chrono.filter(chrono => chrono.user_id == this.user.id)
+      this.phases = await this.getPhasesByChrono(this.chrono[0].id)
       this.phases = this.phases.reverse()
     } catch (error) {
       return error
