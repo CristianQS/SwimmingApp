@@ -84,7 +84,10 @@ export default {
 
       for (let j = 0; j < chronos.length; j++) {
         lineChorno = { name: users[i].text, data: [] }
-        let chrono1 = Number.MAX_SAFE_INTEGER, chrono2 = Number.MAX_SAFE_INTEGER, chrono3 = Number.MAX_SAFE_INTEGER, chrono4 = Number.MAX_SAFE_INTEGER, chrono5 = Number.MAX_SAFE_INTEGER, chrono6 = Number.MAX_SAFE_INTEGER, chrono0 = Number.MAX_SAFE_INTEGER
+        let chrono1 = Number.MAX_SAFE_INTEGER, chrono2 = Number.MAX_SAFE_INTEGER, 
+        chrono3 = Number.MAX_SAFE_INTEGER, chrono4 = Number.MAX_SAFE_INTEGER, 
+        chrono5 = Number.MAX_SAFE_INTEGER, chrono6 = Number.MAX_SAFE_INTEGER, 
+        chrono0 = Number.MAX_SAFE_INTEGER
         let timeChrono = 0
         let date = new Date(chronos[j].timechrono)
         let meters = chronos[j].activity__meters * chronos[j].activity__series
@@ -109,16 +112,14 @@ export default {
           if (date.getDay() === 6) chrono6 = timeChrono
           if (date.getDay() === 0) chrono0 = timeChrono
 
-          for (let i = 0; i < 7 ; i++) {
-            let abc = dateToday + i
-            lineChorno.data.push(eval('chrono'+abc) === Number.MAX_SAFE_INTEGER ? 0 : eval('chrono'+abc))
+          for (let i = 0; i < 6 ; i++) {
+            lineChorno.data.push(eval('chrono'+i) === Number.MAX_SAFE_INTEGER ? 0 : eval('chrono'+i))
           }
           if (!this.dataLine.some(line => line.name == lineChorno.name)) this.dataLine.push(lineChorno)
         }        
       }
-      for (let i = 0; i < 7 ; i++) {
-        let abc = dateToday + i
-        columnMeters.data.push(eval('day'+abc))
+      for (let i = 0; i < 6 ; i++) {
+        columnMeters.data.push(eval('day'+i))
       }
       this.dataColumn.push(columnMeters)
     }

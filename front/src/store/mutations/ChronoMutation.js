@@ -6,9 +6,10 @@ export default {
     state.chronos = data
   },
   [GET_CHRONO_BY_IDACTIVITY]: async (state, data) => {
-    state.chronos.push(data[0])
+    for (let i = 0; i < data.length; i++) {
+      state.chronos.push(data[i])      
+    }
     state.chronos = state.chronos.filter(chrono => chrono.user_id == state.user.id)
-
   },
   [ADD_CHRONO]: (state, data) => {
     let request = {
