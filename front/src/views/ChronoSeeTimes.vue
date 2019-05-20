@@ -13,7 +13,7 @@
         <h3 class="display-2" >Last Time</h3>
         <p class="timer__countdown font-weight-light">{{chrono[0].time}}</p>
       </div>
-      <div v-if="error && wait == false">
+      <div v-if="error && wait == false || chrono.length == 0 && wait == false">
          <p class="font-weight-light display-2">No Chrono Time Found</p>
       </div>
       <div class="phases" v-if="phases.length > 0">
@@ -52,12 +52,7 @@ export default {
     ...mapActions({
       getChronoByActivity: GET_CHRONO_BY_IDACTIVITY,
       getPhasesByChrono: GET_PHASES_BY_CHRONO
-    }),
-    timechrono (time) {
-      var a = time.replace(':','.').split('.')
-      var seconds = (+a[0]) * 60+ (+a[1]) 
-      return seconds
-    }
+    })
   },
   computed: {
     ...mapState({

@@ -12,7 +12,7 @@
           keyboard_arrow_left
         </v-icon>
       </v-btn>
-      <p>{{mappingMonth +" "+ year}}</p>
+      <p class="font-weight-light display-1">{{mappingMonth +" "+ year}}</p>
       <v-btn
         fab
         small

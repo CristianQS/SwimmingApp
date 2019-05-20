@@ -5,37 +5,27 @@
       Training Plan
       </v-tab>
       <v-tab-item>
-        <!-- <draggable
-          class="list-group"
-          v-model="plantraings"
-          v-bind="dragOptions"
-          @start="drag = true"
-          @end="drag = false"
-        > -->
-          <!-- <transition-group type="transition" :name="!drag ? 'flip-list' : null"> -->
-            <div v-if="plantraings.length === 0">
-              <p>Not Trainings Found</p>
-            </div>
-            <training-card v-for="plantraing in plantraings"
-              class="trainingCard"
-              :key="plantraing.id"
-              :url="url"
-              :params="{idPlan:plantraing.id}"
-              :methods="methods"
-              :training="plantraing"
-              :newUpdate="params"
-              :message="'Modify Plan Training'"
-              >
-              <template v-slot:modify>
-                <modify-form
-                @updateInstance="updateInstance"
-                :plantraining="plantraing"/>
-              </template>
-            </training-card>
-          <!-- </transition-group> -->
-        <!-- </draggable> -->
+        <div v-if="plantraings.length === 0">
+          <p>Not Trainings Found</p>
+        </div>
+        <training-card v-for="plantraing in plantraings"
+          class="trainingCard"
+          :key="plantraing.id"
+          :url="url"
+          :params="{idPlan:plantraing.id}"
+          :methods="methods"
+          :training="plantraing"
+          :newUpdate="params"
+          :message="'Modify Plan Training'"
+          >
+          <template v-slot:modify>
+            <modify-form
+            @updateInstance="updateInstance"
+            :plantraining="plantraing"/>
+          </template>
+        </training-card>
       </v-tab-item>
-      <v-tab>
+      <v-tab v-if="user.id == 1 || user.id == 2">
         Graphics
       </v-tab>
       <v-tab-item>
@@ -90,7 +80,8 @@ export default {
     ...mapState({
       plantraings: state => state.plantrainings,
       activities: state => state.activities,
-      usersClub: state => state.usersClub
+      usersClub: state => state.usersClub,
+      user: state => state.user
     }),
     dragOptions () {
       return {

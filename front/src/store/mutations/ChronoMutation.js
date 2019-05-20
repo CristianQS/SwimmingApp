@@ -9,7 +9,7 @@ export default {
     for (let i = 0; i < data.length; i++) {
       state.chronos.push(data[i])      
     }
-    state.chronos = state.chronos.filter(chrono => chrono.user_id == state.user.id)
+    // state.chronos = state.chronos.filter(chrono => chrono.user_id == state.user.id)
   },
   [ADD_CHRONO]: (state, data) => {
     let request = {

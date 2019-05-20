@@ -23,7 +23,17 @@
             <h3 >Last Time</h3>
             <p>{{chrono.time}}</p>
           </div>
-          </div>
+          <v-card dark class="selector">
+            <v-select
+              v-if="user.userType === 2"
+              v-model="userChrono"
+              :items="usersClub"
+              item-value="value"
+              label="Select User"
+              chips
+            />
+          </v-card>
+        </div>
       </v-flex>
     </v-layout>
 
@@ -69,6 +79,7 @@ export default {
       loadPage: false,
       timer: null,
       phases: [],
+      userChrono: 0
     }
   },
   methods: {
@@ -108,12 +119,18 @@ export default {
     async uploadChrono () {
       try {
         this.loading = true
+        if (this.user.userType === 2 && this.userChrono == 0) {
+          alert('Select a User')
+          this.loading = false
+          return
+        }
         let params = {
           user: this.user.id,
           time: this.chronoString,
           activity: this.$route.params.idActivity,
           timechrono: Date.now()
         }
+        if (this.user.userType === 2) params.user = this.userChrono
         let advice
         if (this.chronos.length > 0) {
           advice = confirm('You have a time for this activity.\nIf you continue you will delete it\n'+
@@ -161,9 +178,15 @@ export default {
     },
     chrono () {
       var result = this.chronos
-      return result.length > 0 ? result[0] : result
+      if (result.length > 0) {
+        if (result[0].user_id === this.user.id){ 
+          return result[0]
+        }
+      }
+      return result
     },
     ...mapState({
+      usersClub: state => state.usersClub,
       user: state => state.user,
       chronos: state => state.chronos
     })
@@ -260,5 +283,9 @@ export default {
 }
 .card__phase {
   margin: 4px 0;
+}
+
+.selector {
+  padding: 2px 20px;
 }
 </style>

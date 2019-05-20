@@ -4,10 +4,10 @@
         type: 'line'
       },
       title: {
-        text: 'Solar Employment Growth by Sector, 2010-2016'
+        text: 'Time of Crawl and Backstroke'
       },
       subtitle: {
-        text: 'Source: thesolarfoundation.com'
+        text: 'Last 7 Days'
       },
       yAxis: {
         title: {
@@ -46,10 +46,10 @@
         type: 'column'
       },
       title: {
-        text: 'Monthly Average Rainfall'
+        text: 'Total Distance'
       },
       subtitle: {
-        text: 'Source: WorldClimate.com'
+        text: 'Last 7 Days'
       },
       xAxis: {
         categories: getXaxis(),
@@ -58,7 +58,7 @@
       yAxis: {
         min: 0,
         title: {
-            text: 'Meters (m)'
+          text: 'Meters (m)'
         }
       },
       tooltip: {

@@ -56,39 +56,41 @@ export default {
       var a = time.replace(':','.').split('.')
       var seconds = (+a[0]) * 60+ (+a[1]) 
       return seconds
-    }
-  },
-  computed: {
-    lineOptions () {
-      return line(this.dataLine)
     },
-    columnOptions () {
-      return column(this.dataColumn)
-    },
-    days () {
-      return this.chronosChart.map(chrono => {
-        return chrono.timechrono
-      })
-    }
-  },
-  async created () {
-    this.loading = true  
-    let users = this.usersClub.filter(user => user.value === 1 | user.value === 2)
-    for (let i = 0; i < users.length; i++) {
-      let lineChorno = { name: users[i].text, data: [] }
-      let columnMeters = { name: users[i].text, data: [] }
-      let chronos = await this.getChronoActivity({userid: users[i].value})
-
-      let today = Date.now()
-      let day1 = 0, day2 = 0, day3 = 0, day4 = 0, day5 = 0, day6 = 0, day0 = 0
+    getChornosTimesChart (chronos, today, user) {
+      let lineChrono = { 
+        name: '', 
+        data: [] 
+      }
+      let timeChrono = 0
       let chrono1 = Number.MAX_SAFE_INTEGER, chrono2 = Number.MAX_SAFE_INTEGER, 
       chrono3 = Number.MAX_SAFE_INTEGER, chrono4 = Number.MAX_SAFE_INTEGER, 
       chrono5 = Number.MAX_SAFE_INTEGER, chrono6 = Number.MAX_SAFE_INTEGER, 
       chrono0 = Number.MAX_SAFE_INTEGER
-
+      
       for (let j = 0; j < chronos.length; j++) {
-        lineChorno = { name: users[i].text, data: [] }
-        let timeChrono = 0
+        lineChrono.name = user + ' ' + chronos[j].activity__meters + ' ' + chronos[j].activity__style
+        let date = new Date(chronos[j].timechrono)
+        timeChrono = this.timechrono(chronos[j].time)
+        if (date.getDay() === 1) chrono1 = timeChrono
+        if (date.getDay() === 2) chrono2 = timeChrono
+        if (date.getDay() === 3) chrono3 = timeChrono
+        if (date.getDay() === 4) chrono4 = timeChrono
+        if (date.getDay() === 5) chrono5 = timeChrono
+        if (date.getDay() === 6) chrono6 = timeChrono
+        if (date.getDay() === 0) chrono0 = timeChrono
+      }
+      for (let i = 0; i < 7 ; i++) {
+        let timestampDay = today - 86400*i*1000
+        let finalIndex = new Date(timestampDay).getDay()
+        lineChrono.data.push(eval('chrono'+finalIndex) === Number.MAX_SAFE_INTEGER ? 0 : eval('chrono'+finalIndex))
+      }
+      return lineChrono
+    },
+    getMetersChart (chronos, today, user) {
+      let columnMeters = { name: user, data: [] }
+      let day1 = 0, day2 = 0, day3 = 0, day4 = 0, day5 = 0, day6 = 0, day0 = 0
+      for (let j = 0; j < chronos.length; j++) {
         let date = new Date(chronos[j].timechrono)
         let meters = chronos[j].activity__meters * chronos[j].activity__series
 
@@ -98,33 +100,47 @@ export default {
         if (date.getDay() === 4) day4 += meters
         if (date.getDay() === 5) day5 += meters
         if (date.getDay() === 6) day6 += meters
-        if (date.getDay() === 0) day0 += meters
-
-        if ( (chronos[j].activity__style == 'Crawl' | chronos[j].activity__style == 'Backstroke')
-         && chronos[j].activity__meters == 100 ) {
-          lineChorno.name = users[i].text + ' ' + chronos[j].activity__meters + ' ' + chronos[j].activity__style
-          timeChrono = this.timechrono(chronos[j].time)
-          if (date.getDay() === 1) chrono1 = timeChrono
-          if (date.getDay() === 2) chrono2 = timeChrono
-          if (date.getDay() === 3) chrono3 = timeChrono
-          if (date.getDay() === 4) chrono4 = timeChrono
-          if (date.getDay() === 5) chrono5 = timeChrono
-          if (date.getDay() === 6) chrono6 = timeChrono
-          if (date.getDay() === 0) chrono0 = timeChrono
-        }        
+        if (date.getDay() === 0) day0 += meters     
       }
-      for (let i = 0; i < 7 ; i++) {
-        let timestampDay = today - 86400*i*1000
-        let finalIndex = new Date(timestampDay).getDay()
-        lineChorno.data.push(eval('chrono'+finalIndex) === Number.MAX_SAFE_INTEGER ? 0 : eval('chrono'+finalIndex))
-      }
-      this.dataLine.push(lineChorno)
       for (let i = 0; i < 7 ; i++) {
         let timestampDay = today - 86400*i*1000
         let finalIndex = new Date(timestampDay).getDay()
         columnMeters.data.push(eval('day'+finalIndex))
       }
-      this.dataColumn.push(columnMeters)
+      return columnMeters
+    }
+  },
+  computed: {
+    lineOptions () {
+      return line(this.dataLine)
+    },
+    columnOptions () {
+      return column(this.dataColumn)
+    }
+  },
+  async created () {
+    this.loading = true  
+    let users = this.usersClub.filter(user => user.value === 1 | user.value === 2)
+    for (let i = 0; i < users.length; i++) {
+      let today = Date.now()
+      let week = today - 604800*1000
+      let chronos = await this.getChronoActivity({userid: users[i].value})
+      chronos = chronos.filter(chrono => week <= chrono.timechrono)
+      let chronosCrawl = chronos.filter(chrono => chrono.activity__style == 'Crawl' 
+      && chrono.activity__meters == 100)
+      
+      let chronosBack = chronos.filter(chrono => chrono.activity__style == 'Backstroke' 
+      && chrono.activity__meters == 100)
+
+
+      let metersChartData = this.getMetersChart(chronos, today, users[i].text)
+      let crawlChronosData = this.getChornosTimesChart(chronosCrawl, today, users[i].text)
+      let backChronosData = this.getChornosTimesChart(chronosBack, today, users[i].text)
+
+      this.dataLine.push(crawlChronosData)
+      this.dataLine.push(backChronosData)
+
+      this.dataColumn.push(metersChartData)
     }
     this.loading = false
   }
