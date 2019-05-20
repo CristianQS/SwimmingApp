@@ -1,4 +1,4 @@
-import { ADD_CHRONO, GET_CHRONO_BY_IDUSER,GET_CHRONO_BY_IDACTIVITY,
+import { ADD_CHRONO, GET_CHRONO_BY_IDUSER, GET_CHRONO_BY_IDACTIVITY,
   DELETE_CHRONO } from '../types/ChronoTypes'
 
 export default {
@@ -7,7 +7,7 @@ export default {
   },
   [GET_CHRONO_BY_IDACTIVITY]: async (state, data) => {
     for (let i = 0; i < data.length; i++) {
-      state.chronos.push(data[i])      
+      state.chronos.push(data[i])
     }
     // state.chronos = state.chronos.filter(chrono => chrono.user_id == state.user.id)
   },

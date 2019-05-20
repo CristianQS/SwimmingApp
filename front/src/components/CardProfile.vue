@@ -16,7 +16,7 @@
               <user-edit-dialog @modifyUser="modifyUser"/>
           </v-flex>
         </v-layout>
-        <v-flex xs12 sm12 md12 class="wrapper"> 
+        <v-flex xs12 sm12 md12 class="wrapper">
           <h3>Description</h3>
           {{userState.description}}
         </v-flex>

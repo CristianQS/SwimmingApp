@@ -53,7 +53,6 @@ export default {
       }
       this.$emit('modifyUser', this.editUser)
       this.dialog = !this.dialog
-      
     },
     ...mapActions({
       getUser: AUTHENTICATE

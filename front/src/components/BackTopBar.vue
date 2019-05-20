@@ -3,20 +3,20 @@
         <v-btn icon @click="closeDialog" >
           <v-icon>arrow_back</v-icon>
         </v-btn>
-        <strong v-if="$route.name === 'TRAININGS'" class="navbar__font"> 
+        <strong v-if="$route.name === 'TRAININGS'" class="navbar__font">
           <a @click="goTo('PROFILE',{})">TrainingsPlan/</a><span>{{idplan}}/Trainings</span>
         </strong>
-        <strong v-if="$route.name === 'ACTIVITIES'" class="navbar__font"> 
+        <strong v-if="$route.name === 'ACTIVITIES'" class="navbar__font">
           <a @click="goTo('PROFILE',{})">TrainingsPlan/</a><span>{{idplan}}/</span>
           <a @click="goTo('TRAININGS',{idPlan:idplan})">Trainings/</a><span>{{idtraining}}/Activities</span>
         </strong>
-        <strong v-if="$route.name === 'CHRONOMETER'" class="navbar__font"> 
+        <strong v-if="$route.name === 'CHRONOMETER'" class="navbar__font">
           <a @click="goTo('PROFILE',{})">TrainingsPlan/</a><span>{{idplan}}/</span>
           <a @click="goTo('TRAININGS',{idPlan:idplan})">Trainings/</a><span>{{idtraining}}/</span>
           <a @click="goTo('ACTIVITIES',{idPlan:idplan,idTraining:idtraining})">Activities/</a>
           <span>{{idActivity}}/Chronometer</span>
         </strong>
-        <strong v-if="$route.name === 'CHRONOSEETIMES'" class="navbar__font"> 
+        <strong v-if="$route.name === 'CHRONOSEETIMES'" class="navbar__font">
           <a @click="goTo('PROFILE',{})">TrainingsPlan/</a><span>{{idplan}}/</span>
           <a @click="goTo('TRAININGS',{idPlan:idplan})">Trainings/</a><span>{{idtraining}}/</span>
           <a @click="goTo('ACTIVITIES',{idPlan:idplan,idTraining:idtraining})">Activities/</a>
@@ -39,7 +39,7 @@ export default {
     return {
       idplan: this.$route.params.idPlan,
       idtraining: this.$route.params.idTraining,
-      idActivity: this.$route.params.idActivity,
+      idActivity: this.$route.params.idActivity
     }
   },
   methods: {
@@ -50,7 +50,7 @@ export default {
       if (route !== undefined) {
         this.$router.push({ name: route, params: params })
       }
-    },
+    }
   }
 }
 </script>
@@ -71,4 +71,3 @@ export default {
   }
 }
 </style>
-

@@ -71,7 +71,7 @@ export default {
       plantraining: {},
       events: [],
       usersClubs: [],
-      wait: "",
+      wait: '',
       activities: []
     }
   },
@@ -122,10 +122,9 @@ export default {
           var date = new Date(trainings[i].timetraining)
           trainings[i].timetraining = date.toISOString().substr(0, 10)
           this.events.push(trainings[i])
-          await this.getActivities({plantraining_id:plantraining.id, training_id:trainings[i].id})
+          await this.getActivities({ plantraining_id: plantraining.id, training_id: trainings[i].id })
         }
-      })     
-      
+      })
     } catch (error) {
       return error
     } finally {

@@ -21,14 +21,14 @@
         </form-dialog>
         <div class="wrapper wrapper--row">
           <div class="grid wrapper wrapper__center">
-            <v-btn class="v-btn" color="black" v-if="training.training_id" 
+            <v-btn class="v-btn" color="black" v-if="training.training_id"
               dark @click="goTo('CHRONOMETER', params)">
               <v-icon >alarm</v-icon>
             </v-btn>
             <v-btn class="v-btn" v-if="user.userType === 2" color="blue" dark @click="clonePlan()">
               <v-icon >file_copy</v-icon>
             </v-btn>
-            <v-btn class="v-btn" v-if="training.training_id" 
+            <v-btn class="v-btn" v-if="training.training_id"
               color="blue darken-4" dark  @click="goTo('CHRONOSEETIMES', params)">
               <v-icon>visibility</v-icon>
             </v-btn>
@@ -92,7 +92,7 @@ export default {
       trainings: state => state.trainings,
       user: state => state.user
     })
-  },
+  }
 }
 </script>
 
@@ -106,7 +106,7 @@ export default {
 .v-btn {
   min-width: 15px;
   width:60px;
-} 
+}
 .wrapper {
   display: flex;
   justify-content: center;

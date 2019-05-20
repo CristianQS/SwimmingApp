@@ -4,7 +4,7 @@
     <div>
       <v-layout align-center justify-center>
         <v-flex xs12 md6>
-          <v-text-field 
+          <v-text-field
           v-model="searcherValue"
           prepend-inner-icon="search"
           ></v-text-field>
@@ -41,7 +41,7 @@
       </template>
       </training-card>
     </div>
-    <floating-button v-if="user.userType === 2" 
+    <floating-button v-if="user.userType === 2"
       @click.native="dialog = !dialog">add</floating-button>
     <add-dialog
       :message="'Add Training'"
@@ -93,7 +93,7 @@ export default {
       train: {},
       updatetraining: {},
       error: false,
-      searcherValue: "",
+      searcherValue: '',
       wait: false
     }
   },
@@ -135,7 +135,7 @@ export default {
     }),
     searchTraining () {
       return this.trainings.filter(training => training.name.toLowerCase().includes(this.searcherValue))
-    },
+    }
   },
   async created () {
     this.wait = true

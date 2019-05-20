@@ -59,24 +59,24 @@ export default {
   .v-btn {
     min-width: 20px;
     height: 86px;
-  } 
+  }
 }
 @media (max-width: 523px) {
   .v-btn {
     width: 70%;
     height: 70%;
-  } 
+  }
 }
 @media (max-width: 394px) {
   .v-btn {
     width: 82%;
     height: 82%;
-  } 
+  }
 }
 @media (max-width: 374px) {
   .v-btn {
     width: 90%;
     height: 90%;
-  } 
+  }
 }
 </style>

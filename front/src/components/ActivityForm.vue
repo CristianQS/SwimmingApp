@@ -5,7 +5,7 @@
       <v-flex xs12 sm12 md12 class="wrapper wrapper__center">
         <h3>Warn Up</h3>
         <div class="wrapper">
-          <v-btn class="btn" @click="mapActivity(1, 400,'Normal', 'Crawl', 'Warm up','Normal')" 
+          <v-btn class="btn" @click="mapActivity(1, 400,'Normal', 'Crawl', 'Warm up','Normal')"
             dark small>400 Normal Crawl</v-btn>
           <v-btn class="btn" @click="mapActivity(1, 200,'Normal', 'Medley', 'Warm up','Normal')"
             dark small>200 Normal Medley</v-btn>
@@ -104,14 +104,14 @@ export default {
     passActivity () {
       this.$emit('passActivity', this.activity)
     },
-    mapActivity (series, meters, exercise, style,type, rhythm) {
-        this.activity.series = series
-        this.activity.meters = meters
-        this.activity.exercise = exercise
-        this.activity.style = style
-        this.activity.type = type
-        this.activity.rhythm = rhythm
-     }
+    mapActivity (series, meters, exercise, style, type, rhythm) {
+      this.activity.series = series
+      this.activity.meters = meters
+      this.activity.exercise = exercise
+      this.activity.style = style
+      this.activity.type = type
+      this.activity.rhythm = rhythm
+    }
   }
 }
 </script>

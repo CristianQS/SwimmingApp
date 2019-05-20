@@ -61,7 +61,7 @@ export default {
         user: [],
         name: 'Plan Training',
         description: 'In this plan training will we train ...'
-      },
+      }
     }
   },
   methods: {

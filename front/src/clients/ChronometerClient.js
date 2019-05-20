@@ -1,8 +1,8 @@
 import { CHRONOS, CHRONOS_BY_ID } from '../constants/apiRoutesConstants'
 
-export default function ChronometerClient(restClient) {
+export default function ChronometerClient (restClient) {
   function getChornoByIdActivity (params) {
-    return restClient.get(CHRONOS(),params)
+    return restClient.get(CHRONOS(), params)
   }
   function getChornoByIdUser (params) {
     return restClient.get(CHRONOS(), params)

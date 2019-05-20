@@ -63,7 +63,7 @@ export default {
         update: (params) => this.modifyPlanTraining(params),
         delete: (id) => this.deletePlanTrainings(id)
       }
-  }
+    }
   },
   methods: {
     ...mapActions({

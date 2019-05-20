@@ -79,7 +79,7 @@ export default {
           this.plantraining.user = this.usersWithoutTrainer.slice()
         }
       })
-    },
+    }
   },
   computed: {
     ...mapState({

@@ -4,7 +4,7 @@
     <div>
       <v-layout align-center justify-center>
         <v-flex xs12 md6>
-          <v-text-field v-model="searcherValue" 
+          <v-text-field v-model="searcherValue"
           prepend-inner-icon="search"></v-text-field>
         </v-flex>
       </v-layout>
@@ -132,7 +132,7 @@ export default {
       idtraining: this.$route.params.idTraining,
       newActivity: {},
       updateActivity: {},
-      searcherValue: "",
+      searcherValue: '',
       wait: false
     }
   },
@@ -170,17 +170,17 @@ export default {
       user: state => state.user
     }),
     activitiesWarn () {
-      return this.searchTraining.filter(activity => activity.type == "Warm up")
+      return this.searchTraining.filter(activity => activity.type == 'Warm up')
     },
     activitiesTrain () {
-      return this.searchTraining.filter(activity => activity.type == "Train")
+      return this.searchTraining.filter(activity => activity.type == 'Train')
     },
     activitiesCalm () {
-      return this.searchTraining.filter(activity => activity.type == "Calm")
+      return this.searchTraining.filter(activity => activity.type == 'Calm')
     },
     searchTraining () {
       return this.activities.filter(activity => this.activityString(activity).includes(this.searcherValue))
-    },
+    }
   },
   async created () {
     this.wait = true

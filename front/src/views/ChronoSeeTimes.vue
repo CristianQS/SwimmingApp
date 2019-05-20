@@ -62,17 +62,16 @@ export default {
   async created () {
     try {
       this.wait = true
-      this.chrono = await this.getChronoByActivity({activityid:this.$route.params.idActivity})
+      this.chrono = await this.getChronoByActivity({ activityid: this.$route.params.idActivity })
       this.chrono = this.chrono.filter(chrono => chrono.user_id == this.user.id)
       try {
         this.phases = await this.getPhasesByChrono(this.chrono[0].id)
-        this.phases = this.phases.sort((a,b) => {
+        this.phases = this.phases.sort((a, b) => {
           return a.meters - b.meters
-          })
+        })
       } catch (error) {
         return error
       }
-
     } catch (error) {
       this.error = true
       return error

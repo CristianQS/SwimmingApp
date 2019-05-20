@@ -114,7 +114,7 @@ export default {
       this.phases.push(phase)
     },
     deletePhase (indexPhase) {
-      this.phases = this.phases.filter((phase,index) => index !== indexPhase)
+      this.phases = this.phases.filter((phase, index) => index !== indexPhase)
     },
     async uploadChrono () {
       try {
@@ -133,31 +133,31 @@ export default {
         if (this.user.userType === 2) params.user = this.userChrono
         let advice
         if (this.chronos.length > 0) {
-          advice = confirm('You have a time for this activity.\nIf you continue you will delete it\n'+
+          advice = confirm('You have a time for this activity.\nIf you continue you will delete it\n' +
           'Are you sure?')
           if (advice) {
             await this.deleteChrono(this.chrono.id)
           } else {
             this.loading = false
-            return 
+            return
           }
         }
         let response = await this.addChrono(params)
-        if(this.phases.length > 0) {
-          this.phases.forEach( (phase,index) => {
+        if (this.phases.length > 0) {
+          this.phases.forEach((phase, index) => {
             let request = {
               timePhase: phase,
               chrono: response.id,
-              meters: index*100 + 100
+              meters: index * 100 + 100
             }
             this.addPhase(request)
-          });
+          })
         }
         this.loading = false
       } catch (error) {
         this.loading = false
         return error
-      } 
+      }
     },
     ...mapActions({
       addChrono: ADD_CHRONO,
@@ -179,7 +179,7 @@ export default {
     chrono () {
       var result = this.chronos
       if (result.length > 0) {
-        if (result[0].user_id === this.user.id){ 
+        if (result[0].user_id === this.user.id) {
           return result[0]
         }
       }
@@ -194,7 +194,7 @@ export default {
   async created () {
     try {
       this.loadPage = true
-      await this.getChronoByActivity({activityid:this.$route.params.idActivity})
+      await this.getChronoByActivity({ activityid: this.$route.params.idActivity })
     } catch {
       return error
     } finally {
