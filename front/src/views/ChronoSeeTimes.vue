@@ -53,6 +53,11 @@ export default {
       getChronoByActivity: GET_CHRONO_BY_IDACTIVITY,
       getPhasesByChrono: GET_PHASES_BY_CHRONO
     }),
+    timechrono (time) {
+      var a = time.replace(':','.').split('.')
+      var seconds = (+a[0]) * 60+ (+a[1]) 
+      return seconds
+    }
   },
   computed: {
     ...mapState({
@@ -64,8 +69,15 @@ export default {
       this.wait = true
       this.chrono = await this.getChronoByActivity({activityid:this.$route.params.idActivity})
       this.chrono = this.chrono.filter(chrono => chrono.user_id == this.user.id)
-      this.phases = await this.getPhasesByChrono(this.chrono[0].id)
-      this.phases = this.phases.reverse()
+      try {
+        this.phases = await this.getPhasesByChrono(this.chrono[0].id)
+        this.phases = this.phases.sort((a,b) => {
+          return a.meters - b.meters
+          })
+      } catch (error) {
+        return error
+      }
+
     } catch (error) {
       this.error = true
       return error

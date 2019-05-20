@@ -2,6 +2,7 @@
   <div>
     <div class="wrapper wrapper__center">
       <v-progress-circular
+        class="loader"
         v-if="loading" :size="150" :width="7"
         color="black" indeterminate
       />
@@ -79,15 +80,14 @@ export default {
       let chronos = await this.getChronoActivity({userid: users[i].value})
 
       let today = Date.now()
-      let dateToday = new Date(today).getDay()
       let day1 = 0, day2 = 0, day3 = 0, day4 = 0, day5 = 0, day6 = 0, day0 = 0
+      let chrono1 = Number.MAX_SAFE_INTEGER, chrono2 = Number.MAX_SAFE_INTEGER, 
+      chrono3 = Number.MAX_SAFE_INTEGER, chrono4 = Number.MAX_SAFE_INTEGER, 
+      chrono5 = Number.MAX_SAFE_INTEGER, chrono6 = Number.MAX_SAFE_INTEGER, 
+      chrono0 = Number.MAX_SAFE_INTEGER
 
       for (let j = 0; j < chronos.length; j++) {
         lineChorno = { name: users[i].text, data: [] }
-        let chrono1 = Number.MAX_SAFE_INTEGER, chrono2 = Number.MAX_SAFE_INTEGER, 
-        chrono3 = Number.MAX_SAFE_INTEGER, chrono4 = Number.MAX_SAFE_INTEGER, 
-        chrono5 = Number.MAX_SAFE_INTEGER, chrono6 = Number.MAX_SAFE_INTEGER, 
-        chrono0 = Number.MAX_SAFE_INTEGER
         let timeChrono = 0
         let date = new Date(chronos[j].timechrono)
         let meters = chronos[j].activity__meters * chronos[j].activity__series
@@ -111,15 +111,18 @@ export default {
           if (date.getDay() === 5) chrono5 = timeChrono
           if (date.getDay() === 6) chrono6 = timeChrono
           if (date.getDay() === 0) chrono0 = timeChrono
-
-          for (let i = 0; i < 6 ; i++) {
-            lineChorno.data.push(eval('chrono'+i) === Number.MAX_SAFE_INTEGER ? 0 : eval('chrono'+i))
-          }
-          if (!this.dataLine.some(line => line.name == lineChorno.name)) this.dataLine.push(lineChorno)
         }        
       }
-      for (let i = 0; i < 6 ; i++) {
-        columnMeters.data.push(eval('day'+i))
+      for (let i = 0; i < 7 ; i++) {
+        let timestampDay = today - 86400*i*1000
+        let finalIndex = new Date(timestampDay).getDay()
+        lineChorno.data.push(eval('chrono'+finalIndex) === Number.MAX_SAFE_INTEGER ? 0 : eval('chrono'+finalIndex))
+      }
+      this.dataLine.push(lineChorno)
+      for (let i = 0; i < 7 ; i++) {
+        let timestampDay = today - 86400*i*1000
+        let finalIndex = new Date(timestampDay).getDay()
+        columnMeters.data.push(eval('day'+finalIndex))
       }
       this.dataColumn.push(columnMeters)
     }
@@ -151,5 +154,9 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 }
 .wrapper__center{
   align-items: center
+}
+
+.loader {
+  margin: 30px 0;
 }
 </style>
