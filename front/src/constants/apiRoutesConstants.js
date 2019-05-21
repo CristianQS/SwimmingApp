@@ -1,5 +1,5 @@
-//const BASE_URL = 'http://localhost:8000'
-const BASE_URL = 'http://ec2-52-212-226-173.eu-west-1.compute.amazonaws.com:8000'
+const BASE_URL = 'http://localhost:8000'
+// const BASE_URL = 'http://ec2-52-212-226-173.eu-west-1.compute.amazonaws.com:8000'
 
 export const LOGIN = () => `${BASE_URL}/auth/login/`
 export const AUTHENTICATE = () => `${BASE_URL}/authenticate/`

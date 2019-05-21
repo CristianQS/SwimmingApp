@@ -19,9 +19,9 @@
           <v-btn :loading="loading" @click="uploadChrono()" class="button__cloud" depressed fab dark>
               <v-icon>cloud_upload</v-icon>
           </v-btn>
-          <div class="wrapper wrapper__center">
+          <div v-if="chrono.length > 0 && user.userType !== 2" class="wrapper wrapper__center">
             <h3 >Last Time</h3>
-            <p>{{chrono.time}}</p>
+            <p>{{chrono[0].time}}</p>
           </div>
           <v-card dark class="selector">
             <v-select
@@ -130,13 +130,28 @@ export default {
           activity: this.$route.params.idActivity,
           timechrono: Date.now()
         }
-        if (this.user.userType === 2) params.user = this.userChrono
+        if (this.user.userType === 2) {
+          params.user = this.userChrono
+          let otherUserChrono = this.chronos.filter(chrono => chrono.user_id === this.userChrono)
+          console.log(otherUserChrono)
+          let adviceOther
+          if (otherUserChrono.length > 0) {
+            adviceOther = confirm('The User have a time for this activity.\nIf you continue you will delete it\n' +
+            'Are you sure?')
+            if (adviceOther) {
+              await this.deleteChrono(otherUserChrono[0].id)
+            } else {
+              this.loading = false
+              return
+            }
+          }
+        }
         let advice
-        if (this.chronos.length > 0) {
+        if (this.chrono.length > 0) {
           advice = confirm('You have a time for this activity.\nIf you continue you will delete it\n' +
           'Are you sure?')
           if (advice) {
-            await this.deleteChrono(this.chrono.id)
+            await this.deleteChrono(this.chrono[0].id)
           } else {
             this.loading = false
             return
@@ -179,9 +194,7 @@ export default {
     chrono () {
       var result = this.chronos
       if (result.length > 0) {
-        if (result[0].user_id === this.user.id) {
-          return result[0]
-        }
+        return this.chronos.filter(chrono => chrono.user_id === this.user.id)
       }
       return result
     },
