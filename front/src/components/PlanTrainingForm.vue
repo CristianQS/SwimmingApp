@@ -6,8 +6,11 @@
         <v-text-field
           @focus="newPlanTraining()"
           autofocus
+          counter
+          maxlength="20"
+          :rules="[rules.required, rules.counter]"
           v-model="plantraining.name"
-          label="Name"
+          label="*Name"
           required/>
       </v-flex>
       <v-flex xs12 sm2 md12>
@@ -17,9 +20,10 @@
           :items="usersWithoutTrainer"
           item-value="value"
           :value="1"
-          label="Select Users"
+          label="Add more Users"
           multiple
           chips
+          required
         >
           <v-list-tile
             slot="prepend-item"
@@ -42,8 +46,11 @@
         <v-textarea
           @focus="newPlanTraining()"
           outline
+          counter
+          maxlength="150"
+          :rules="[rules.required, rules.counterDescription]"
           v-model="plantraining.description"
-          label="Description"
+          label="*Description"
           required/>
       </v-flex>
     </v-layout>
@@ -61,6 +68,11 @@ export default {
         user: [],
         name: 'Plan Training',
         description: 'In this plan training will we train ...'
+      },
+      rules: {
+        required: value => !!value || 'Required.',
+        counter: value => value.length <= 20 || 'Max 20 characters',
+        counterDescription: value => value.length <= 150 || 'Max 150 characters'
       }
     }
   },

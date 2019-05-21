@@ -54,7 +54,7 @@ class ChronoViewById(APIView):
         try:
             chrono = Chrono.objects.get(id=kwargs['id'])
             chrono.delete()
-            return Response({"message": "Activity with id `{}` "
+            return Response({"message": "Chrono with id `{}` "
                             "has been deleted.".format(kwargs['id'])}, status=status.HTTP_204_NO_CONTENT)
         except Chrono.DoesNotExist:
-            return Response({"message": "Activity Not Found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "Chrono Not Found"}, status=status.HTTP_404_NOT_FOUND)

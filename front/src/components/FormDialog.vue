@@ -47,8 +47,10 @@ export default {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      this.methods.update(this.newUpdate)
-      this.dialog = !this.dialog
+      if (this.newUpdate != undefined) {
+        this.methods.update(this.newUpdate)
+        this.dialog = !this.dialog
+      }
     }
   }
 }

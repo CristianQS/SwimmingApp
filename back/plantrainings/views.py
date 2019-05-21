@@ -50,6 +50,8 @@ class PlanTrainingById (APIView):
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except PlanTraining.DoesNotExist:
             return Response([{'msg': 'No plantraining found'}], status=status.HTTP_404_NOT_FOUND)
 

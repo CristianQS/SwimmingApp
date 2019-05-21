@@ -3,14 +3,18 @@
     <v-layout wrap>
       <v-flex xs12 sm2 md1>
         <v-text-field v-model="updatedActivity.series" label="Series" type="Number" value="1"
-          @focus="passActivity()"  required/>
+          @focus="passActivity()"
+          :rules="[rules.required]"  
+          required/>
       </v-flex>
       <v-flex xs12 sm2 md1>
         <v-text-field value="X" disabled/>
       </v-flex>
       <v-flex xs12 sm2 md2>
         <v-text-field v-model="updatedActivity.meters" label="Meters" type="Number"
-          @focus="passActivity()" required/>
+          @focus="passActivity()"
+          :rules="[rules.required]"
+          required/>
       </v-flex>
       <v-flex xs12 sm2>
         <v-select
@@ -60,12 +64,19 @@ export default {
   },
   data () {
     return {
-      updatedActivity: Object.assign({}, this.activity)
+      updatedActivity: Object.assign({}, this.activity),
+      rules: {
+        required: value => !!value || 'Required.'
+      }
     }
   },
   methods: {
     passActivity () {
-      this.$emit('updatedActivity', this.updatedActivity)
+      if (this.updatedActivity.series.length > 0 && this.updatedActivity.meters > 0) {
+        this.$emit('updatedActivity', this.updatedActivity)
+      } else {
+        this.$emit('updatedActivity', undefined)
+      }
     }
   }
 }

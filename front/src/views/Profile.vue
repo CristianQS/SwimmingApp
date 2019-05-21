@@ -86,8 +86,10 @@ export default {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      this.addPlanTraining(this.plantraining)
-      this.dialog = !this.dialog
+      if (this.plantraining.name.length > 0 && this.plantraining.description.length > 0) {
+        this.addPlanTraining(this.plantraining)
+        this.dialog = !this.dialog
+      }
     },
     isDialogActivated (value) {
       this.dialog = value

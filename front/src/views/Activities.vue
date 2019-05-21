@@ -141,8 +141,10 @@ export default {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      this.addActivity(this.newActivity)
-      this.dialog = !this.dialog
+      if (this.newActivity.series.length > 0 && this.newActivity.meters > 0) {
+        this.addActivity(this.newActivity)
+        this.dialog = !this.dialog
+      }
     },
     isDialogActivated (value) {
       this.dialog = value

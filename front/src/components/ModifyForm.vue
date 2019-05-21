@@ -5,8 +5,12 @@
         <h3>Name</h3>
         <v-text-field
           @focus="newPlanTraining()"
+          @change="newPlanTraining()"
           v-model="newPlantraining.name"
-          label="Name"
+          counter
+          maxlength="20"
+          :rules="[rules.required, rules.counter]"
+          label="*Name"
           required
           />
       </v-flex>
@@ -14,10 +18,11 @@
         <v-select
           v-model="newPlantraining.user"
           @focus="newPlanTraining()"
+          @change="newPlanTraining()"
           :items="usersWithoutTrainer"
           item-value="value"
           :value="1"
-          label="Select Users"
+          label="Add more Users"
           multiple
           chips
         >
@@ -41,9 +46,13 @@
         <h3>Description</h3>
         <v-textarea
           @focus="newPlanTraining()"
+          @change="newPlanTraining()"
           outline
           v-model="newPlantraining.description"
-          label="Description"
+          counter
+          maxlength="150"
+          :rules="[rules.required, rules.counterDescription]"
+          label="*Description"
           required/>
       </v-flex>
     </v-layout>
@@ -60,7 +69,12 @@ export default {
   },
   data () {
     return {
-      newPlantraining: Object.assign({}, this.plantraining)
+      newPlantraining: Object.assign({}, this.plantraining),
+      rules: {
+        required: value => !!value || 'Required.',
+        counter: value => value.length <= 20 || 'Max 20 characters',
+        counterDescription: value => value.length <= 150 || 'Max 150 characters'
+      }
     }
   },
   methods: {
@@ -69,7 +83,11 @@ export default {
         id: this.newPlantraining.id,
         plantraining: this.newPlantraining
       }
-      this.$emit('updateInstance', response)
+      if (this.newPlantraining.name.length > 0 && this.newPlantraining.description.length > 0) {
+        this.$emit('updateInstance', response)
+      } else {
+        this.$emit('updateInstance', undefined)
+      }
     },
     toggle () {
       this.$nextTick(() => {

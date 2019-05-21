@@ -10,11 +10,22 @@
         <span class="headline">Modify User</span>
       </v-card-title>
       <v-card-text>
-        <v-text-field label="Username" v-model="editUser.username"></v-text-field>
-        <v-text-field type="password" label="Password" v-model="password"></v-text-field>
+        <v-text-field label="Username" 
+          v-model="editUser.username"
+          counter
+          maxlength="20"
+          :rules="[rules.required]"
+          required/>
+        <v-text-field type="password" label="Password" v-model="password"/>
         <v-text-field type="password" label="Confirm Password"
-        :disabled="diabledField" v-model="confirmPassword"></v-text-field>
-        <v-textarea label="Description" outline v-model="editUser.description"></v-textarea>
+        :disabled="diabledField" v-model="confirmPassword"/>
+        <v-textarea label="Description" 
+          outline v-model="editUser.description"
+          counter
+          maxlength="150"
+          :rules="[rules.required]"
+          required
+          />
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -36,7 +47,10 @@ export default {
       dialog: false,
       editUser: {},
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      rules: {
+        required: value => !!value || 'Required.'
+      }
     }
   },
   methods: {
@@ -51,8 +65,10 @@ export default {
           alert(`password don't match`)
         }
       }
-      this.$emit('modifyUser', this.editUser)
-      this.dialog = !this.dialog
+      if (this.editUser.username.length > 0 && this.editUser.description.length > 0) {
+        this.$emit('modifyUser', this.editUser)
+        this.dialog = !this.dialog
+      }
     },
     ...mapActions({
       getUser: AUTHENTICATE

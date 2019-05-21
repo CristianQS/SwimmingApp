@@ -114,8 +114,10 @@ export default {
         description: this.train.description,
         timetraining: this.train.timetraining
       }
-      this.addTraining(request)
-      this.dialog = !this.dialog
+      if (this.train.name.length > 0 && this.train.description > 0) {
+        this.addTraining(request)
+        this.dialog = !this.dialog
+      }
     },
     isDialogActivated (value) {
       this.dialog = value

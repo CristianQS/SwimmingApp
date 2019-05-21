@@ -5,8 +5,11 @@
         <h3>Name</h3>
         <v-text-field
         @focus="newTraining()"
+        counter
+        maxlength="20"
+        :rules="[rules.required, rules.counter]"
         autofocus
-        v-model="training.name" label="Name" required/>
+        v-model="training.name" label="*Name" required/>
       </v-flex>
       <date-time-picker
         :title="'Fecha de Entreno'"
@@ -16,7 +19,10 @@
         <h3>Description</h3>
         <v-textarea
         @focus="newTraining()"
-        outline v-model="training.description" label="Name" required/>
+        counter
+        maxlength="150"
+        :rules="[rules.required, rules.counterDescription]"
+        outline v-model="training.description" label="*Description" required/>
       </v-flex>
 
     </v-layout>
@@ -37,6 +43,11 @@ export default {
         name: 'Training',
         description: 'In this training will work the speed',
         timetraining: 0
+      },
+      rules: {
+        required: value => !!value || 'Required.',
+        counter: value => value.length <= 20 || 'Max 20 characters',
+        counterDescription: value => value.length <= 150 || 'Max 150 characters'
       }
     }
   },

@@ -33,15 +33,23 @@
     <h2>Input Data</h2>
     <v-layout wrap >
       <v-flex xs12 sm2 md1>
-        <v-text-field autofocus v-model="activity.series" label="Series" type="Number" value="1"
-          @focus="passActivity()"  required/>
+        <v-text-field autofocus 
+        v-model="activity.series" 
+        label="Series" type="Number" value="1"
+        @focus="passActivity()"
+        :rules="[rules.required]"  
+        required/>
       </v-flex>
       <v-flex xs12 sm2 md1>
         <v-text-field value="X" disabled/>
       </v-flex>
       <v-flex xs12 sm2 md2>
-        <v-text-field v-model="activity.meters" label="Meters" type="Number"
-          @focus="passActivity()" required/>
+        <v-text-field v-model="activity.meters" 
+        label="Meters" 
+        type="Number"
+        @focus="passActivity()"
+        :rules="[rules.required]"
+        required/>
       </v-flex>
       <v-flex xs12 sm2>
         <v-select
@@ -49,6 +57,7 @@
           v-model="activity.exercise"
           :items="['Legs', 'Deadpoint', 'Technique', 'Normal','Paddle','Pullbuoy','Fins']"
           label="Exercise"
+          :rules="[rules.required]"
           required
         />
       </v-flex>
@@ -58,6 +67,7 @@
           v-model="activity.style"
           :items="['Crawl', 'Backstroke', 'Breakstroke', 'Butterfly','Medley']"
           label="Style"
+          :rules="[rules.required]"
           required
         />
       </v-flex>
@@ -67,6 +77,7 @@
           v-model="activity.type"
           :items="['Warm up', 'Train','Calm']"
           label="Type"
+          :rules="[rules.required]"
           required
         />
       </v-flex>
@@ -76,6 +87,7 @@
           v-model="activity.rhythm"
           :items="['Max','Normal','Soft']"
           label="Rhythm"
+          :rules="[rules.required]"
           required
         />
       </v-flex>
@@ -97,6 +109,9 @@ export default {
         rhythm: 'Normal',
         training_id: this.$route.params.idTraining,
         plantraining_id: this.$route.params.idPlan
+      },
+      rules: {
+        required: value => !!value || 'Required.'
       }
     }
   },

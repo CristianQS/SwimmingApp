@@ -5,7 +5,10 @@
         <h3>Name</h3>
         <v-text-field
         @focus="newTraining()"
-        v-model="newtraining.name" label="Name" required/>
+        counter
+        maxlength="20"
+        :rules="[rules.required, rules.counter]"
+        v-model="newtraining.name" label="*Name" required/>
       </v-flex>
       <date-time-picker
         :title="'Fecha de Entreno'"
@@ -15,7 +18,10 @@
         <h3>Description</h3>
         <v-textarea
         @focus="newTraining()"
-        outline v-model="newtraining.description" label="Name" required/>
+        counter
+        maxlength="150"
+        :rules="[rules.required, rules.counterDescription]"
+        outline v-model="newtraining.description" label="*Description" required/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -33,7 +39,12 @@ export default {
   },
   data () {
     return {
-      newtraining: Object.assign({}, this.training)
+      newtraining: Object.assign({}, this.training),
+      rules: {
+        required: value => !!value || 'Required.',
+        counter: value => value.length <= 20 || 'Max 20 characters',
+        counterDescription: value => value.length <= 150 || 'Max 150 characters'
+      }
     }
   },
   methods: {
@@ -42,7 +53,11 @@ export default {
         id: this.newtraining.id,
         training: this.newtraining
       }
-      this.$emit('updateInstance', response)
+      if (this.newtraining.name.length > 0 && this.newtraining.description > 0) {
+        this.$emit('updateInstance', response)
+      } else {
+        this.$emit('updateInstance', undefined)
+      }
     },
     getEntryDate (value) {
       this.newtraining.timetraining = value

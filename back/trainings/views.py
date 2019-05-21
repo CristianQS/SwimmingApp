@@ -34,7 +34,7 @@ class TrainingById (APIView):
             queryset = Training.objects.all()
             training = queryset.filter(plantraining=kwargs['plantraining'], id=kwargs['id']).values()
             if len(training) == 0:
-                return Response([{'msg': 'No activity found'}], status=status.HTTP_404_NOT_FOUND)
+                return Response([{'msg': 'No training found'}], status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response(training, status=status.HTTP_200_OK)
         except Training.DoesNotExist:
@@ -47,14 +47,16 @@ class TrainingById (APIView):
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Training.DoesNotExist:
-            return Response([{'msg': 'No activity found'}], status=status.HTTP_404_NOT_FOUND)
+            return Response([{'msg': 'No training found'}], status=status.HTTP_404_NOT_FOUND)
 
     def delete(self, request, *args, **kwargs):
         try:
             activity = Training.objects.get(id=kwargs['id'])
             activity.delete()
-            return Response({"message": "Activity with id `{}` "
+            return Response({"message": "Training with id `{}` "
                             "has been deleted.".format(kwargs['id'])}, status=status.HTTP_204_NO_CONTENT)
         except Training.DoesNotExist:
-            return Response({"message": "Activity Not Found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "Training Not Found"}, status=status.HTTP_404_NOT_FOUND)

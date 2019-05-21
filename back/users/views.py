@@ -105,6 +105,8 @@ class UsersById(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except User.DoesNotExist:
             return Response([{'msg': 'No user found'}], status=status.HTTP_404_NOT_FOUND)
 
@@ -115,7 +117,7 @@ class UsersById(APIView):
             return Response({"message": "User with id `{}` "
                                         "has been deleted.".format(kwargs['id'])}, status=status.HTTP_204_NO_CONTENT)
         except User.DoesNotExist:
-            return Response({"message": "PlanTraining Not Found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "User Not Found"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class Authenticate(APIView):

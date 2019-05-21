@@ -3,23 +3,25 @@
     <v-card-text>
       <v-form>
         <v-text-field
-              id="user_id"
-              v-model="user.email"
-              prepend-icon="person"
-              label="Email"
-              :error-messages="emailErrors"
-              outline
-              @keydown.enter="makeLogin"
+          id="user_id"
+          v-model="user.email"
+          prepend-icon="person"
+          label="Email"
+          outline
+          @keydown.enter="makeLogin"
+          :rules="[rules.required, rules.email]"
+          :error-messages="emailErrors"
         />
         <v-text-field
-            id="user_passwd"
-            v-model="user.password"
-            :error-messages="emailErrors"
-            prepend-icon="lock"
-            label="Password"
-            type='password'
-            outline
-            @keydown.enter="makeLogin"
+          id="user_passwd"
+          v-model="user.password"
+          :error-messages="emailErrors"
+          :rules="[rules.required]"
+          prepend-icon="lock"
+          label="Password"
+          type='password'
+          outline
+          @keydown.enter="makeLogin"
         />
       </v-form>
   </v-card-text>
@@ -43,7 +45,14 @@ export default {
         password: ''
       },
       check: undefined,
-      errors: []
+      errors: [],
+      rules: {
+        required: value => !!value || 'Required.',
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || 'Invalid e-mail.'
+        }
+      }
     }
   },
   methods: {
@@ -65,7 +74,6 @@ export default {
   computed: {
     emailErrors () {
       const errors = []
-      this.user.email === '' && errors.push('Email is empty')
       this.check === false && errors.push('User does not exist')
       return errors
     }
