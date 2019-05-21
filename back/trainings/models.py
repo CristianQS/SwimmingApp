@@ -7,7 +7,7 @@ from plantrainings.models import PlanTraining
 class Training(models.Model):
     plantraining = models.ForeignKey(PlanTraining, on_delete=models.CASCADE)
     name = models.TextField(max_length=20)
-    description = models.TextField(max_length=150, default="")
+    description = models.TextField(max_length=150, default='', blank=True, null=True)
     timetraining = models.BigIntegerField()
 
     def __str__(self):

@@ -20,8 +20,8 @@
         @focus="newTraining()"
         counter
         maxlength="150"
-        :rules="[rules.required, rules.counterDescription]"
-        outline v-model="newtraining.description" label="*Description" required/>
+        :rules="[rules.counterDescription]"
+        outline v-model="newtraining.description" label="*Description"/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -53,7 +53,7 @@ export default {
         id: this.newtraining.id,
         training: this.newtraining
       }
-      if (this.newtraining.name.length > 0 && this.newtraining.description > 0) {
+      if (this.newtraining.name.length > 0) {
         this.$emit('updateInstance', response)
       } else {
         this.$emit('updateInstance', undefined)

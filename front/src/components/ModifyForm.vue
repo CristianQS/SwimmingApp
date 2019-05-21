@@ -51,9 +51,9 @@
           v-model="newPlantraining.description"
           counter
           maxlength="150"
-          :rules="[rules.required, rules.counterDescription]"
+          :rules="[rules.counterDescription]"
           label="*Description"
-          required/>
+          />
       </v-flex>
     </v-layout>
   </v-container>
@@ -83,7 +83,7 @@ export default {
         id: this.newPlantraining.id,
         plantraining: this.newPlantraining
       }
-      if (this.newPlantraining.name.length > 0 && this.newPlantraining.description.length > 0) {
+      if (this.newPlantraining.name.length > 0) {
         this.$emit('updateInstance', response)
       } else {
         this.$emit('updateInstance', undefined)

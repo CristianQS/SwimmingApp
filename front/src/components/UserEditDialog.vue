@@ -23,7 +23,6 @@
           outline v-model="editUser.description"
           counter
           maxlength="150"
-          :rules="[rules.required]"
           required
           />
       </v-card-text>
@@ -65,7 +64,7 @@ export default {
           alert(`password don't match`)
         }
       }
-      if (this.editUser.username.length > 0 && this.editUser.description.length > 0) {
+      if (this.editUser.username.length > 0) {
         this.$emit('modifyUser', this.editUser)
         this.dialog = !this.dialog
       }

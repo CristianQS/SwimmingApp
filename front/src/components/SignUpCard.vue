@@ -8,6 +8,7 @@
           v-model="newUser.username"
           outline
           counter
+          autofocus
           maxlength="20"
           :rules="[rules.required, rules.counter]"
         />
@@ -98,8 +99,18 @@ export default {
     async createUser () {
       try {
         this.newUser.password = this.password
-        let response = await this.signUp(this.newUser)
-        this.goTo('/profile')
+        if (this.newUser.username.length > 0 && this.newUser.email.length > 0 &&
+        this.newUser.username.length > 0 && this.newUser.password.length > 0) {
+          if (this.newUser.password === this.confirmPassword) {
+            var re = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+            if (re.test(this.newUser.email)) {
+              let response = await this.signUp(this.newUser)
+              this.goTo('/profile')
+            }
+          } else {
+            alert("Password don't match")
+          }
+        }
       } catch (error) {
         alert(error)
       }

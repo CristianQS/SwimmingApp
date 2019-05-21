@@ -86,7 +86,7 @@ export default {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      if (this.plantraining.name.length > 0 && this.plantraining.description.length > 0) {
+      if (this.plantraining.name.length > 0) {
         this.addPlanTraining(this.plantraining)
         this.dialog = !this.dialog
       }

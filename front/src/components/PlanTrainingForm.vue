@@ -48,10 +48,10 @@
           outline
           counter
           maxlength="150"
-          :rules="[rules.required, rules.counterDescription]"
+          :rules="[rules.counterDescription]"
           v-model="plantraining.description"
           label="*Description"
-          required/>
+        />
       </v-flex>
     </v-layout>
   </v-container>

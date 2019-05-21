@@ -21,8 +21,8 @@
         @focus="newTraining()"
         counter
         maxlength="150"
-        :rules="[rules.required, rules.counterDescription]"
-        outline v-model="training.description" label="*Description" required/>
+        :rules="[rules.counterDescription]"
+        outline v-model="training.description" label="*Description"/>
       </v-flex>
 
     </v-layout>
