@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 2560px) {
+/* @media (max-width: 2560px) {
   .v-btn {
     min-width: 20px;
     height: 86px;
@@ -80,5 +80,10 @@ export default {
     width: 90%;
     height: 90%;
   }
+} */
+
+.v-btn {
+  min-width: 15px;
+  width: 40px;
 }
 </style>
