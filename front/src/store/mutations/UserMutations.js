@@ -33,7 +33,8 @@ export default {
     users.forEach(user => {
       let userClub = {
         value: user.id,
-        text: user.email
+        text: user.email,
+        name: user.username
       }
       state.usersClub.push(userClub)
     })

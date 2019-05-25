@@ -132,9 +132,9 @@ export default {
       let chronosBack = chronos.filter(chrono => chrono.activity__style == 'Backstroke' &&
       chrono.activity__meters == 100)
 
-      let metersChartData = this.getMetersChart(chronos, today, users[i].text)
-      let crawlChronosData = this.getChornosTimesChart(chronosCrawl, today, users[i].text)
-      let backChronosData = this.getChornosTimesChart(chronosBack, today, users[i].text)
+      let metersChartData = this.getMetersChart(chronos, today, users[i].name)
+      let crawlChronosData = this.getChornosTimesChart(chronosCrawl, today, users[i].name)
+      let backChronosData = this.getChornosTimesChart(chronosBack, today, users[i].name)
 
       this.dataLine.push(crawlChronosData)
       this.dataLine.push(backChronosData)
