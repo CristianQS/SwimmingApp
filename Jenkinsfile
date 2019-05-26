@@ -4,10 +4,17 @@ pipeline{
       HOME = '.'
     }
     stages { 
+      stage ('Restart Docker') {
+        steps {
+          dir ("front/") {
+            sh 'sudo systemctl restart docker'
+          }
+        }
+      }
       stage ('Install front Dependecies') {
         steps {
           dir ("front/") {
-            sh 'npm install'
+            sh 'docker-compose build'
           }
         }
       }
@@ -28,6 +35,7 @@ pipeline{
       stage ('Install back Dependecies') {
         steps {
           dir ("back/") {
+            sh 'docker-compose build'
           }
         }
       }
