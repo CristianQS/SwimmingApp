@@ -6,9 +6,8 @@ pipeline{
     stages { 
       stage ('Restart Docker') {
         steps {
-          dir ("front/") {
-            sh 'systemctl restart docker'
-          }
+          sh 'docker stop back back_web_1'
+          sh 'docker stop back front_front_1'
         }
       }
       stage ('Install front Dependecies') {
