@@ -50,7 +50,8 @@ export default {
       getChronoActivity: GET_CHRONO_BY_IDACTIVITY,
       getPhases: GET_PHASES_BY_CHRONO,
       getPlanTrainings: GET_PLANTRAININGS,
-      getTrainings: GET_TRAININGS
+      getTrainings: GET_TRAININGS,
+      getActivities: GET_ACTIVITIES
     }),
     timechrono (time) {
       var a = time.replace(':', '.').split('.')
@@ -123,14 +124,15 @@ export default {
     let users = this.usersClub.filter(user => user.value === 1 | user.value === 2)
     for (let i = 0; i < users.length; i++) {
       let today = Date.now()
-      let week = today - 604800 * 1000
+      let weekBefore = today - 604800 * 1000
+      let weekAfter = today + 604800 * 1000
       let chronos = await this.getChronoActivity({ userid: users[i].value })
-      chronos = chronos.filter(chrono => week <= chrono.timechrono)
+      chronos = chronos.filter(chrono => weekBefore <= chrono.timechrono && chrono.timechrono <= weekAfter)
       let chronosCrawl = chronos.filter(chrono => chrono.activity__style == 'Crawl' &&
-      chrono.activity__meters == 100)
+      chrono.activity__meters == 100 && chrono.activity__series == 1 && chrono.activity__exercise == 'Normal')
 
       let chronosBack = chronos.filter(chrono => chrono.activity__style == 'Backstroke' &&
-      chrono.activity__meters == 100)
+      chrono.activity__meters == 100 && chrono.activity__series == 1 && chrono.activity__exercise == 'Normal')
 
       let metersChartData = this.getMetersChart(chronos, today, users[i].name)
       let crawlChronosData = this.getChornosTimesChart(chronosCrawl, today, users[i].name)

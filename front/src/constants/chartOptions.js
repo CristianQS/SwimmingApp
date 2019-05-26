@@ -83,7 +83,6 @@ function getXaxis () {
   var today = Date.now()
   let result = []
   for (let i = 0; i < 7; i++) {
-    // let day = date.getDay() +i
     var h = today - 86400 * i * 1000
     result.push(new Date(h).toUTCString().substring(0, 12))
   }

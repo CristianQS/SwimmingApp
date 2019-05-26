@@ -11,11 +11,11 @@
       </v-card-text>
       </v-flex>
       <v-flex xs7 sm3 md4 lg2 class="wrapper wrapper--row">
-        <v-btn class="v-btn--big" color="black" v-if="training.training_id"
+        <v-btn class="v-btn--big v-btn--small" color="black" v-if="training.training_id"
           dark @click="goTo('CHRONOMETER', params)">
           <v-icon >alarm</v-icon>
         </v-btn>
-        <v-btn class="v-btn--big" v-if="training.training_id"
+        <v-btn class="v-btn--big v-btn--small" v-if="training.training_id"
           color="light-green darken-3" dark  @click="goTo('CHRONOSEETIMES', params)">
           <v-icon>visibility</v-icon>
         </v-btn>
@@ -29,11 +29,11 @@
             >
               <slot name="modify"></slot>
             </form-dialog>
-            <v-btn class="v-btn" v-if="user.userType === 2" color="blue" dark @click="clonePlan()">
+            <v-btn class="v-btn--small" v-if="user.userType === 2" color="blue" dark @click="clonePlan()">
               <v-icon >file_copy</v-icon>
             </v-btn>
 
-            <v-btn class="v-btn" v-if="user.userType === 2" color="red" dark @click="deletePlan()">
+            <v-btn class="v-btn--small" v-if="user.userType === 2" color="red" dark @click="deletePlan()">
               <v-icon >delete</v-icon>
             </v-btn>
           </div>
@@ -104,13 +104,13 @@ export default {
 .card__img {
   margin: 20px 0 0 10px;
 }
-.v-btn {
+.v-btn--small {
   min-width: 15px;
   width:40px;
 }
 
 .v-btn--big {
-  height: 140px;
+  height: 132px;
 }
 
 .wrapper {

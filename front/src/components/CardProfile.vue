@@ -10,7 +10,7 @@
             class="card__img"
             />
           </v-flex>
-          <v-flex xs6 offset-xs1 sm2 md1 offset-md1 lg1 offset-lg0 class="wrapper wrapper__center">
+          <v-flex xs6 offset-xs1 sm4 md3 offset-md1 lg3 offset-lg0 class="wrapper wrapper__center">
               <p class="headline font-weight-bold">{{userState.username}}</p>
               <p class="font-weight-light">{{userState.email}}</p>
               <user-edit-dialog @modifyUser="modifyUser"/>
@@ -18,7 +18,9 @@
         </v-layout>
         <v-flex xs12 sm12 md12 class="wrapper">
           <h3>Description</h3>
-          {{userState.description}}
+          <span v-for="(lines, index) in description" :key="index"> 
+            {{lines}}
+          </span>
         </v-flex>
       </v-card-text>
     </v-layout>
@@ -51,7 +53,11 @@ export default {
   computed: {
     ...mapState({
       userState: state => state.user
-    })
+    }),
+    description () {
+      if (this.userState.description == undefined) return ""
+      return this.userState.description.split("\n")
+    }
   }
 }
 </script>

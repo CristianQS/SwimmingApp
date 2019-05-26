@@ -133,7 +133,6 @@ export default {
         if (this.user.userType === 2) {
           params.user = this.userChrono
           let otherUserChrono = this.chronos.filter(chrono => chrono.user_id === this.userChrono)
-          console.log(otherUserChrono)
           let adviceOther
           if (otherUserChrono.length > 0) {
             adviceOther = confirm('The User have a time for this activity.\nIf you continue you will delete it\n' +
@@ -194,7 +193,7 @@ export default {
     chrono () {
       var result = this.chronos
       if (result.length > 0) {
-        return this.chronos.filter(chrono => chrono.user_id === this.user.id)
+        return this.chronos.filter(chrono => chrono.user_id === this.userChrono)
       }
       return result
     },

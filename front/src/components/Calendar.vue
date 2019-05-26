@@ -89,7 +89,8 @@ export default {
   },
   computed: {
     ...mapState({
-      plantrainings: state => state.plantrainings
+      plantrainings: state => state.plantrainings,
+      trainings: state => state.trainings
     }),
     eventsMap () {
       const map = {}

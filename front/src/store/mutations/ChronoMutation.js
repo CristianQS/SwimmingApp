@@ -22,6 +22,6 @@ export default {
     state.chronos.push(request)
   },
   [DELETE_CHRONO]: (state, id) => {
-    state.chronos = []
+    state.chronos = state.chronos.filter(chrono => chrono.id != id)
   }
 }

@@ -141,7 +141,7 @@ export default {
       this.dialog = !this.dialog
     },
     saveDialog () {
-      if (this.newActivity.series.length > 0 && this.newActivity.meters > 0) {
+      if (this.newActivity.series > 0 && this.newActivity.meters > 0) {
         this.addActivity(this.newActivity)
         this.dialog = !this.dialog
       }

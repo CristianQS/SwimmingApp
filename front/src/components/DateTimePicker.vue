@@ -18,11 +18,11 @@
           box
         />
         <v-date-picker
-            no-title
-            v-model="date"
-            @input="menu = false"
-            :min="minDate"
-            :max="maxDate"
+          no-title
+          v-model="date"
+          @input="menu = false"
+          :min="minDate"
+          :max="maxDate"
         />
       </v-menu>
 </template>
@@ -33,11 +33,12 @@ export default {
   props: {
     title: { type: String, required: true },
     minDate: { type: String, required: false, default: new Date().toISOString().substr(0, 10) },
-    maxDate: { type: String, required: false }
+    maxDate: { type: String, required: false },
+    selectedDate: { type: String, required: false, default: new Date().toISOString().substr(0, 10) }
   },
   data () {
     return {
-      date: this.minDate,
+      date: this.selectedDate,
       menu: false
     }
   },

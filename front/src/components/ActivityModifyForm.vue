@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     passActivity () {
-      if (this.updatedActivity.series.length > 0 && this.updatedActivity.meters > 0) {
+      if (this.updatedActivity.series > 0 && this.updatedActivity.meters > 0) {
         this.$emit('updatedActivity', this.updatedActivity)
       } else {
         this.$emit('updatedActivity', undefined)

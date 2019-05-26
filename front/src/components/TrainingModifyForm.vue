@@ -12,6 +12,7 @@
       </v-flex>
       <date-time-picker
         :title="'Fecha de Entreno'"
+        :selectedDate="new Date(newtraining.timetraining).toISOString().substr(0, 10)"
         @datePicker="getEntryDate"
       />
       <v-flex xs12 sm2 md12>

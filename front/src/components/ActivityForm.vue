@@ -33,7 +33,8 @@
     <h2>Input Data</h2>
     <v-layout wrap >
       <v-flex xs12 sm2 md1>
-        <v-text-field autofocus 
+        <v-text-field 
+        autofocus 
         v-model="activity.series" 
         label="Series" type="Number" value="1"
         @focus="passActivity()"
