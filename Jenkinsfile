@@ -7,7 +7,7 @@ pipeline{
       stage ('Restart Docker') {
         steps {
           dir ("front/") {
-            sh 'sudo systemctl restart docker'
+            sh 'systemctl restart docker'
           }
         }
       }
