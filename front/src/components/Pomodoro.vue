@@ -192,8 +192,11 @@ export default {
     },
     chrono () {
       var result = this.chronos
-      if (result.length > 0) {
+      if (result.length > 0 && this.user.userType === 2)  {
         return this.chronos.filter(chrono => chrono.user_id === this.userChrono)
+      }
+      if (result.length > 0 && this.user.userType === 1)  {
+        return this.chronos.filter(chrono => chrono.user_id === this.user.id)
       }
       return result
     },
