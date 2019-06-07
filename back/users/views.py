@@ -74,11 +74,14 @@ class Login(APIView):
 class FindUserByName(APIView):
     def get(self, request, *args, **kwargs):
         try:
+            Authenticate().get(request)
             users = User.objects.all()
             username = request.data['username']
             users_result = users.filter(username__icontains=username).values()
             print(type(users))
             return Response(users_result, status=status.HTTP_200_OK)
+        except IndexError:
+            return Response({'Error': "Token is invalid"}, status=status.HTTP_403_FORBIDDEN)
         except User.DoesNotExist:
             return Response([{'msg': 'User Does not exist'}], status=status.HTTP_404_NOT_FOUND)
         except:
@@ -88,34 +91,43 @@ class FindUserByName(APIView):
 class UsersById(APIView):
     def get(self, request, *args, **kwargs):
         try:
+            Authenticate().get(request)
             queryset = User.objects.all()
             user = queryset.filter(id=kwargs['id']).values()
             if len(user) == 0:
                 return Response([{'msg': 'No user found'}], status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response(user, status=status.HTTP_200_OK)
+        except IndexError:
+            return Response({'Error': "Token is invalid"}, status=status.HTTP_403_FORBIDDEN)
         except User.DoesNotExist:
             return Response([{'msg': 'No user found'}], status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request, *args, **kwargs):
         try:
+            Authenticate().get(request)
             user = User.objects.get(id=kwargs['id'])
-            print(request.data)
             serializer = UserSerializer(instance=user, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except IndexError:
+            return Response({'Error': "Token is invalid"}, status=status.HTTP_403_FORBIDDEN)
         except User.DoesNotExist:
             return Response([{'msg': 'No user found'}], status=status.HTTP_404_NOT_FOUND)
 
     def delete(self, request, *args, **kwargs):
         try:
+            Authenticate().get(request)
             user = User.objects.get(id=kwargs['id'])
             user.delete()
             return Response({"message": "User with id `{}` "
                                         "has been deleted.".format(kwargs['id'])}, status=status.HTTP_204_NO_CONTENT)
+        except IndexError:
+            return Response({'Error': "Token is invalid"}, status=status.HTTP_403_FORBIDDEN)
+
         except User.DoesNotExist:
             return Response({"message": "User Not Found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -164,11 +176,14 @@ class Authenticate(APIView):
 class UsersByClub(APIView):
     def get(self,request,*args, **kwargs):
         try:
+            Authenticate().get(request)
             queryset = User.objects.all()
             users = queryset.filter(club=kwargs['id']).values()
             if len(users) == 0:
                 return Response([{'msg': 'No users found'}], status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response(users, status=status.HTTP_200_OK)
+        except IndexError:
+            return Response({'Error': "Token is invalid"}, status=status.HTTP_403_FORBIDDEN)
         except User.DoesNotExist:
             return Response([{'msg': 'No user found'}], status=status.HTTP_404_NOT_FOUND)

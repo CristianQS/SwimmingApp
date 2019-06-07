@@ -8,7 +8,9 @@
         counter
         maxlength="20"
         :rules="[rules.required, rules.counter]"
-        v-model="newtraining.name" label="*Name" required/>
+        v-model="newtraining.name" label="*Name" required
+        autofocus
+        />
       </v-flex>
       <date-time-picker
         :title="'Fecha de Entreno'"
@@ -31,7 +33,7 @@
 <script>
 import DateTimePicker from './DateTimePicker.vue'
 export default {
-  name: 'TrainingForm',
+  name: 'TrainingModifyForm',
   props: {
     training: { type: Object, required: true }
   },
@@ -62,6 +64,7 @@ export default {
     },
     getEntryDate (value) {
       this.newtraining.timetraining = value
+      this.newTraining()
     }
   }
 }

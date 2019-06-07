@@ -3,6 +3,8 @@ from django.urls import path
 from .views import Login, CreateUser, FindUserByName, \
     UsersById, Authenticate, UsersByClub
 
+app_name = 'users'
+
 urlpatterns = [
     path('auth/login/', Login.as_view()),
     path('authenticate/', Authenticate().as_view()),
