@@ -18,9 +18,20 @@ export default {
   },
   [MODIFY_TRAINING]: (state, training) => {
     var index = state.trainings.findIndex(plan => plan.id === training.id)
-    state.trainings.splice(index, 1, training)
+    let request = mapTraining(training)
+    state.trainings.splice(index, 1, request)
   },
   [DELETE_TRAINING]: (state, id) => {
     state.trainings = state.trainings.filter(plan => plan.id != id)
+  }
+}
+
+function mapTraining (training) {
+  return {
+    id: training.id,
+    plantraining_id: training.plantraining,
+    name:training.name,
+    description: training.description,
+    timetraining: training.timetraining
   }
 }

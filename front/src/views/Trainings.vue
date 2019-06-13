@@ -99,11 +99,9 @@ export default {
   },
   methods: {
     changeTraining (value) {
-      console.log(value)
       this.train = value
     },
     updateInstance (value) {
-      console.log(value)
       this.updatetraining = value
     },
     closeDialog () {
