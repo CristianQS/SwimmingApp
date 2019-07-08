@@ -32,4 +32,4 @@ Para desplegar dicha aplicación se ha hecho uso de un EC2 en AWS, en el cuál
 se instalado un Jenkins para poder hacer uso de CI/CD. En la fase de despliegue(stage) se ha realizado a través de contenedores Docker, creando previamente un
 docker-compose para su posterior uso.
 
-![alt text](https://gyazo.com/59db325436004a464460240938c8c353)
+[![Image from Gyazo](https://i.gyazo.com/59db325436004a464460240938c8c353.png)](https://gyazo.com/59db325436004a464460240938c8c353)
