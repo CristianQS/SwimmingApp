@@ -1,5 +1,5 @@
 behave==1.2.6
-Django==2.2
+Django>=2.2.3
 django-cors-headers==2.5.2
 djangorestframework==3.9.2
 parse==1.11.1
